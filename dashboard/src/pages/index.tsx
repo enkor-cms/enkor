@@ -1,3 +1,3 @@
 export default function Home() {
-	return <>Enkor</>;
+  return <>Enkor</>;
 }
