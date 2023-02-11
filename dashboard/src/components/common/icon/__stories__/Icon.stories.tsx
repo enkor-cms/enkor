@@ -23,7 +23,7 @@ export const AllIcons = () => (
 );
 
 const meta: Meta = {
-  title: 'Icons / Icon',
+  title: 'Commons / Icon',
   component: IconComponent,
   argTypes: {
     name: {

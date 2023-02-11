@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          100: '#ffa200',
+          100: '#FF7A00',
           200: '#f65300',
           300: '#fd350d',
           400: '#f70000',
@@ -36,12 +36,15 @@ module.exports = {
           200: '#515151',
         },
       },
-      fontSize: { base: '1.5625rem', lg: '2rem' },
+      fontSize: { base: '1.2rem', lg: '2rem' },
       fontFamily: {
         sans: ['Rubik', 'sans-serif'],
       },
       boxShadow: { shadow_light: '0px 0px 5px 0px rgba(0,0,0,0.1)' },
       borderRadius: { none: '0', xs: '0.3125rem', sm: '0.625rem' },
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      },
     },
   },
   plugins: [],
