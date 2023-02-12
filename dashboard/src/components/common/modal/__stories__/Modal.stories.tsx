@@ -3,9 +3,9 @@ import { Text } from '@/components/common/text';
 import { Meta, StoryFn } from '@storybook/react';
 import { useState } from 'react';
 
-import { FloatingPanel as Component, TFloatingPanelProps } from '../index';
+import { Modal as Component, TModalProps } from '../index';
 
-const Template: StoryFn<TFloatingPanelProps> = (args) => {
+const Template: StoryFn<TModalProps> = (args) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -15,7 +15,6 @@ const Template: StoryFn<TFloatingPanelProps> = (args) => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onConfirm={() => setIsOpen(false)}
-        forceValidation={args.forceValidation}
       >
         <Text style="caption">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -25,10 +24,10 @@ const Template: StoryFn<TFloatingPanelProps> = (args) => {
   );
 };
 
-export const FloatingPanel = Template.bind({});
+export const Modal = Template.bind({});
 
 const meta: Meta = {
-  title: 'Commons / Modal / FloatingPanel',
+  title: 'Commons / Modal / Modal',
   component: Component,
   argTypes: {
     size: {
@@ -38,17 +37,10 @@ const meta: Meta = {
         type: 'radio',
       },
     },
-    forceValidation: {
-      description: 'Force validation',
-      control: {
-        type: 'boolean',
-      },
-    },
   },
   args: {
-    size: 'large',
+    size: 'medium',
     title: 'Title',
-    forceValidation: false,
   },
 };
 
