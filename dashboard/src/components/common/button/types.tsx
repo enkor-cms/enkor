@@ -1,6 +1,11 @@
 import { IconNames } from '../icon';
 
-export type TButtonStyle = 'default' | 'alert' | 'success';
+export type TButtonStyle =
+  | 'primary'
+  | 'secondary'
+  | 'default'
+  | 'alert'
+  | 'success';
 
 export type TButtonSize = 'small' | 'medium' | 'large';
 

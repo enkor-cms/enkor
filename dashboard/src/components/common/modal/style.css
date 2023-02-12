@@ -1,0 +1,20 @@
+.floating-panel-right {
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity .4s ease-in-out, transform .4s ease-in-out;
+}
+
+.floating-panel-right.in.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.floating-panel-right-background {
+    opacity: 0;
+    transition: opacity .4s ease-in-out
+}
+
+.floating-panel-right-background.in.visible {
+    opacity: 1;
+}
