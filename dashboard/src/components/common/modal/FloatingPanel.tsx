@@ -106,7 +106,9 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
           title="Confirmation"
         >
           <div className="text-center">
-            <Text style="body">Are you sure you want to close this panel?</Text>
+            <Text style="caption">
+              Are you sure you want to close this panel?
+            </Text>
           </div>
         </Modal>
       </>
