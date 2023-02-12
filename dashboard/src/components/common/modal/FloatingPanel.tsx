@@ -1,6 +1,8 @@
 import { useMountTransition, useToggle } from '@/hooks';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
+import { Text } from '../text';
 import { DefaultFooter, DefaultHeader } from './DefaultElement';
+import { Modal } from './Modal';
 import './style.css';
 import { TBackgroundOverlayProps, TFloatingPanelProps } from './types';
 
@@ -12,7 +14,7 @@ export const BackgroundOverlay: FunctionComponent<TBackgroundOverlayProps> = ({
 }) => {
   return (
     <div
-      className={`absolute top-0 bottom-0 left-0 right-0 z-0 bg-gray-300 dark:bg-dark-200 bg-opacity-30 dark:bg-opacity-50 ${className}`}
+      className={`absolute top-0 bottom-0 left-0 right-0 z-0 bg-dark-300 dark:bg-dark-200 bg-opacity-30 dark:bg-opacity-50 ${className}`}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >
@@ -28,6 +30,8 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
   const [canClose, allowClose, preventClose] = useToggle();
   const hasTransitionedIn = useMountTransition(props.isOpen, 300);
 
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
+
   const getPanelWidth = () => {
     switch (size) {
       case 'medium':
@@ -41,38 +45,71 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
 
   return (
     (hasTransitionedIn || props.isOpen) && (
-      <BackgroundOverlay
-        onMouseDown={allowClose}
-        onMouseUp={canClose ? props.onClose : undefined}
-        className={`floating-panel-right-background ${
-          hasTransitionedIn && 'in'
-        } ${props.isOpen && 'visible'}`}
-      >
-        <div
-          className={`floating-panel-right ${hasTransitionedIn && 'in'} ${
-            props.isOpen && 'visible'
-          } absolute bottom-0 top-0 right-0 z-10 ${getPanelWidth()} flex justify-center border-l border-gray-300 dark:border-dark-300`}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            preventClose();
-          }}
-          onMouseUp={(e) => {
-            e.stopPropagation();
-            preventClose();
-          }}
+      <>
+        <BackgroundOverlay
+          onMouseDown={allowClose}
+          onMouseUp={
+            canClose
+              ? () => {
+                  if (props.forceValidation) {
+                    setConfirmationOpen(true);
+                    return;
+                  } else {
+                    props.onConfirm();
+                  }
+                }
+              : undefined
+          }
+          className={`floating-panel-right-background ${
+            hasTransitionedIn && 'in'
+          } ${props.isOpen && 'visible'}`}
         >
-          <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col shadow-lg">
-            {props.customHeader || <DefaultHeader title={props.title} />}
-            <div className="grow p-3">{props.children}</div>
-            {props.customFooter || (
-              <DefaultFooter
-                onCancel={props.onClose}
-                onConfirm={props.onConfirm}
-              />
-            )}
+          <div
+            className={`floating-panel-right ${hasTransitionedIn && 'in'} ${
+              props.isOpen && 'visible'
+            } absolute bottom-0 top-0 right-0 z-10 ${getPanelWidth()} flex justify-center`}
+            onMouseDown={(e) => {
+              e.stopPropagation();
+              preventClose();
+            }}
+            onMouseUp={(e) => {
+              e.stopPropagation();
+              preventClose();
+            }}
+          >
+            <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col shadow-lg border-l border-gray-300 dark:border-dark-300">
+              {props.customHeader || <DefaultHeader title={props.title} />}
+              <div className="grow p-3">{props.children}</div>
+              {props.customFooter || (
+                <DefaultFooter
+                  onCancel={() => {
+                    if (props.forceValidation) {
+                      setConfirmationOpen(true);
+                      return;
+                    } else {
+                      props.onConfirm();
+                    }
+                  }}
+                  onConfirm={props.onConfirm}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      </BackgroundOverlay>
+        </BackgroundOverlay>
+        <Modal
+          isOpen={confirmationOpen}
+          onClose={() => setConfirmationOpen(false)}
+          onConfirm={() => {
+            setConfirmationOpen(false);
+            props.onClose();
+          }}
+          title="Confirmation"
+        >
+          <div className="text-center">
+            <Text style="body">Are you sure you want to close this panel?</Text>
+          </div>
+        </Modal>
+      </>
     )
   );
 };

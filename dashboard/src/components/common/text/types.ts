@@ -10,5 +10,5 @@ export type TTextStyles =
 export type TTextProps = {
   children: React.ReactNode;
   style: TTextStyles;
-  className?: string;
+  color?: string;
 };

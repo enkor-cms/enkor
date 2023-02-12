@@ -1,17 +1,22 @@
 'use client';
 
 import { Button } from '@/components/common/button';
-import { FloatingPanel } from '@/components/common/modal';
+import { FloatingPanel, Modal } from '@/components/common/modal';
 import { Text } from '@/components/common/text';
 import { useState } from 'react';
 
 export default function Page() {
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-white-200 dark:bg-dark-100">
-      <Button title="Button" size="medium" onClick={() => setOpen(!open)} />
-      <FloatingPanel
+      <Button
+        title="Open classic Modal"
+        size="medium"
+        onClick={() => setOpen(!open)}
+      />
+      <Modal
         onClose={() => {
           setOpen(false);
         }}
@@ -22,16 +27,33 @@ export default function Page() {
         title="Title"
         size="medium"
       >
-        <h1>Content</h1>
-      </FloatingPanel>
+        <Text style="caption">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+        </Text>
+      </Modal>
 
-      <Text style="title">Text</Text>
-      <Text style="subtitle" className="opacity-30">
-        Text
-      </Text>
-      <Text style="body">Text</Text>
-      <Text style="caption">Text</Text>
-      <Text style="overline">Text</Text>
+      <Button
+        title="Open Floating Panel"
+        size="medium"
+        style="secondary"
+        onClick={() => setOpen2(!open2)}
+      />
+      <FloatingPanel
+        onClose={() => {
+          setOpen2(false);
+        }}
+        onConfirm={() => {
+          setOpen2(false);
+        }}
+        isOpen={open2}
+        title="Title"
+        size="medium"
+        forceValidation
+      >
+        <Text style="caption">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+        </Text>
+      </FloatingPanel>
     </div>
   );
 }

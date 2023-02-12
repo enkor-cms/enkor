@@ -16,7 +16,7 @@ export type TBackgroundOverlayProps = {
   onMouseUp?: () => void;
 };
 
-export type TFloatingPanelProps = {
+export type TModalDefaultProps = {
   children: React.ReactNode;
   isOpen: boolean;
   title: string;
@@ -26,3 +26,9 @@ export type TFloatingPanelProps = {
   onClose: () => void;
   onConfirm: () => void;
 };
+
+export type TFloatingPanelProps = TModalDefaultProps & {
+  forceValidation?: boolean;
+};
+
+export type TModalProps = TModalDefaultProps;

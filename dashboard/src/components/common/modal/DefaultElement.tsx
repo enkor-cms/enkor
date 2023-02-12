@@ -1,5 +1,6 @@
 import { Button } from '@/components/common/button';
 import { FunctionComponent } from 'react';
+import { Text } from '../text';
 import { TDefaultFooterProps, TDefaultHeaderProps } from './types';
 
 export const DefaultHeader: FunctionComponent<TDefaultHeaderProps> = ({
@@ -7,9 +8,7 @@ export const DefaultHeader: FunctionComponent<TDefaultHeaderProps> = ({
 }) => {
   return (
     <div className="flex justify-between items-center border-b border-gray-300 dark:border-dark-300 p-3">
-      <div className="text-xl font-normal font-sans text-dark-100 dark:text-white-100">
-        {title}
-      </div>
+      <Text style="body">{title}</Text>
     </div>
   );
 };

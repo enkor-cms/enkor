@@ -1,4 +1,5 @@
 .floating-panel-right {
+    position: fixed;
     margin: 0 auto;
     opacity: 0;
     transform: translateX(100%);
@@ -8,6 +9,16 @@
 .floating-panel-right.in.visible {
     opacity: 1;
     transform: translateX(0);
+}
+
+.modal {
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity .2s ease-in-out
+}
+
+.modal.in.visible {
+    opacity: 1;
 }
 
 .floating-panel-right-background {

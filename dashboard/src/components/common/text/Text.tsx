@@ -4,7 +4,7 @@ import { TTextProps } from './types';
 export const Text: FunctionComponent<TTextProps> = ({
   children,
   style,
-  className,
+  color,
 }: TTextProps) => {
   // this line doesn't work in the client, find something better for build the string
   const colorClass = `text-black-100 dark:text-white-100`;
@@ -12,25 +12,35 @@ export const Text: FunctionComponent<TTextProps> = ({
   switch (style) {
     case 'title':
       return (
-        <h1 className={`text-2xl font-bold ${colorClass} ${className}`}>
+        <h1 className={`text-2xl font-bold font-sans  ${colorClass} ${color}`}>
           {children}
         </h1>
       );
     case 'subtitle':
       return (
-        <h2 className={`text-xl font-bold ${colorClass} ${className}`}>
+        <h2 className={`text-xl font-bold font-sans ${colorClass} ${color}`}>
           {children}
         </h2>
       );
     case 'body':
-      return <p className={`text-base ${colorClass}`}>{children}</p>;
+      return (
+        <p className={`text-base font-sans ${colorClass} ${color}`}>
+          {children}
+        </p>
+      );
     case 'caption':
-      return <p className={`text-sm ${colorClass} ${className}`}>{children}</p>;
+      return (
+        <p className={`text-sm font-sans ${colorClass} ${color}`}>{children}</p>
+      );
     case 'overline':
-      return <p className={`text-xs ${colorClass} ${className}`}>{children}</p>;
+      return (
+        <p className={`text-xs font-sans ${colorClass} ${color}`}>{children}</p>
+      );
     default:
       return (
-        <p className={`text-base ${colorClass} ${className}`}>{children}</p>
+        <p className={`text-base font-sans ${colorClass} ${color}`}>
+          {children}
+        </p>
       );
   }
 };
