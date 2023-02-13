@@ -1,59 +1,35 @@
 'use client';
 
 import { Button } from '@/components/common/button';
-import { FloatingPanel, Modal } from '@/components/common/modal';
+import { Card } from '@/components/common/layout';
+import { Tag } from '@/components/common/tags';
 import { Text } from '@/components/common/text';
-import { useState } from 'react';
 
 export default function Page() {
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-white-200 dark:bg-dark-100">
       <Button
         title="Open classic Modal"
         size="medium"
-        onClick={() => setOpen(!open)}
+        icon="cross"
+        iconOnly
+        onClick={() => console.log('Open classic Modal')}
       />
-      <Modal
-        onClose={() => {
-          setOpen(false);
-        }}
-        onConfirm={() => {
-          setOpen(false);
-        }}
-        isOpen={open}
-        title="Title"
-        size="medium"
-      >
-        <Text style="caption">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-        </Text>
-      </Modal>
 
-      <Button
-        title="Open Floating Panel"
-        size="medium"
-        style="secondary"
-        onClick={() => setOpen2(!open2)}
-      />
-      <FloatingPanel
-        onClose={() => {
-          setOpen2(false);
-        }}
-        onConfirm={() => {
-          setOpen2(false);
-        }}
-        isOpen={open2}
-        title="Title"
-        size="medium"
-        forceValidation
-      >
+      <Tag text="Red" color="red" />
+      <Tag text="Green" color="green" />
+      <Tag text="Blue" color="blue" />
+      <Tag text="Yellow" color="yellow" />
+      <Tag text="Purple" color="purple" />
+      <Tag text="Pink" color="pink" />
+
+      <Card>
         <Text style="caption">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+          <Tag text="Red" color="red" />
+          elit, aliquet nec
         </Text>
-      </FloatingPanel>
+      </Card>
     </div>
   );
 }

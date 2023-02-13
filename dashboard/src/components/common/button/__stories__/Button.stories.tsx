@@ -2,9 +2,9 @@ import { Meta, StoryFn } from '@storybook/react';
 import { icons } from '../../icon';
 
 import { Button as ButtonComponent } from '../Button';
-import { TButtonProps } from '../types';
+import { IButtonProps } from '../types';
 
-const Template: StoryFn<TButtonProps> = (args: TButtonProps) => (
+const Template: StoryFn<IButtonProps> = (args: IButtonProps) => (
   <>
     <ButtonComponent {...args} />
   </>

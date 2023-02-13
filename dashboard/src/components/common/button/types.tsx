@@ -1,6 +1,7 @@
-import { IconNames } from '../icon';
+import React from 'react';
+import { IconNames } from '../icon/types';
 
-export type TButtonStyle =
+export type TButtonVariant =
   | 'primary'
   | 'secondary'
   | 'default'
@@ -9,13 +10,13 @@ export type TButtonStyle =
 
 export type TButtonSize = 'small' | 'medium' | 'large';
 
-export type TButtonProps = {
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   isLoader?: boolean;
-  onClick?: () => void;
-  disabled?: boolean;
   icon?: IconNames;
   iconFill?: boolean;
-  style?: TButtonStyle;
+  iconOnly?: boolean;
+  variant?: TButtonVariant;
   size?: TButtonSize;
-};
+}

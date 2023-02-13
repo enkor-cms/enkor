@@ -21,7 +21,7 @@ export const DefaultFooter: FunctionComponent<TDefaultFooterProps> = ({
     <div className="flex justify-end border-t border-gray-300 dark:border-dark-300 p-3">
       {onCancel && <Button title="Cancel" onClick={onCancel} />}
       {onConfirm && (
-        <Button title="Confirm" style="secondary" onClick={onConfirm} />
+        <Button title="Confirm" variant="secondary" onClick={onConfirm} />
       )}
     </div>
   );

@@ -7,8 +7,8 @@ export type TTextStyles =
   | 'caption'
   | 'overline';
 
-export type TTextProps = {
+export interface ITextProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   style: TTextStyles;
   color?: string;
-};
+}

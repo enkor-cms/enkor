@@ -1,3 +1,3 @@
 export * from './config';
-export * from './Text';
+export * from './Tag';
 export * from './types';
