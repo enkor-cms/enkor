@@ -7,7 +7,7 @@ import { Text } from '@/components/common/text';
 
 export default function Page() {
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-white-200 dark:bg-dark-100">
+    <div className="flex flex-col justify-center items-center">
       <Button
         title="Open classic Modal"
         size="medium"
