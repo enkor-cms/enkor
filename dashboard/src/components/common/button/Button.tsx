@@ -59,7 +59,11 @@ export const Button: FunctionComponent<IButtonProps> = ({
               />
             </div>
           )}
-          {!iconOnly && <div className={`${sizeDict[size]} pr-4`}>{title}</div>}
+          {!iconOnly && (
+            <div className={`${sizeDict[size]} ${icon ? 'pr-4' : 'px-4'}`}>
+              {title}
+            </div>
+          )}
         </>
       )}
     </button>

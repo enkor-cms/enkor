@@ -5,13 +5,17 @@ export const Text: FunctionComponent<ITextProps> = ({
   children,
   style,
   color,
+  className,
   ...props
 }: ITextProps) => {
   // this line doesn't work in the client, find something better for build the string
   const colorClass = `text-black-100 dark:text-white-100`;
 
   return (
-    <div className={`${textConfig[style]} ${colorClass} ${color}`} {...props}>
+    <div
+      className={`${textConfig[style]} ${colorClass} ${color} ${className}`}
+      {...props}
+    >
       {children}
     </div>
   );

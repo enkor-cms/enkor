@@ -1,8 +1,10 @@
-export default function Head({ params }: { params: { slug: string } }) {
+export default function Head() {
   return (
     <>
-      <title>My Page</title>
+      <title>Enkor</title>
       <meta name="description" content="My page description" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/logo.svg" />
     </>
   );
 }

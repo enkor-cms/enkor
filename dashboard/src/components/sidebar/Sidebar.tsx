@@ -9,7 +9,7 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
   return (
     <div className="w-auto h-full bg-white-100 dark:bg-dark-100 border-r border-white-300 dark:border-dark-300 flex flex-col">
       <Link
-        href={'/'}
+        href={'/dashboard'}
         className="w-full p-3 gap-2 flex justify-center items-center border-b border-white-300 dark:border-dark-300"
       >
         <Image src="/logo.svg" alt="Logo" width={30} height={30} />
@@ -17,15 +17,15 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
       <div className="h-full flex flex-col justify-between">
         <div>
           <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-b border-white-30 dark:border-dark-300">
-            <NavIcon icon="models" label="content" to="/content" />
-            <NavIcon icon="swatch" label="models" to="/model" />
+            <NavIcon icon="models" label="content" to="/dashboard/content" />
+            <NavIcon icon="swatch" label="models" to="/dashboard/model" />
           </div>
           <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-white-30 dark:border-dark-300">
-            <NavIcon icon="photo" label="media" to="/media" />
+            <NavIcon icon="photo" label="media" to="/dashboard/media" />
           </div>
         </div>
         <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-t border-white-30 dark:border-dark-300">
-          <NavIcon icon="cog" label="media" to="/settings" />
+          <NavIcon icon="cog" label="media" to="/dashboard/settings" />
         </div>
       </div>
     </div>
