@@ -3,6 +3,8 @@ import ArrowRight from './svg/arrow-right';
 import Bolt from './svg/bolt';
 import Cog from './svg/cog';
 import Cross from './svg/cross';
+import Github from './svg/github';
+import Google from './svg/google';
 import Models from './svg/models';
 import Photo from './svg/photo';
 import Servers from './svg/servers';
@@ -19,4 +21,6 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   servers: Servers,
   cog: Cog,
   photo: Photo,
+  github: Github,
+  google: Google,
 };

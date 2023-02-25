@@ -1,43 +1,73 @@
+import { logger } from '@/lib/logger';
+import prisma from '@/lib/prisma';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
+  adapter: PrismaAdapter(prisma),
   providers: [
-    // ...add more providers here
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name || profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        };
+      },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      authorization: {
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
+    }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: 'Credentials',
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         username: {
           label: 'Username',
           type: 'text',
           placeholder: 'jsmith',
         },
-        password: {
-          label: 'Password',
-          type: 'password',
-        },
+        password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        const { username, password } = credentials as any;
-        const res = await Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve({ username, password }),
-        });
+      authorize: async (credentials) => {
+        const user = await fetch(
+          `${process.env.NEXT_PUBLIC_LOCAL_AUTH_URL}/api/user/check-credentials`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              accept: 'application/json',
+            },
+            body: Object.entries(credentials as Record<string, string>)
+              .map((e) => e.join('='))
+              .join('&'),
+          }
+        )
+          .then((res) => res.json())
+          .catch((err) => {
+            logger.error('error', err);
+            return null;
+          });
 
-        const user = await res.json();
-
-        console.log({ user });
-
-        if (res.ok && user) {
+        if (user) {
           return user;
-        } else return null;
+        } else {
+          return null;
+        }
       },
     }),
   ],
@@ -46,10 +76,8 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
+    async session({ session, token }) {
       session.user = token;
-
       return session;
     },
   },
@@ -57,7 +85,19 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/login',
   },
+  session: { strategy: 'jwt' },
   secret: process.env.NEXTAUTH_SECRET,
+  logger: {
+    error: (code, metadata) => {
+      logger.error(code, metadata);
+    },
+    warn: (code) => {
+      logger.warn(code);
+    },
+    debug: (code, metadata) => {
+      logger.debug(code, metadata);
+    },
+  },
 };
 
 export default NextAuth(authOptions);

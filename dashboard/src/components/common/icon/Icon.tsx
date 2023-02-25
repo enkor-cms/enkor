@@ -1,9 +1,10 @@
 import { FunctionComponent } from 'react';
 import { icons } from './constant';
-import { TIconProps } from './types';
+import { IIconProps } from './types';
 
-export const Icon: FunctionComponent<TIconProps> = ({
+export const Icon: FunctionComponent<IIconProps> = ({
   scale = 1,
+  className,
   ...props
 }) => {
   // scale without greater than 2
@@ -17,7 +18,7 @@ export const Icon: FunctionComponent<TIconProps> = ({
     <div
       className={`${props.color} h-fit w-fit inline-block p-1 ${
         props.border ? 'border-2 rounded-full border-current' : ''
-      }`}
+      } ${className}`}
     >
       <IconSvg
         width={width}

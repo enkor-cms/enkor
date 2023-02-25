@@ -4,12 +4,18 @@ import { ITag, tagsConfig } from './index';
 export const Tag: FunctionComponent<ITag> = ({
   text,
   color,
+  size = 'small',
+  className,
   ...props
 }: ITag) => {
-  // we can't use the `bg-${color}-100` syntax because tailwind doesn't support it, find a way to do it
+  const sizeConfig = {
+    small: 'text-xs',
+    medium: 'text-sm',
+    large: 'text-base',
+  };
   return (
     <span
-      className={`${tagsConfig[color].textColor} bg-opacity-10 ${tagsConfig[color].bgColor} border ${tagsConfig[color].borderColor} rounded-full px-2 py-1 m-1 w-fit text-xs`}
+      className={`${tagsConfig[color].textColor} bg-opacity-10 ${tagsConfig[color].bgColor} border ${tagsConfig[color].borderColor} rounded-full px-2 py-1 m-1 w-fit ${sizeConfig[size]} ${className}`}
       {...props}
     >
       {text}
