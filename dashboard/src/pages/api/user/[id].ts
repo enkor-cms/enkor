@@ -30,8 +30,7 @@ async function handleGET(userId: string, res: NextApiResponse<User>) {
     })) as User;
     res.json(exclude(user, ['password']) as User);
   } catch (error) {
-    console.error(error);
-    res.status(404).json(error);
+    res.status(404).json({ message: 'User not found' });
   }
 }
 
