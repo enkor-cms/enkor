@@ -1,38 +1,31 @@
 import { Card, Flex } from '@/components/common/layout';
 import { Text } from '@/components/common/text';
+import { fetcher } from '@/lib';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { User } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
+import NotFound from './not-found';
 import { SignOut } from './SignOut';
-
-async function getUser(id: string): Promise<User> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_LOCAL_AUTH_URL}/api/user/${id}`
-  );
-  return res.json() as Promise<User>;
-}
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth/signin',
-        permanent: false,
-      },
-    };
-  }
+  const { status, data } = await fetcher<User>({
+    url: `/api/user/${session?.user.id}`,
+    cookies: cookies(),
+  });
 
-  const userSession = session?.user as User;
-  const [user] = await Promise.all([getUser(userSession.id)]);
+  if (status !== 200) {
+    return NotFound();
+  }
 
   return (
     <Flex>
-      {user?.image ? (
+      {data?.image ? (
         <Image
-          src={user?.image}
-          alt={user?.name || "User's profile image"}
+          src={data?.image}
+          alt={data?.name || "User's profile image"}
           width={100}
           height={100}
           className="rounded-full border-2 border-white-300 dark:border-dark-400"
@@ -40,13 +33,13 @@ export default async function Page() {
       ) : (
         <div className="w-8 h-8 rounded-full border-2 border-white-300 dark:border-dark-400 flex justify-center items-center">
           <span className="text-2xl font-bold text-white-300 dark:text-dark-300">
-            {user?.name?.charAt(0)}
+            {data?.name?.charAt(0)}
           </span>
         </div>
       )}
       <Card>
         <Flex direction="row">
-          <Text style="body">{user.name}</Text>
+          <Text style="body">{data.name}</Text>
         </Flex>
       </Card>
       <SignOut />
