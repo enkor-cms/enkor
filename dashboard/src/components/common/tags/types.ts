@@ -10,7 +10,10 @@ type Color =
   | 'pink'
   | 'brand';
 
+type Size = 'small' | 'medium' | 'large';
+
 export interface ITag extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
   color: Color;
+  size?: Size;
 }

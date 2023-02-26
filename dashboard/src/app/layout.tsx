@@ -1,19 +1,29 @@
-import { Sidebar } from '@/components/sidebar';
-import React from 'react';
-import './globals.css';
+'use client';
 
-export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { SessionProvider } from 'next-auth/react';
+import { ReactNode } from 'react';
+
+import '@/styles/globals.css';
+
+import { Barlow } from '@next/font/google';
+
+const barlow = Barlow({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  variable: '--font-barlow',
+});
+
+interface IProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: IProps) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${barlow.variable}`}>
       <body className="w-screen h-screen flex justify-center items-center bg-white-200 dark:bg-dark-100">
-        <Sidebar />
-        <div className="w-full">{children}</div>
+        <SessionProvider>
+          <div className="h-full w-full">{children}</div>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'media',
@@ -35,7 +37,7 @@ module.exports = {
       },
       fontSize: { base: '1.2rem', lg: '2rem' },
       fontFamily: {
-        sans: ['Rubik', 'sans-serif'],
+        sans: 'var(--font-barlow)',
       },
       boxShadow: { shadow_light: '0px 0px 5px 0px rgba(0,0,0,0.1)' },
       borderRadius: { none: '0', xs: '0.3125rem', sm: '0.625rem' },
