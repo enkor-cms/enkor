@@ -1,5 +1,3 @@
-const { fontFamily } = require('tailwindcss/defaultTheme');
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'media',
@@ -35,7 +33,7 @@ module.exports = {
           300: '#e9ecef',
         },
       },
-      fontSize: { base: '1.2rem', lg: '2rem' },
+      fontSize: { base: '1rem', lg: '2rem' },
       fontFamily: {
         sans: 'var(--font-barlow)',
       },

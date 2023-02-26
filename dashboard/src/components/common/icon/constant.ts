@@ -7,9 +7,11 @@ import Github from './svg/github';
 import Google from './svg/google';
 import Models from './svg/models';
 import Photo from './svg/photo';
+import Puzzle from './svg/puzzle';
 import Servers from './svg/servers';
 import Spin from './svg/spin';
 import Swatch from './svg/swatch';
+import UserCircle from './svg/user-circle';
 
 export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   'arrow-right': ArrowRight,
@@ -23,4 +25,6 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   photo: Photo,
   github: Github,
   google: Google,
+  'user-circle': UserCircle,
+  puzzle: Puzzle,
 };

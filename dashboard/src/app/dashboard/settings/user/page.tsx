@@ -7,7 +7,6 @@ import { getServerSession } from 'next-auth/next';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import NotFound from './not-found';
-import { SignOut } from './SignOut';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -42,7 +41,6 @@ export default async function Page() {
           <Text style="body">{data.name}</Text>
         </Flex>
       </Card>
-      <SignOut />
     </Flex>
   );
 }
