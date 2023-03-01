@@ -69,6 +69,7 @@ export const Button: FunctionComponent<IButtonProps> = ({
           )}
         </>
       )}
+      {props.children}
     </button>
   );
 };

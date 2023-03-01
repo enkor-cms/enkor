@@ -64,6 +64,12 @@ const RegisterPage = ({ searchParams }: IProps) => {
     });
   };
 
+  const handleGoogleLogin = async () => {
+    await signIn('google', {
+      callbackUrl: '/dashboard',
+    });
+  };
+
   return (
     <>
       <Flex className="absolute top-0 w-full p-10" direction="row">
@@ -81,6 +87,16 @@ const RegisterPage = ({ searchParams }: IProps) => {
               size="large"
               icon="github"
               onClick={() => handleGithubLogin()}
+              className="w-full"
+            />
+          </Flex>
+          <Flex>
+            <Button
+              title="Continue with Google"
+              variant="primary"
+              size="large"
+              icon="google"
+              onClick={() => handleGoogleLogin()}
               className="w-full"
             />
           </Flex>

@@ -1,3 +1,4 @@
+'use client';
 import { useMountTransition, useToggle } from '@/hooks';
 import { FunctionComponent, useState } from 'react';
 import { Text } from '../text';
@@ -77,7 +78,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
               preventClose();
             }}
           >
-            <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col shadow-lg border-l border-gray-300 dark:border-dark-300">
+            <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col border-l border-gray-300 dark:border-dark-300">
               {props.customHeader || <DefaultHeader title={props.title} />}
               <div className="grow p-3">{props.children}</div>
               {props.customFooter || (

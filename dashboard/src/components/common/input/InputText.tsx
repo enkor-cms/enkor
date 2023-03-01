@@ -11,7 +11,7 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <div className={className + ' relative'}>
         {labelText && (
-          <label className="" htmlFor="txt">
+          <label className="w-full text-left" htmlFor="txt">
             <Text style="caption" className="py-0 px-3">
               {labelText}
             </Text>
@@ -21,7 +21,7 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
           <input
             id="txt"
             autoComplete="off"
-            className={`border border-white-300 dark:border-dark-300 w-full block outline-none m-1 py-2 px-2 transition-all text-s lg:text-sm xl:text-base dark:bg-dark-200 bg-white-200 text-black-100 dark:text-white-100
+            className={`border border-white-300 dark:border-dark-300 w-full block outline-none m-1 py-2 px-2 transition-all text-s lg:text-sm xl:text-base dark:bg-dark-200 bg-white-200 text-black-100 dark:text-white-100 focus:outline-none focus:ring-2 focus:ring-brand-300/20 focus:border-transparent
               ${error && 'border-red-500 border animate-shake'} ${
               children ? 'rounded-r-md' : 'rounded-md'
             }`}

@@ -48,7 +48,7 @@ export default function RootLayout({ children }: IProps) {
           <Button
             title="Sign Out"
             variant="primary"
-            className="text-red-200"
+            className="text-red-500"
             onClick={() => {
               signOut();
             }}

@@ -54,3 +54,11 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+// PROVIDER
+model Provider {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  clientId  String
+  clientSecret String
+}

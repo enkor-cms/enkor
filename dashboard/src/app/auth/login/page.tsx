@@ -73,7 +73,7 @@ const LoginPage = ({ searchParams }: IProps) => {
             />
           </Flex>
           <div className="w-auto border border-white-300 dark:border-dark-300 rounded m-4"></div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit())}>
             <Flex>
               <InputText
                 labelText="Email"

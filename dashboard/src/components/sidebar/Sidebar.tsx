@@ -9,7 +9,7 @@ interface ISidebarProps {}
 
 export const Sidebar: React.FC<ISidebarProps> = () => {
   return (
-    <div className="w-auto h-full bg-white-200 dark:bg-dark-200 border-r border-white-300 dark:border-dark-300 flex flex-col">
+    <div className="w-auto h-full bg-white-100 dark:bg-dark-200 border-r border-white-300 dark:border-dark-300 flex flex-col">
       <Link
         href={'/dashboard'}
         className="w-full p-3 gap-2 flex justify-center items-center border-b border-white-300 dark:border-dark-300"

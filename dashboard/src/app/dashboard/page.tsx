@@ -5,7 +5,7 @@ import { Card } from '@/components/common/layout';
 import { Tag } from '@/components/common/tags';
 import { Text } from '@/components/common/text';
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="flex flex-col justify-center items-center">
       <Button
