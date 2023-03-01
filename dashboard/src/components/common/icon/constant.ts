@@ -3,6 +3,8 @@ import ArrowRight from './svg/arrow-right';
 import Bolt from './svg/bolt';
 import Cog from './svg/cog';
 import Cross from './svg/cross';
+import Eye from './svg/eye';
+import EyeClosed from './svg/eye-closed';
 import Github from './svg/github';
 import Google from './svg/google';
 import Models from './svg/models';
@@ -27,4 +29,6 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   google: Google,
   'user-circle': UserCircle,
   puzzle: Puzzle,
+  eye: Eye,
+  'eye-closed': EyeClosed,
 };

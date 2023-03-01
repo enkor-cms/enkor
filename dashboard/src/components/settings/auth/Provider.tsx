@@ -27,17 +27,15 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
   const csrfToken = getCsrfToken();
 
   const handleSubmit = async () => {
-    const body = {
-      name: value,
-      clientId: publicKey,
-      clientSecret: secretKey,
-    };
-
     toast.promise(
       fetcher<Provider>({
         url: '/api/providers',
         method: 'POST',
-        body: body,
+        body: {
+          name: value,
+          clientId: publicKey,
+          clientSecret: secretKey,
+        },
         cookies: [
           {
             name: 'next-auth.csrf-token',
@@ -90,10 +88,22 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
 
   return (
     <Flex fullSize direction="row" horizontalAlign="stretch" className="p-3">
-      <Flex direction="row" horizontalAlign="left">
-        <Icon name={icon} scale={2} color="text-gray-500" />
+      <Flex className="w-60" direction="row" horizontalAlign="left">
+        <Icon name={icon} scale={1.2} />
         <Text style="subtitle">{label}</Text>
       </Flex>
+      {/* {dataState && (
+        <Flex direction="row" horizontalAlign="right">
+          <Icon name="eye" scale={1.2} />
+          <Text style="body" className="text-left m-2 truncate">
+            {dataState.clientId}
+          </Text>
+          <Icon name="eye" scale={1.2} />
+          <Text style="body" className="text-left m-2 truncate w-20">
+            {dataState.clientSecret}
+          </Text>
+        </Flex>
+      )} */}
       <Flex direction="row" horizontalAlign="left">
         {dataState ? (
           <>
@@ -109,7 +119,7 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
         ) : (
           <Button
             title="Enable"
-            variant="secondary"
+            variant="primary"
             onClick={() => setIsOpen(true)}
           />
         )}
