@@ -1,5 +1,6 @@
+import { ProviderService } from '@/features/provider';
 import { logger } from '@/lib/logger';
-import prisma from '@/lib/prisma';
+import { checkSession } from '@/lib/nextAuth';
 import { Provider } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -29,11 +30,7 @@ async function handleGET(
   id: string
 ) {
   try {
-    const provider = await prisma.provider.findUnique({
-      where: {
-        id: String(id),
-      },
-    });
+    const provider = await ProviderService.retrieve(id);
     res.status(200).json(provider as Provider);
   } catch (error) {
     res.status(404).send(error);
@@ -47,14 +44,16 @@ async function handleDELETE(
   id: string
 ) {
   try {
-    const provider = await prisma.provider.delete({
-      where: {
-        id: String(id),
-      },
-    });
+    const authorized = await checkSession(req, res);
+    if (!authorized) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
+    const provider = await ProviderService.destroy(id);
     res.status(200).json(provider);
   } catch (error) {
-    logger.error('error', error.toString());
-    res.status(404).send(error.toString());
+    logger.error('error', error);
+    res.status(404).send(error);
   }
 }

@@ -1,6 +1,7 @@
+import { ProviderService } from '@/features/provider';
 import { logger } from '@/lib/logger';
-import prisma from '@/lib/prisma';
-import { Prisma, Provider } from '@prisma/client';
+import { checkSession } from '@/lib/nextAuth';
+import { Provider } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const methods = {
@@ -24,51 +25,38 @@ export default async function handle(
 // GET /api/providers
 async function handleGET(
   req: NextApiRequest,
-  res: NextApiResponse<Provider[]>
+  res: NextApiResponse<Provider[] | string>
 ) {
   try {
-    const providers = await prisma.provider.findMany();
+    const providers = await ProviderService.list();
     res.status(200).json(providers);
   } catch (error) {
-    logger.error('error', error.toString());
-    res.status(404).send(error.toString());
+    logger.error('error', error);
+    res.status(404).send(error as string);
   }
 }
 
 // POST /api/providers
-async function handlePOST(req: NextApiRequest, res: NextApiResponse<Provider>) {
+async function handlePOST(
+  req: NextApiRequest,
+  res: NextApiResponse<Provider | string>
+) {
   try {
-    const body = JSON.parse(JSON.stringify(req.body));
-    const provider = await prisma.provider.create({
-      data: createProvider(body.name, body.clientId, body.clientSecret),
+    // check if user is authenticated
+    const authorized = await checkSession(req, res);
+    if (!authorized) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
+    const body = JSON.parse(req.body);
+    const provider = await ProviderService.create({
+      name: body.name,
+      clientId: body.clientId,
+      clientSecret: body.clientSecret,
     });
     res.status(200).json(provider);
   } catch (exception) {
-    // TODO: Handle error with a generic error handler
-    if (exception instanceof Prisma.PrismaClientValidationError) {
-      const errors = exception as Prisma.PrismaClientValidationError;
-      res.status(400).send({
-        message: 'Validation error',
-        errors: errors.message,
-      });
-    } else {
-      console.error(exception);
-      res.status(400).send({
-        message: 'Error creating provider',
-        errors: exception.message,
-      });
-    }
+    res.status(400).send(exception as string);
+    // TODO handle error properly
   }
 }
-
-const createProvider = (
-  name: string,
-  clientId: string,
-  clientSecret: string
-) => {
-  return Prisma.validator<Prisma.ProviderCreateInput>()({
-    name,
-    clientId,
-    clientSecret,
-  });
-};

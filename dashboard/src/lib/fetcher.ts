@@ -4,7 +4,7 @@ interface IFetcherProps {
   url: string;
   method?: string;
   body?: Record<string, unknown>;
-  cookies: RequestCookie[];
+  cookies?: RequestCookie[];
   revalidation?: number;
 }
 

@@ -3,6 +3,8 @@ import prisma from '@/lib/prisma';
 import { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// TODO - Change this to use the same pattern as the other API routes
+
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
