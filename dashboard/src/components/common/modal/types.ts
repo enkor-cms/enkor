@@ -23,8 +23,8 @@ export type TModalDefaultProps = {
   size?: 'medium' | 'large';
   customHeader?: React.ReactNode;
   customFooter?: React.ReactNode;
-  onClose: () => void;
-  onConfirm: () => void;
+  onClose: () => void | Promise<void>;
+  onConfirm: () => void | Promise<void>;
 };
 
 export type TFloatingPanelProps = TModalDefaultProps & {

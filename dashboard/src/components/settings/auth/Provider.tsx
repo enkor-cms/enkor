@@ -11,6 +11,7 @@ import { fetcher } from '@/lib';
 import { Provider } from '@prisma/client';
 import { getCsrfToken } from 'next-auth/react';
 import React from 'react';
+import { toast } from 'react-toastify';
 import { IProviderProps } from './types';
 
 export const ProviderBlock: React.FC<IProviderProps> = ({
@@ -32,25 +33,59 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
       clientSecret: secretKey,
     };
 
-    const { status, data: providerCreated } = await fetcher<Provider>({
-      url: '/api/providers',
-      method: 'POST',
-      body: body,
-      cookies: [
-        {
-          name: 'next-auth.csrf-token',
-          value: (await csrfToken) as string,
-        },
-      ],
-    });
+    toast.promise(
+      fetcher<Provider>({
+        url: '/api/providers',
+        method: 'POST',
+        body: body,
+        cookies: [
+          {
+            name: 'next-auth.csrf-token',
+            value: (await csrfToken) as string,
+          },
+        ],
+      }).then(({ data: providerCreated, status }) => {
+        if (status === 200) {
+          setDataState(providerCreated);
+          setIsOpen(false);
+          return providerCreated;
+        } else {
+          return undefined;
+        }
+      }),
+      {
+        pending: 'Enabling provider',
+        success: `Provider ${label} enabled`,
+        error: `Failed to enable provider ${label}`,
+      }
+    );
+  };
 
-    if (status === 200) {
-      console.log(providerCreated);
-      setDataState(providerCreated);
-      return true;
-    } else {
-      return false;
-    }
+  const handleDelete = async () => {
+    toast.promise(
+      fetcher<Provider>({
+        url: `/api/providers/${dataState?.id}`,
+        method: 'DELETE',
+        cookies: [
+          {
+            name: 'next-auth.csrf-token',
+            value: (await csrfToken) as string,
+          },
+        ],
+      }).then(({ status }) => {
+        if (status === 200) {
+          setDataState(undefined);
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      {
+        pending: 'Disabling provider',
+        success: `Provider ${label} disabled`,
+        error: `Failed to disable provider ${label}`,
+      }
+    );
   };
 
   return (
@@ -61,26 +96,29 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
       </Flex>
       <Flex direction="row" horizontalAlign="left">
         {dataState ? (
-          <Tag color="green" text="Enabled" />
+          <>
+            <Tag color="green" text="Enabled" />
+            <Button
+              title="Disable"
+              icon="cross"
+              variant="primary"
+              iconOnly
+              onClick={() => handleDelete()}
+            />
+          </>
         ) : (
           <Button
             title="Enable"
             variant="secondary"
-            onClick={() => {
-              setIsOpen(true);
-            }}
+            onClick={() => setIsOpen(true)}
           />
         )}
       </Flex>
       <Modal
         title="Configure provider"
         isOpen={isOpen}
-        onClose={function (): void {
-          setIsOpen(false);
-        }}
-        onConfirm={async function (): Promise<void> {
-          if (await handleSubmit()) setIsOpen(false);
-        }}
+        onClose={() => setIsOpen(false)}
+        onConfirm={() => handleSubmit()}
       >
         <Flex direction="column" horizontalAlign="left" className="p-3">
           <Text style="body" className="text-left m-2">
