@@ -1,8 +1,10 @@
 import { UserServices } from '@/features/user';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { logger } from '@/lib/logger';
+import { User } from '@prisma/client';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const methods = {
-  POST: handlePOST,
+  GET: handleGET,
 };
 
 export default async function handle(
@@ -10,7 +12,6 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const method = methods[req.method as keyof typeof methods];
-
   if (method) {
     method(req, res);
   } else {
@@ -19,15 +20,16 @@ export default async function handle(
   }
 }
 
-// POST /api/user
-async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
+// GET /api/user
+async function handleGET(
+  req: NextApiRequest,
+  res: NextApiResponse<User[] | string>
+) {
   try {
-    const user = UserServices.checkCredentials(
-      req.body.email,
-      req.body.password
-    );
-    res.json(user);
+    const users = await UserServices.list();
+    res.status(200).json(users);
   } catch (error) {
-    res.status(403).json(error);
+    logger.error('error', error);
+    res.status(404).send(error as string);
   }
 }

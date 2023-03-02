@@ -30,10 +30,10 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: {
-          label: 'Username',
+        email: {
+          label: 'Email',
           type: 'text',
-          placeholder: 'jsmith',
+          placeholder: 'email@example.com',
         },
         password: { label: 'Password', type: 'password' },
       },

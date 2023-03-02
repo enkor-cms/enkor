@@ -16,6 +16,7 @@ export default async function Page() {
   });
 
   if (status !== 200) {
+    console.error(data, session);
     return NotFound();
   }
 

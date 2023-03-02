@@ -7,6 +7,10 @@ const hashPassword = (password: string) => {
   return sha256(password).toString();
 };
 
+const list = async (): Promise<User[]> => {
+  return await prisma.user.findMany();
+};
+
 const retrieve = (id: string): Promise<User | null> => {
   return prisma.user.findUnique({
     where: {
@@ -77,25 +81,23 @@ const checkCredentials = async (
   email: string,
   password: string
 ): Promise<User | null> => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+  const user = await prisma.user.findUnique({
+    where: {
+      email: String(email),
+    },
+  });
 
-    if (user && password == hashPassword(password)) {
-      return Promise.resolve(user);
-    } else {
-      return Promise.reject('Incorrect credentials');
-    }
-  } catch (exception) {
-    logger.error(exception);
-    return Promise.reject(exception);
+  if (user && user.password == hashPassword(password)) {
+    logger.info('User logged in', user);
+    return Promise.resolve(user);
+  } else {
+    logger.info('Incorrect credentials');
+    throw new Error('Incorrect credentials');
   }
 };
 
 export const UserServices = {
+  list,
   retrieve,
   create,
   update,
