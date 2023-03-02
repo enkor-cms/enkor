@@ -53,7 +53,6 @@ export const authOptions: NextAuthOptions = {
         )
           .then((res) => res.json())
           .catch((err) => {
-            logger.error('error', err);
             return null;
           });
 

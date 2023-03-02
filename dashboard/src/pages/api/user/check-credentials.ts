@@ -22,7 +22,7 @@ export default async function handle(
 // POST /api/user
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const user = UserServices.checkCredentials(
+    const user = await UserServices.checkCredentials(
       req.body.email,
       req.body.password
     );
