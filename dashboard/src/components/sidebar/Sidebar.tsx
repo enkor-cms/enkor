@@ -27,7 +27,7 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
           </div>
         </div>
         <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-t border-white-30 dark:border-dark-300">
-          <NavIcon icon="cog" label="settings" to="/dashboard/settings" />
+          <NavIcon icon="cog" label="settings" to="/dashboard/settings/user" />
         </div>
       </div>
     </div>

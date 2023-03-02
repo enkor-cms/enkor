@@ -1,74 +1,21 @@
-'use client';
-import { Button } from '@/components/common/button';
-import { InputText } from '@/components/common/input';
+import { ProvidersContainer, RegisterForm } from '@/components/auth';
 import { Flex } from '@/components/common/layout';
-import { Tag } from '@/components/common/tags';
 import { Text } from '@/components/common/text';
-import { User } from '@prisma/client';
-import { signIn } from 'next-auth/react';
+import { fetcher } from '@/lib';
+import { Provider } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 
 interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const RegisterPage = ({ searchParams }: IProps) => {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const {
-    handleSubmit,
-    register,
-    formState: { isSubmitting },
-  } = useForm();
-
-  async function onSubmit(values: any) {
-    try {
-      const res = await fetch(`/api/user/create`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...values }),
-      });
-
-      if (!res.ok) {
-        await res.body
-          ?.getReader()
-          .read()
-          .then(({ value }) => {
-            const message = new TextDecoder().decode(value);
-            setError(message as string);
-            console.error(error);
-          });
-      } else {
-        const userCreated: User = await res.json();
-        setSuccess(`${userCreated.name}`);
-        setTimeout(() => {
-          signIn('credentials', {
-            username: values.email,
-            password: values.password,
-            redirect: true,
-            callbackUrl: '/dashboard',
-          });
-        }, 3000);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const handleGithubLogin = async () => {
-    await signIn('github', {
-      callbackUrl: '/dashboard',
-    });
-  };
-
-  const handleGoogleLogin = async () => {
-    await signIn('google', {
-      callbackUrl: '/dashboard',
-    });
-  };
+const RegisterPage = async ({ searchParams }: IProps) => {
+  const { status, data: providers } = await fetcher<Provider[]>({
+    url: '/api/providers',
+    method: 'GET',
+    cookies: [],
+  });
 
   return (
     <>
@@ -80,68 +27,9 @@ const RegisterPage = ({ searchParams }: IProps) => {
       </Flex>
       <div className="h-full flex flex-col justify-center items-center">
         <div className="w-2/6">
-          <Flex>
-            <Button
-              title="Continue with Github"
-              variant="primary"
-              size="large"
-              icon="github"
-              onClick={() => handleGithubLogin()}
-              className="w-full"
-            />
-          </Flex>
-          <Flex>
-            <Button
-              title="Continue with Google"
-              variant="primary"
-              size="large"
-              icon="google"
-              onClick={() => handleGoogleLogin()}
-              className="w-full"
-            />
-          </Flex>
+          <ProvidersContainer providers={providers} />
           <div className="w-auto border border-white-300 dark:border-dark-300 rounded m-4"></div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Flex>
-              <InputText
-                labelText="Full Name"
-                {...register('name')}
-                className="w-full"
-                placeholder="John Doe"
-              />
-              <InputText
-                labelText="Email"
-                {...register('email')}
-                className="w-full"
-                placeholder="example@example.com"
-              />
-              <InputText
-                labelText="Password"
-                {...register('password')}
-                type="password"
-                className="w-full"
-                placeholder="•••••••"
-              />
-              <input type="submit" value="Submit" hidden />
-              {error && <Tag text={error} color="red" size="medium" />}
-              {success && (
-                <Tag
-                  text={`User created, you will be redirected to login page in 3 seconds`}
-                  color="green"
-                  size="medium"
-                />
-              )}
-              <Button
-                title="Register"
-                variant="default"
-                size="large"
-                onClick={onSubmit}
-                isLoader={isSubmitting || success ? true : false}
-                className="w-full m-4"
-              />
-            </Flex>
-          </form>
-
+          <RegisterForm />
           <Flex direction="row">
             <Text style="caption">Already have an account? </Text>
             <Text

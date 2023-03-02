@@ -12,7 +12,7 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
   const { status, data } = await fetcher<User>({
     url: `/api/user/${session?.user.id}`,
-    cookies: cookies(),
+    cookies: cookies().getAll(),
   });
 
   if (status !== 200) {
