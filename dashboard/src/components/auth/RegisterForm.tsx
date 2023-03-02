@@ -1,6 +1,8 @@
 'use client';
 
 import { Button, Flex, InputText, Tag } from '@/components/common';
+import { fetcher } from '@/lib';
+import { logger } from '@/lib/logger';
 import { User } from '@prisma/client';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
@@ -19,24 +21,22 @@ export const RegisterForm = ({}: TRegisterFormProps) => {
 
   async function onSubmit(values: any) {
     try {
-      const res = await fetch(`/api/user/create`, {
+      logger.debug(values);
+      const { status, data: user } = await fetcher<User>({
+        url: '/api/user/create',
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...values }),
+        cookies: [],
+        body: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        },
       });
 
-      if (!res.ok) {
-        await res.body
-          ?.getReader()
-          .read()
-          .then(({ value }) => {
-            const message = new TextDecoder().decode(value);
-            setError(message as string);
-            console.error(error);
-          });
+      if (status === 404) {
+        setError('Error creating user');
       } else {
-        const userCreated: User = await res.json();
-        setSuccess(`${userCreated.name}`);
+        setSuccess(`${user.name}`);
         setTimeout(() => {
           signIn('credentials', {
             username: values.email,
@@ -47,7 +47,7 @@ export const RegisterForm = ({}: TRegisterFormProps) => {
         }, 3000);
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
     }
   }
 
@@ -86,7 +86,7 @@ export const RegisterForm = ({}: TRegisterFormProps) => {
           title="Register"
           variant="default"
           size="large"
-          onClick={onSubmit}
+          onClick={handleSubmit(onSubmit)}
           isLoader={isSubmitting || success ? true : false}
           className="w-full m-4"
         />

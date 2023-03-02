@@ -1,57 +1,67 @@
+import { UserServices } from '@/features/user';
 import { exclude } from '@/lib';
-import prisma from '@/lib/prisma';
 import { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// TODO - Change this to use the same pattern as the other API routes
+const methods = {
+  GET: handleGET,
+  POST: handlePOST,
+  DELETE: handleDELETE,
+};
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const userId = req.query.id as string;
-  if (req.method === 'GET') {
-    handleGET(userId, res);
-  } else if (req.method === 'POST') {
-    handlePOST(userId, res, req);
-  } else if (req.method === 'DELETE') {
-    handleDELETE(userId, res);
+  const method = methods[req.method as keyof typeof methods];
+
+  if (method) {
+    method(req, res, userId);
   } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    );
+    res.setHeader('Allow', Object.keys(methods));
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
 
 // GET /api/user/:id
-async function handleGET(userId: string, res: NextApiResponse<User>) {
+async function handleGET(
+  req: NextApiRequest,
+  res: NextApiResponse<User>,
+  userId: string
+) {
   try {
-    const user = (await prisma.user.findUnique({
-      where: { id: String(userId) },
-    })) as User;
+    const user = await UserServices.retrieve(userId);
     res.json(exclude(user, ['password']) as User);
   } catch (error) {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json(error);
   }
 }
 
 // GET /api/user/:id
 async function handlePOST(
-  userId: string,
+  req: NextApiRequest,
   res: NextApiResponse<User>,
-  req: NextApiRequest
+  userId: string
 ) {
-  const user = await prisma.user.update({
-    where: { id: String(userId) },
-    data: { ...req.body },
-  });
-  return res.json(user);
+  try {
+    const user = await UserServices.update(userId, req.body);
+    return res.json(user);
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 
 // DELETE /api/user/:id
-async function handleDELETE(userId: string, res: NextApiResponse<User>) {
-  const user = await prisma.user.delete({
-    where: { id: String(userId) },
-  });
-  res.json(user);
+async function handleDELETE(
+  req: NextApiRequest,
+  res: NextApiResponse<User>,
+  userId: string
+) {
+  try {
+    const user = await UserServices.destroy(userId);
+    return res.json(user);
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }

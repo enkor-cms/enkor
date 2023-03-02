@@ -16,9 +16,11 @@ export const LoginForm = ({ error }: TLoginFormProps) => {
     formState: { isSubmitting },
   } = useForm();
 
-  const onSubmit = async (values: { email: string; password: string }) => {
+  const onSubmit = async (values: any) => {
+    console.log(values);
+    // wait 1 second
     await signIn('credentials', {
-      username: values.email,
+      email: values.email,
       password: values.password,
       redirect: true,
       callbackUrl: '/dashboard',
@@ -26,11 +28,7 @@ export const LoginForm = ({ error }: TLoginFormProps) => {
   };
 
   return (
-    <form
-      onSubmit={() => {
-        handleSubmit(onSubmit());
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Flex>
         <InputText
           labelText="Email"
@@ -57,9 +55,7 @@ export const LoginForm = ({ error }: TLoginFormProps) => {
           title="Login"
           variant="default"
           size="large"
-          onClick={() => {
-            handleSubmit(onSubmit());
-          }}
+          onClick={handleSubmit(onSubmit)}
           isLoader={isSubmitting}
           className="w-full m-4"
         />

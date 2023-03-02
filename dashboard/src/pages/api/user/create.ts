@@ -1,42 +1,33 @@
+import { UserServices } from '@/features/user';
 import { logger } from '@/lib/logger';
-import sha256 from 'crypto-js/sha256';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../lib/prisma';
+
+const methods = {
+  POST: handlePOST,
+};
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'POST') {
-    await handlePOST(res, req);
+  const method = methods[req.method as keyof typeof methods];
+
+  if (method) {
+    method(req, res);
   } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    );
+    res.setHeader('Allow', Object.keys(methods));
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
 
-const hashPassword = (password: string) => {
-  return sha256(password).toString();
-};
-
 // POST /api/user
-async function handlePOST(res: NextApiResponse, req: NextApiRequest) {
+async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   try {
-    logger.debug('creating user', {
-      ...req.body,
-      password: hashPassword(req.body.password),
-    });
-    const user = await prisma.user.create({
-      data: {
-        name: req.body.name,
-        email: req.body.email,
-        password: hashPassword(req.body.password),
-      },
-    });
+    logger.info('creating user', req.body);
+    const user = UserServices.create(req.body);
     res.json(user);
   } catch (error) {
     logger.error('error creating user', error);
-    res.status(400).end(error.message);
+    res.status(400).end(error);
   }
 }
