@@ -51,7 +51,13 @@ export const authOptions: NextAuthOptions = {
               .join('&'),
           }
         )
-          .then((res) => res.json())
+          .then((res) => {
+            if (res.status === 200) {
+              return res.json();
+            } else {
+              return null;
+            }
+          })
           .catch((err) => {
             return null;
           });

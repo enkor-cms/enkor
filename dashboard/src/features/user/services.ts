@@ -92,7 +92,7 @@ const checkCredentials = async (
     return Promise.resolve(user);
   } else {
     logger.info('Incorrect credentials');
-    throw new Error('Incorrect credentials');
+    throw 'Incorrect credentials';
   }
 };
 

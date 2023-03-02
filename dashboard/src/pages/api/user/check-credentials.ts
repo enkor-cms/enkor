@@ -1,4 +1,5 @@
 import { UserServices } from '@/features/user';
+import { logger } from '@/lib/logger';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const methods = {
@@ -26,8 +27,10 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
       req.body.email,
       req.body.password
     );
+    logger.debug('user', user);
     res.json(user);
   } catch (error) {
+    logger.error('error', error);
     res.status(403).json(error);
   }
 }

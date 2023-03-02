@@ -19,12 +19,13 @@ export const LoginForm = ({ error }: TLoginFormProps) => {
   const onSubmit = async (values: any) => {
     console.log(values);
     // wait 1 second
-    await signIn('credentials', {
+    const response = await signIn('credentials', {
       email: values.email,
       password: values.password,
       redirect: true,
       callbackUrl: '/dashboard',
     });
+    console.log(response);
   };
 
   return (
