@@ -46,8 +46,8 @@ model User {
   password      String?   @db.Text
   accounts      Account[]
   sessions      Session[]
-  folders        Folder[]
-  files          File[]
+  folders       Folder[]
+  files         File[]
 }
 
 model VerificationToken {
@@ -79,7 +79,7 @@ model Folder {
   createdById String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  files        File[]
+  files       File[]
 }
 
 // FILES
@@ -88,11 +88,10 @@ model File {
   id          String   @id @default(cuid())
   name        String
   path        String
-  type        String
-  size        Int
-  mimeType    String
-  extension   String
-  formats     Json
+  size        Int?
+  mimeType    String?
+  extension   String?
+  formats     Json?
   folder      Folder?  @relation(fields: [folderId], references: [id])
   folderId    String?
   createdBy   User     @relation(fields: [createdById], references: [id])
