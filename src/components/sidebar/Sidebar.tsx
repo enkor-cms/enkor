@@ -24,11 +24,8 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
       <div className="h-full flex flex-col justify-between">
         <div>
           <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-b border-white-30 dark:border-dark-300">
-            <NavIcon icon="models" label="content" to="/dashboard/content" />
+            <NavIcon icon="map" label="map" to="/dashboard/maps" />
             <NavIcon icon="swatch" label="models" to="/dashboard/model" />
-          </div>
-          <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-white-30 dark:border-dark-300">
-            <NavIcon icon="photo" label="media" to="/dashboard/media" />
           </div>
         </div>
         <div className="w-full p-3 flex flex-col justify-center items-center gap-2 border-t border-white-30 dark:border-dark-300">

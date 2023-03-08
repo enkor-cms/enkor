@@ -7,6 +7,7 @@ import Eye from './svg/eye';
 import EyeClosed from './svg/eye-closed';
 import Github from './svg/github';
 import Google from './svg/google';
+import Map from './svg/map';
 import Models from './svg/models';
 import Photo from './svg/photo';
 import Puzzle from './svg/puzzle';
@@ -31,4 +32,5 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   puzzle: Puzzle,
   eye: Eye,
   'eye-closed': EyeClosed,
+  map: Map,
 };
