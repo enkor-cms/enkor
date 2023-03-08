@@ -27,7 +27,7 @@ export const createImage = async (
       });
       formats[format as IFileFormat] = {
         name: filename,
-        path: path.join('public', 'uploads', filename),
+        path: path.join('uploads', filename),
         extension: info.format,
         size: info.size,
         width: info.width,
@@ -72,7 +72,7 @@ export const createFile = async (
       id: fileDatabaseObjectId,
     },
     data: {
-      path: path.join('public', 'uploads', newFilename),
+      path: path.join('uploads', newFilename),
       size: Array.isArray(data.files.file)
         ? data.files.file[0].size
         : data.files.file.size,

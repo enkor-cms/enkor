@@ -46,8 +46,6 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
       return;
     }
 
-    logger.info('session', session);
-
     const { fields, files } = await parseForm(req);
     const fileNames = await FileService.create(
       { fields, files },
