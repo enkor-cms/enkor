@@ -1,2 +1,2 @@
-export * from './services';
+export * from './model.services';
 export * from './types';
