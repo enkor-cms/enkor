@@ -1,20 +1,27 @@
-// export { default } from "next-auth/middleware";
-import { withAuth } from 'next-auth/middleware';
+import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
 
-export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(req) {},
-  {
-    callbacks: {
-      authorized: ({ token }) => {
-        // `authorized` is called when the user has been authorized.
-        return !!token;
-      },
-    },
+import type { Database } from '@/lib/db_types';
+import type { NextRequest } from 'next/server';
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+
+  const supabase = createMiddlewareSupabaseClient<Database>({ req, res });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    const redirectUrl = new URL('/dashboard/auth/login', req.nextUrl.origin);
+    redirectUrl.searchParams.set('redirect', req.nextUrl.clone().href);
+    return NextResponse.redirect(redirectUrl);
   }
-);
+
+  return res;
+}
 
 export const config = {
-  // matcher: ['/dashboard/:path*', '/api/:path*'],
-  matcher: ['/dashboard/:path*', '/api/user/[id], /api/file'],
+  matcher: ['/dashboard/settings/:path*'],
 };

@@ -1,31 +1,52 @@
 'use client';
+
 import { Button, Flex } from '@/components/common';
-import { Provider } from '@prisma/client';
-import { signIn } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
+import { useSupabase } from './SupabaseProvider';
 
-type TProviderContainerProps = {
-  providers: Provider[];
-};
+export const ProvidersContainer = () => {
+  const { supabase } = useSupabase();
+  const params = useSearchParams();
 
-export const ProvidersContainer = ({ providers }: TProviderContainerProps) => {
+  const handleLogin = async (provider: 'google' | 'github') => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: provider,
+      options: {
+        redirectTo: params.get('redirect') || '/',
+      },
+    });
+
+    if (error) {
+      console.log({ error });
+    }
+  };
+
   return (
     <>
-      {providers.map((provider) => {
-        return (
-          <Flex key={provider.id}>
-            <Button
-              title={`Continue with ${provider.name}`}
-              variant="primary"
-              size="large"
-              icon={provider.name}
-              onClick={() => {
-                signIn(provider.name, { callbackUrl: '/dashboard' });
-              }}
-              className="w-full"
-            />
-          </Flex>
-        );
-      })}
+      <Flex>
+        <Button
+          title={`Continue with Google`}
+          variant="primary"
+          size="large"
+          icon={'google'}
+          onClick={() => {
+            handleLogin('google');
+          }}
+          className="w-full"
+        />
+      </Flex>
+      <Flex>
+        <Button
+          title={`Continue with Github`}
+          variant="primary"
+          size="large"
+          icon={'github'}
+          onClick={() => {
+            handleLogin('github');
+          }}
+          className="w-full"
+        />
+      </Flex>
     </>
   );
 };

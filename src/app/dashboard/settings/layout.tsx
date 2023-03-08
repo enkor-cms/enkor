@@ -1,16 +1,28 @@
 'use client';
 
+import { useSupabase } from '@/components/auth/SupabaseProvider';
 import { Button, Text } from '@/components/common';
 import { Flex } from '@/components/common/layout';
 import { SideMenu } from '@/components/sidebar';
-import { signOut } from 'next-auth/react';
 import { ReactNode } from 'react';
 
 interface IProps {
   children: ReactNode;
 }
 
+export const revalidate = 0;
+
 export default function RootLayout({ children }: IProps) {
+  const { supabase } = useSupabase();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.log({ error });
+    }
+  };
+
   return (
     <Flex fullSize direction="column" verticalAlign="stretch">
       <Flex
@@ -38,11 +50,6 @@ export default function RootLayout({ children }: IProps) {
                 icon: 'user-circle',
                 to: '/dashboard/settings/user',
               },
-              {
-                label: 'Auth providers',
-                icon: 'puzzle',
-                to: '/dashboard/settings/auth-providers',
-              },
             ]}
           />
           <Button
@@ -50,7 +57,7 @@ export default function RootLayout({ children }: IProps) {
             variant="primary"
             className="text-red-500"
             onClick={() => {
-              signOut();
+              handleLogout();
             }}
           />
         </Flex>
