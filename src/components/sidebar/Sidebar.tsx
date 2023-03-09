@@ -9,9 +9,7 @@ import { NavIcon } from './NavIcons';
 interface ISidebarProps {}
 
 export const Sidebar: React.FC<ISidebarProps> = () => {
-  const {
-    session: { user },
-  } = useSupabase();
+  const { session } = useSupabase();
 
   return (
     <div className="w-auto h-full bg-white-100 dark:bg-dark-200 border-r border-white-300 dark:border-dark-300 flex flex-col">
@@ -33,7 +31,9 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
             icon="cog"
             label="settings"
             to="/dashboard/settings/user"
-            userImage={user.user_metadata.avatar_url}
+            userImage={
+              session ? session.user.user_metadata?.avatar_url : undefined
+            }
           />
         </div>
       </div>

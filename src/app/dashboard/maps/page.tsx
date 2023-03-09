@@ -1,9 +1,12 @@
-'use client';
+import { Card, Flex } from '@/components/common';
 import { Text } from '@/components/common/text';
-export default function Page() {
+
+export default async function Page() {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <Text style="body">Maps</Text>
-    </div>
+    <Card className="m-2">
+      <Flex>
+        <Text style="body">Maps</Text>
+      </Flex>
+    </Card>
   );
 }
