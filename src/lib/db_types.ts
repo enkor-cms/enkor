@@ -9,44 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      'climbing-spot': {
-        Row: {
-          created_at: string | null;
-          creator: string | null;
-          description: string | null;
-          difficulty: Database['public']['Enums']['difficulty'][] | null;
-          id: number;
-          image: string[] | null;
-          location: number | null;
-          name: string | null;
-          type: Database['public']['Enums']['type'] | null;
-          updated_at: string | null;
-        };
-        Insert: {
-          created_at?: string | null;
-          creator?: string | null;
-          description?: string | null;
-          difficulty?: Database['public']['Enums']['difficulty'][] | null;
-          id?: number;
-          image?: string[] | null;
-          location?: number | null;
-          name?: string | null;
-          type?: Database['public']['Enums']['type'] | null;
-          updated_at?: string | null;
-        };
-        Update: {
-          created_at?: string | null;
-          creator?: string | null;
-          description?: string | null;
-          difficulty?: Database['public']['Enums']['difficulty'][] | null;
-          id?: number;
-          image?: string[] | null;
-          location?: number | null;
-          name?: string | null;
-          type?: Database['public']['Enums']['type'] | null;
-          updated_at?: string | null;
-        };
-      };
       countries: {
         Row: {
           continent: Database['public']['Enums']['continents'] | null;
@@ -73,42 +35,33 @@ export interface Database {
           name?: string | null;
         };
       };
-      location: {
+      locations: {
         Row: {
           city: string | null;
           country: number | null;
           created_at: string | null;
           department: string | null;
-          description: string | null;
           id: number;
-          image: string[] | null;
           latitude: number | null;
           longitude: number | null;
-          name: string | null;
         };
         Insert: {
           city?: string | null;
           country?: number | null;
           created_at?: string | null;
           department?: string | null;
-          description?: string | null;
           id?: number;
-          image?: string[] | null;
           latitude?: number | null;
           longitude?: number | null;
-          name?: string | null;
         };
         Update: {
           city?: string | null;
           country?: number | null;
           created_at?: string | null;
           department?: string | null;
-          description?: string | null;
           id?: number;
-          image?: string[] | null;
           latitude?: number | null;
           longitude?: number | null;
-          name?: string | null;
         };
       };
       profiles: {
@@ -158,6 +111,44 @@ export interface Database {
           created_at?: string | null;
           id?: number;
           rating?: number | null;
+        };
+      };
+      spots: {
+        Row: {
+          created_at: string | null;
+          creator: string | null;
+          description: string | null;
+          difficulty: Database['public']['Enums']['difficulty'] | null;
+          id: number;
+          image: string[] | null;
+          location: number | null;
+          name: string | null;
+          type: Database['public']['Enums']['type'] | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          creator?: string | null;
+          description?: string | null;
+          difficulty?: Database['public']['Enums']['difficulty'] | null;
+          id?: number;
+          image?: string[] | null;
+          location?: number | null;
+          name?: string | null;
+          type?: Database['public']['Enums']['type'] | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          creator?: string | null;
+          description?: string | null;
+          difficulty?: Database['public']['Enums']['difficulty'] | null;
+          id?: number;
+          image?: string[] | null;
+          location?: number | null;
+          name?: string | null;
+          type?: Database['public']['Enums']['type'] | null;
+          updated_at?: string | null;
         };
       };
     };

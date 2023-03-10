@@ -14,6 +14,7 @@ const nextConfig = {
       'localhost:3001',
       'avatars.githubusercontent.com',
       'lh3.googleusercontent.com',
+      'robohash.org',
     ],
   },
   eslint: {
