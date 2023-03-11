@@ -10,7 +10,8 @@ export type TButtonVariant =
 
 export type TButtonSize = 'small' | 'medium' | 'large';
 
-export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   isLoader?: boolean;
   icon?: IconNames;

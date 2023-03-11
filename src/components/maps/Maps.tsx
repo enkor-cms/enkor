@@ -1,25 +1,15 @@
 'use client';
 
 import { FloatingPanel } from '@/components/common';
-import { Text } from '@/components/common/text';
 import { useToggle } from '@/hooks';
-import { Database } from '@/lib/db_types';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMemo, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Flex, Icon } from '../common';
-import CustomImage from '../common/image/CustomImage';
+import { SpotModal } from '../spot';
 import { LazyMapContainer, LazyMarker, LazyTileLayer } from './Lazy';
-
-export type Location = Database['public']['Tables']['locations']['Row'];
-export type Spot = Database['public']['Tables']['spots']['Row'];
-export interface ISpot extends Omit<Spot, 'location'> {
-  location: Location;
-}
-export interface IMapProps {
-  spots?: ISpot[];
-}
+import { IMapProps, ISpot } from './types';
 
 const DEFAULT_ZOOM = 13;
 const DEFAULT_BOUNDS = new L.LatLngBounds(
@@ -60,7 +50,10 @@ export const getMarkerIcon = () => {
   });
 };
 
-export const getMarker = (spot: ISpot, setActualSpot: (spot: ISpot) => void) => {
+export const getMarker = (
+  spot: ISpot,
+  setActualSpot: (spot: ISpot) => void
+) => {
   return (
     <LazyMarker
       icon={getMarkerIcon()}
@@ -105,7 +98,7 @@ const Map = ({ spots }: IMapProps) => {
         >
           <LazyTileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
           />
           {markers?.map((spot) => {
             return getMarker(spot, (spot) => {
@@ -117,30 +110,12 @@ const Map = ({ spots }: IMapProps) => {
       </div>
       <FloatingPanel
         isOpen={open}
-        title={actualSpot?.name || 'Map'}
+        title={actualSpot?.id || 'Map'}
         onClose={setClose}
         onConfirm={setClose}
         size="large"
       >
-        {actualSpot && (
-          <Flex fullSize verticalAlign="top" horizontalAlign="left">
-            {actualSpot.image?.map((image, index) => {
-              return (
-                <CustomImage
-                  key={index}
-                  src={image}
-                  alt={actualSpot?.name || 'Map'}
-                  loader={true}
-                  height={200}
-                  fullWidth={true}
-                  fit="cover"
-                  rounded="md"
-                />
-              );
-            })}
-            <Text style="body">{actualSpot.id}</Text>
-          </Flex>
-        )}
+        {actualSpot && <SpotModal spot={actualSpot} />}
       </FloatingPanel>
     </>
   );

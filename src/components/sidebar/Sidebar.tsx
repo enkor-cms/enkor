@@ -17,7 +17,7 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
         href={'/dashboard'}
         className="w-full p-3 gap-2 flex justify-center items-center border-b border-white-300 dark:border-dark-300"
       >
-        <Image src="/logo.svg" alt="Logo" width={30} height={30} />
+        <Image src="/logo_little.png" alt="Logo" width={40} height={40} />
       </Link>
       <div className="h-full flex flex-col justify-between">
         <div>

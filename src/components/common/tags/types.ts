@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Color =
+export type TTagColor =
   | 'red'
   | 'green'
   | 'blue'
@@ -10,10 +10,10 @@ type Color =
   | 'pink'
   | 'brand';
 
-type Size = 'small' | 'medium' | 'large';
+export type TTagSize = 'small' | 'medium' | 'large';
 
 export interface ITag extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
-  color: Color;
-  size?: Size;
+  color: TTagColor;
+  size?: TTagSize;
 }

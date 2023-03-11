@@ -13,7 +13,9 @@ export const Text: FunctionComponent<ITextProps> = ({
 
   return (
     <div
-      className={`${textConfig[style]} ${colorClass} ${color} ${className}`}
+      className={`${textConfig[style]} ${
+        color ? color : colorClass
+      } ${className}`}
       {...props}
     >
       {children}

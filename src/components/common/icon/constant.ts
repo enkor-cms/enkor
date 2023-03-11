@@ -1,6 +1,8 @@
 import React from 'react';
 import ArrowRight from './svg/arrow-right';
 import Bolt from './svg/bolt';
+import ChevronLeft from './svg/chevron-left';
+import ChevronRight from './svg/chevron-right';
 import Cog from './svg/cog';
 import Cross from './svg/cross';
 import Eye from './svg/eye';
@@ -13,6 +15,7 @@ import Photo from './svg/photo';
 import Puzzle from './svg/puzzle';
 import Servers from './svg/servers';
 import Spin from './svg/spin';
+import Star from './svg/star';
 import Swatch from './svg/swatch';
 import UserCircle from './svg/user-circle';
 
@@ -33,4 +36,7 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   eye: Eye,
   'eye-closed': EyeClosed,
   map: Map,
+  'chevron-left': ChevronLeft,
+  'chevron-right': ChevronRight,
+  star: Star,
 };

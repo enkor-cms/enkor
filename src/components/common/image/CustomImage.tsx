@@ -23,6 +23,7 @@ export default function CustomImage({
   width,
   height,
   placeholder,
+  className,
   ...props
 }: ICustomImageProps) {
   const roundedClass: Record<string, string> = {
@@ -49,7 +50,7 @@ export default function CustomImage({
         style={{ objectFit: props.fit || 'cover' }}
         className={`w-full h-full top-0 left-0 object-cover ${
           roundedClass[props.rounded || '']
-        } `}
+        } ${className}`}
         {...props}
       />
     </div>
