@@ -25,8 +25,6 @@ export default async function RootLayout({ children }: IProps) {
     console.error(error);
   }
 
-  console.log(spots);
-
   return (
     <div className="relative h-full w-full">
       <Map spots={spots} />

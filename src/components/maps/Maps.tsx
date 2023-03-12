@@ -98,7 +98,7 @@ const Map = ({ spots }: IMapProps) => {
         >
           <LazyTileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png"
           />
           {markers?.map((spot) => {
             return getMarker(spot, (spot) => {
@@ -127,7 +127,6 @@ const Map = ({ spots }: IMapProps) => {
               title="Back"
               onClick={setClose}
               variant="primary"
-              iconOnly
             />
             <Text style="body" className="text-white-100 ml-2">
               <strong>Spots</strong> / {actualSpot?.name}

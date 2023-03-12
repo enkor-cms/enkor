@@ -1,8 +1,8 @@
 import { Review } from './Review';
-import { TReviewWithCreator } from './types';
+import { TReviewDetailed } from './types';
 
 export type TReviewContainerProps = {
-  reviews: TReviewWithCreator[];
+  reviews: TReviewDetailed[];
 };
 
 export const ReviewContainer = ({ reviews }: TReviewContainerProps) => {

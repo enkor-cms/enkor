@@ -18,9 +18,9 @@ export const Icon: FunctionComponent<IIconProps> = ({
     <div
       className={`${
         color ? color : `text-black-100 dark:text-white-100`
-      } h-fit w-fit inline-block p-1 ${
+      } h-fit w-fit inline-block ${
         props.border ? 'border-2 rounded-full border-current' : ''
-      } ${className}`}
+      } ${className}  p-1`}
     >
       <IconSvg
         width={width}

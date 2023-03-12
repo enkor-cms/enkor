@@ -17,13 +17,13 @@ import { useEffect, useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
 import { ReviewContainer } from './ReviewContainer';
 import { ReviewCreateModal } from './ReviewCreateModal';
-import { TReviewWithCreator, TSpotModalProps } from './types';
+import { TReviewDetailed, TSpotModalProps } from './types';
 
 export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
   const supabase = createClient();
   const { session } = useSupabase();
 
-  const [reviews, setReviews] = useState<TReviewWithCreator[]>([]);
+  const [reviews, setReviews] = useState<TReviewDetailed[]>([]);
   const [creatingModalOpen, openCreatingModal, closeCreatingModal] =
     useToggle(false);
   const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(true);
@@ -31,21 +31,17 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
 
   const fetchReviews = async () => {
     const { data: reviews, error } = await supabase
-      .from('review')
-      .select(
-        `
-          *,
-          creator:profiles(
-            avatar_url
-          )
-        `
-      )
-      .limit(5)
+      .from('detailed_review')
+      .select()
+      .limit(10)
+      .order('created_at', { ascending: false })
       .eq('spot_id', spot.id);
 
     if (error) {
       console.error(error);
     }
+
+    console.log(reviews);
 
     setIsLoadingReviews(false);
     setReviews(reviews || []);
@@ -168,12 +164,16 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
       <Flex verticalAlign="top" className="w-full">
         <Flex direction="row" horizontalAlign="stretch" className="w-full">
           <Text style="title">{`Reviews (${reviews.length})`}</Text>
-          {session && (
+          {session ? (
             <Button
               title="Add a review"
               variant="default"
               onClick={() => openCreatingModal()}
             />
+          ) : (
+            <Text style="body" className="opacity-60">
+              {'Log in to add a review'}
+            </Text>
           )}
         </Flex>
         {isLoadingReviews ? (

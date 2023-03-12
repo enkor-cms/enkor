@@ -7,3 +7,7 @@ export function exclude<User, Key extends keyof User>(
   }
   return user;
 }
+
+export function formatDateString(date: string): string {
+  return new Date(date).toLocaleDateString();
+}

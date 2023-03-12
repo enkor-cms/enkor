@@ -84,6 +84,8 @@ const getButtonClass = (style: TButtonVariant) => {
       return 'bg-red-500 hover:bg-red-400 py-1 m-1 border border-red-400 rounded shadow transition ease-in-out font-sans font-normal text-white-200';
     case 'success':
       return 'bg-green-600 hover:bg-green-500 py-1 m-1 border border-green-400 rounded shadow transition ease-in-out font-sans font-normal text-white-200';
+    case 'none':
+      return 'bg-transparent hover:bg-transparent rounded transition ease-in-out font-sans font-normal';
     default:
       return 'bg-brand-200 hover:bg-brand-100 py-1 m-1 border border-brand-300 rounded shadow transition ease-in-out font-sans font-normal text-white-200';
   }

@@ -6,7 +6,8 @@ export type TButtonVariant =
   | 'secondary'
   | 'default'
   | 'alert'
-  | 'success';
+  | 'success'
+  | 'none';
 
 export type TButtonSize = 'small' | 'medium' | 'large';
 

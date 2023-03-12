@@ -1,12 +1,13 @@
-import { InputText, Modal } from '@/components/common';
+import { InputText, InputTextArea, Modal } from '@/components/common';
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/browser';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import NumberSelector from '../common/input/NumberSelector';
 import {
   TReviewCreateModalProps,
+  TReviewDetailed,
   TReviewInsert,
-  TReviewWithCreator,
 } from './types';
 
 export const ReviewCreateModal = ({
@@ -61,7 +62,7 @@ export const ReviewCreateModal = ({
     });
 
     if (reviewCreated) {
-      onConfirm(reviewCreated as TReviewWithCreator);
+      onConfirm(reviewCreated as TReviewDetailed);
     }
   };
 
@@ -70,16 +71,18 @@ export const ReviewCreateModal = ({
       isOpen={isOpen}
       title="Add a review"
       onClose={onClose}
+      size="large"
       onConfirm={async () => {
         await handleSubmit();
       }}
     >
       <div className="flex flex-col gap-2">
-        <InputText
-          labelText="Note"
-          type="number"
+        <NumberSelector
+          maxNumber={5}
           value={note}
-          onChange={(e) => setNote(Number(e.target.value))}
+          setValue={(value) => {
+            setNote(value);
+          }}
         />
         <InputText
           labelText="Title"
@@ -87,7 +90,7 @@ export const ReviewCreateModal = ({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <InputText
+        <InputTextArea
           labelText="Content"
           type="text"
           value={content}

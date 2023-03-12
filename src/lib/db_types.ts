@@ -182,7 +182,20 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      detailed_review: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          creator_avatar_url: string | null
+          creator_id: string | null
+          id: string | null
+          like_count: number | null
+          note: number | null
+          spot_id: string | null
+          title: string | null
+          updated_at: string | null
+        }
+      }
     }
     Functions: {
       parse_address: {
