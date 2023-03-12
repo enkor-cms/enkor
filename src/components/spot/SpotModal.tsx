@@ -1,43 +1,57 @@
 'use client';
 
-import { Card, Flex, Icon, Tag, Text, TTagColor } from '@/components/common';
+import {
+  Button,
+  Card,
+  Flex,
+  Icon,
+  Tag,
+  Text,
+  TTagColor,
+} from '@/components/common';
 import ImageCarouselController from '@/components/common/image/ImageCaroussel';
+import { useToggle } from '@/hooks';
 import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/browser';
 import { useEffect, useState } from 'react';
+import { useSupabase } from '../auth/SupabaseProvider';
 import { ReviewContainer } from './ReviewContainer';
+import { ReviewCreateModal } from './ReviewCreateModal';
 import { TReviewWithCreator, TSpotModalProps } from './types';
 
 export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
   const supabase = createClient();
+  const { session } = useSupabase();
 
   const [reviews, setReviews] = useState<TReviewWithCreator[]>([]);
+  const [creatingModalOpen, openCreatingModal, closeCreatingModal] =
+    useToggle(false);
   const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(true);
   const [note, setNote] = useState<number | null>(null);
 
+  const fetchReviews = async () => {
+    const { data: reviews, error } = await supabase
+      .from('review')
+      .select(
+        `
+          *,
+          creator:profiles(
+            avatar_url
+          )
+        `
+      )
+      .limit(5)
+      .eq('spot_id', spot.id);
+
+    if (error) {
+      console.error(error);
+    }
+
+    setIsLoadingReviews(false);
+    setReviews(reviews || []);
+  };
+
   useEffect(() => {
-    const fetchReviews = async () => {
-      const { data: reviews, error } = await supabase
-        .from('review')
-        .select(
-          `
-            *,
-            creator:profiles(
-              avatar_url
-            )
-          `
-        )
-        .limit(5)
-        .eq('spot_id', spot.id);
-
-      if (error) {
-        console.error(error);
-      }
-
-      setIsLoadingReviews(false);
-      setReviews(reviews || []);
-    };
-
     fetchReviews();
   }, [spot.id]);
 
@@ -91,7 +105,7 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
               <Flex
                 direction="row"
                 horizontalAlign="center"
-                verticalAlign="bottom"
+                verticalAlign="center"
                 gap={0}
               >
                 <Text style="body" className="opacity-80">
@@ -154,6 +168,13 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
       <Flex verticalAlign="top" className="w-full">
         <Flex direction="row" horizontalAlign="stretch" className="w-full">
           <Text style="title">{`Reviews (${reviews.length})`}</Text>
+          {session && (
+            <Button
+              title="Add a review"
+              variant="default"
+              onClick={() => openCreatingModal()}
+            />
+          )}
         </Flex>
         {isLoadingReviews ? (
           <Flex
@@ -179,6 +200,20 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
           </Flex>
         )}
       </Flex>
+      <ReviewCreateModal
+        isOpen={creatingModalOpen}
+        onConfirm={async (reviewCreated) => {
+          if (reviewCreated) {
+            setReviews((reviews) => [reviewCreated, ...reviews]);
+          }
+          closeCreatingModal();
+        }}
+        onClose={() => {
+          closeCreatingModal();
+        }}
+        spotId={spot.id}
+        creatorId={session?.user?.id || ''}
+      />
     </Flex>
   );
 };

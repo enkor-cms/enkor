@@ -7,7 +7,17 @@ export type TSpotModalProps = {
   onConfirm?: (spot: ISpot) => void;
 };
 
+export type TReviewCreateModalProps = {
+  spotId: TReview['spot_id'];
+  creatorId: TReview['creator_id'];
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: (review: TReviewWithCreator) => void;
+};
+
 export type TReview = Database['public']['Tables']['review']['Row'];
+
+export type TReviewInsert = Database['public']['Tables']['review']['Insert'];
 
 export type TReviewWithCreator = TReview & {
   creator: {

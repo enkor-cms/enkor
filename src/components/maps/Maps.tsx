@@ -1,12 +1,12 @@
 'use client';
 
-import { FloatingPanel } from '@/components/common';
+import { Button, FloatingPanel } from '@/components/common';
 import { useToggle } from '@/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMemo, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Flex, Icon } from '../common';
+import { Flex, Icon, Text } from '../common';
 import { SpotModal } from '../spot';
 import { LazyMapContainer, LazyMarker, LazyTileLayer } from './Lazy';
 import { IMapProps, ISpot } from './types';
@@ -114,6 +114,26 @@ const Map = ({ spots }: IMapProps) => {
         onClose={setClose}
         onConfirm={setClose}
         size="large"
+        customFooter={<></>}
+        customHeader={
+          <Flex
+            direction="row"
+            verticalAlign="center"
+            horizontalAlign="left"
+            className="w-full px-2 pt-2"
+          >
+            <Button
+              icon="chevron-left"
+              title="Back"
+              onClick={setClose}
+              variant="primary"
+              iconOnly
+            />
+            <Text style="body" className="text-white-100 ml-2">
+              <strong>Spots</strong> / {actualSpot?.name}
+            </Text>
+          </Flex>
+        }
       >
         {actualSpot && <SpotModal spot={actualSpot} />}
       </FloatingPanel>
