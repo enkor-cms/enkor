@@ -7,7 +7,7 @@ export const DefaultHeader: FunctionComponent<TDefaultHeaderProps> = ({
   title,
 }) => {
   return (
-    <div className="flex justify-between items-center border-b border-gray-300 dark:border-dark-300 p-3">
+    <div className="h-16 flex justify-between items-center border-b border-gray-300 dark:border-dark-300 p-3">
       <Text style="body">{title}</Text>
     </div>
   );

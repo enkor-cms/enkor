@@ -18,6 +18,10 @@ export default async function Page({ params }: { params: { uuid: string } }) {
     console.error(error);
   }
 
+  if (!spot) {
+    return <div>Spot not found</div>;
+  }
+
   return (
     <div className="w-5/6">
       <SpotModal spot={spot} />

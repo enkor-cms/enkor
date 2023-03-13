@@ -121,13 +121,13 @@ const Map = ({ spots }: IMapProps) => {
             direction="row"
             verticalAlign="stretch"
             horizontalAlign="center"
-            className="w-full"
+            className="w-full h-16 px-3 border-b border-white-300"
           >
             <Flex
               direction="row"
               verticalAlign="center"
               horizontalAlign="left"
-              className="w-full px-2 pt-2"
+              className="h-16 w-full"
             >
               <Button
                 icon="chevron-left"
@@ -135,22 +135,28 @@ const Map = ({ spots }: IMapProps) => {
                 onClick={setClose}
                 variant="primary"
               />
-              <Text style="body" className="text-white-100 ml-2">
+              <Text style="body" className="ml-2">
                 <strong>Spots</strong> / {actualSpot?.name}
               </Text>
             </Flex>
-            <Link
-              href={`/dashboard/spot/${actualSpot?.id}`}
-              className=" px-2 pt-2"
-              target={'_blank'}
+            <Flex
+              direction="row"
+              verticalAlign="center"
+              horizontalAlign="right"
+              className="h-16 w-full"
             >
-              <Button
-                icon="eye"
-                title="View"
-                onClick={setClose}
-                variant="primary"
-              />
-            </Link>
+              <Link
+                href={`/dashboard/spot/${actualSpot?.id}`}
+                target={'_blank'}
+              >
+                <Button
+                  icon="eye"
+                  title="View"
+                  onClick={setClose}
+                  variant="primary"
+                />
+              </Link>
+            </Flex>
           </Flex>
         }
       >

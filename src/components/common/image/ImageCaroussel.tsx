@@ -51,9 +51,9 @@ const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
   };
 
   return (
-    <div className="relative overflow-x-hidden w-full">
+    <div className="relative overflow-hidden w-full h-full">
       <div
-        className="flex flex-row gap-3 overflow-x-hidden rounded-md [&>div]:flex-shrink-0"
+        className="h-full flex flex-row gap-3 overflow-hidden rounded-md [&>div]:flex-shrink-0"
         style={{ scrollSnapType: 'x mandatory' }}
         ref={carouselRef}
       >

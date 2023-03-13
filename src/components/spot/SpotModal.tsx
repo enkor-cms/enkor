@@ -68,26 +68,33 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
   };
 
   return (
-    <Flex fullSize verticalAlign="top" horizontalAlign="left">
-      <ImageCarouselController
-        images={[
-          {
-            src: 'https://picsum.photos/id/1012/600/400',
-            alt: spot.name || 'Spot',
-            width: 600,
-          },
-          {
-            src: 'https://picsum.photos/id/1001/600/400',
-            alt: spot.name || 'Spot',
-            width: 300,
-          },
-          {
-            src: 'https://picsum.photos/id/1002/600/400',
-            alt: spot.name || 'Spot',
-            width: 600,
-          },
-        ]}
-      />
+    <Flex
+      fullSize
+      verticalAlign="top"
+      horizontalAlign="left"
+      className="h-full overflow-y-auto p-3"
+    >
+      <Flex className="h-full w-full">
+        <ImageCarouselController
+          images={[
+            {
+              src: 'https://picsum.photos/id/1012/600/400',
+              alt: spot.name || 'Spot',
+              width: 600,
+            },
+            {
+              src: 'https://picsum.photos/id/1001/600/400',
+              alt: spot.name || 'Spot',
+              width: 300,
+            },
+            {
+              src: 'https://picsum.photos/id/1002/600/400',
+              alt: spot.name || 'Spot',
+              width: 600,
+            },
+          ]}
+        />
+      </Flex>
       <Flex className="w-full" direction="row" horizontalAlign="stretch">
         <Flex direction="column" horizontalAlign="left" verticalAlign="top">
           <Flex

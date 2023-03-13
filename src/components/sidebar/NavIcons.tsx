@@ -7,7 +7,7 @@ export const NavIcon = (props: INavIconProps) => {
   return (
     <Link
       href={props.to}
-      className="flex h-min p-1 hover:bg-white-300 hover:dark:bg-dark-200  rounded-[8px] cursor-pointer"
+      className="flex h-min p-1 hover:bg-white-300 hover:dark:bg-dark-200  rounded-[8px] cursor-pointer transition-colors duration-500"
     >
       {props.userImage ? (
         <Image

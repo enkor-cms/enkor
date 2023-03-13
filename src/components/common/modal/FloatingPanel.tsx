@@ -80,7 +80,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
           >
             <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col border-l border-gray-300 dark:border-dark-300">
               {props.customHeader || <DefaultHeader title={props.title} />}
-              <div className="grow p-3">{props.children}</div>
+              <div className="overflow-hidden">{props.children}</div>
               {props.customFooter || (
                 <DefaultFooter
                   onCancel={() => {
