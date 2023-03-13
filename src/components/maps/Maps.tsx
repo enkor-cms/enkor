@@ -121,7 +121,7 @@ const Map = ({ spots }: IMapProps) => {
             direction="row"
             verticalAlign="stretch"
             horizontalAlign="center"
-            className="w-full h-16 px-3 border-b border-white-300"
+            className="w-full h-16 px-3 border-b border-white-300 dark:border-dark-300"
           >
             <Flex
               direction="row"

@@ -41,8 +41,6 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
       console.error(error);
     }
 
-    console.log(reviews);
-
     setIsLoadingReviews(false);
     setReviews(reviews || []);
   };
@@ -78,7 +76,7 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
         <ImageCarouselController
           images={[
             {
-              src: 'https://picsum.photos/id/1012/600/400',
+              src: 'https://picsum.photos/id/1000/600/400',
               alt: spot.name || 'Spot',
               width: 600,
             },

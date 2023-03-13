@@ -3,7 +3,6 @@ import { createClient } from '@/lib/supabase/browser';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { Card, Flex, Icon, InputText, Text } from '../common';
-import './sidebar.css';
 
 export type ISpotSearch =
   Database['public']['Views']['spot_search_view']['Row'];
@@ -12,20 +11,22 @@ export const SearchBar = () => {
   const supabase = createClient();
 
   const [search, setSearch] = React.useState('');
-  const [focus, setFocus] = React.useState(true);
   const [results, setResults] = React.useState<ISpotSearch[] | null>(null);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [focus, setFocus] = React.useState(true);
+  const inputRef = React.useRef<HTMLInputElement>(null); // represents the input element
+  const resultsRef = React.useRef<HTMLDivElement>(null); // represents the results element
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
-      ) {
-        console.log('click outside');
-        setFocus(false);
-      } else {
-        setFocus(true);
+      if (inputRef.current) {
+        if (
+          inputRef.current.contains(event.target as Node) ||
+          resultsRef?.current?.contains(event.target as Node)
+        ) {
+          setFocus(true);
+        } else {
+          setFocus(false);
+        }
       }
     };
 
@@ -33,7 +34,7 @@ export const SearchBar = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [inputRef]);
+  }, []);
 
   const handleSearch = async (search: string) => {
     const { data: spots, error } = await supabase.rpc('search_spots', {
@@ -57,10 +58,6 @@ export const SearchBar = () => {
     }
   }, [search]);
 
-  useEffect(() => {
-    console.log('results', results);
-  }, [results]);
-
   return (
     <Flex className="relative w-full">
       <InputText
@@ -71,7 +68,10 @@ export const SearchBar = () => {
         ref={inputRef}
       />
       {results && focus && (
-        <Card className="search-bar-results absolute top-12 w-full z-30">
+        <Card
+          className="search-bar-results absolute top-12 w-full z-30"
+          ref={resultsRef}
+        >
           {results.length > 0 ? (
             <Flex
               direction="column"
@@ -85,7 +85,7 @@ export const SearchBar = () => {
             </Flex>
           ) : (
             <Flex fullSize verticalAlign="center" horizontalAlign="center">
-              No results
+              <Text style="body">No results</Text>
             </Flex>
           )}
         </Card>

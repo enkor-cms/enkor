@@ -15,7 +15,7 @@ export const BackgroundOverlay: FunctionComponent<TBackgroundOverlayProps> = ({
 }) => {
   return (
     <div
-      className={`absolute top-0 bottom-0 left-0 right-0 z-0 bg-dark-300 dark:bg-dark-200 bg-opacity-30 dark:bg-opacity-50 ${className}`}
+      className={`fixed top-0 bottom-0 left-0 right-0 z-30 bg-dark-300 dark:bg-dark-200 bg-opacity-30 dark:bg-opacity-50 ${className}`}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >
@@ -68,7 +68,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
           <div
             className={`floating-panel-right ${hasTransitionedIn && 'in'} ${
               props.isOpen && 'visible'
-            } absolute bottom-0 top-0 right-0 z-10 ${getPanelWidth()} flex justify-center`}
+            } fixed bottom-0 top-0 right-0 z-10 ${getPanelWidth()} flex justify-center`}
             onMouseDown={(e) => {
               e.stopPropagation();
               preventClose();
