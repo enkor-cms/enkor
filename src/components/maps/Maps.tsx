@@ -4,6 +4,7 @@ import { Button, FloatingPanel } from '@/components/common';
 import { useToggle } from '@/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Flex, Icon, Text } from '../common';
@@ -118,19 +119,38 @@ const Map = ({ spots }: IMapProps) => {
         customHeader={
           <Flex
             direction="row"
-            verticalAlign="center"
-            horizontalAlign="left"
-            className="w-full px-2 pt-2"
+            verticalAlign="stretch"
+            horizontalAlign="center"
+            className="w-full"
           >
-            <Button
-              icon="chevron-left"
-              title="Back"
-              onClick={setClose}
-              variant="primary"
-            />
-            <Text style="body" className="text-white-100 ml-2">
-              <strong>Spots</strong> / {actualSpot?.name}
-            </Text>
+            <Flex
+              direction="row"
+              verticalAlign="center"
+              horizontalAlign="left"
+              className="w-full px-2 pt-2"
+            >
+              <Button
+                icon="chevron-left"
+                title="Back"
+                onClick={setClose}
+                variant="primary"
+              />
+              <Text style="body" className="text-white-100 ml-2">
+                <strong>Spots</strong> / {actualSpot?.name}
+              </Text>
+            </Flex>
+            <Link
+              href={`/dashboard/spot/${actualSpot?.id}`}
+              className=" px-2 pt-2"
+              target={'_blank'}
+            >
+              <Button
+                icon="eye"
+                title="View"
+                onClick={setClose}
+                variant="primary"
+              />
+            </Link>
           </Flex>
         }
       >

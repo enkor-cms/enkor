@@ -9,12 +9,12 @@ import {
   Text,
   TTagColor,
 } from '@/components/common';
-import ImageCarouselController from '@/components/common/image/ImageCaroussel';
 import { useToggle } from '@/hooks';
 import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/browser';
 import { useEffect, useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
+import ImageCarouselController from '../common/image/ImageCaroussel';
 import { ReviewContainer } from './ReviewContainer';
 import { ReviewCreateModal } from './ReviewCreateModal';
 import { TReviewDetailed, TSpotModalProps } from './types';

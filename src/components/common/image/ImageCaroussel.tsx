@@ -51,50 +51,49 @@ const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
   };
 
   return (
-    <>
-      <div className="relative flex justify-between overflow-x-hidden w-full">
-        <div
-          className="flex w-full gap-3 overflow-x-hidden rounded-md [&>div]:flex-shrink-0"
-          style={{ scrollSnapType: 'x mandatory' }}
-          ref={carouselRef}
-        >
-          {images.map((image, index) => (
+    <div className="relative overflow-x-hidden w-full">
+      <div
+        className="flex flex-row gap-3 overflow-x-hidden rounded-md [&>div]:flex-shrink-0"
+        style={{ scrollSnapType: 'x mandatory' }}
+        ref={carouselRef}
+      >
+        {images.map((image, index) => (
+          <div key={index} className="w-2/3">
             <CustomImage
-              key={index}
               src={image.src}
               alt={image.alt}
               loader={true}
               height={300}
-              width={image.width || 400}
+              fullWidth={true}
               fit="cover"
               rounded="md"
             />
-          ))}
-        </div>
-        <Button
-          variant="primary"
-          icon="chevron-left"
-          iconOnly
-          title="Previous"
-          onClick={handlePrev}
-          style={{
-            opacity: showLeftArrow ? 1 : 0,
-          }}
-          className="absolute rounded-full left-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
-        />
-        <Button
-          variant="primary"
-          icon="chevron-right"
-          iconOnly
-          title="Previous"
-          onClick={handleNext}
-          style={{
-            opacity: showRightArrow ? 1 : 0,
-          }}
-          className="absolute rounded-full right-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
-        />
+          </div>
+        ))}
       </div>
-    </>
+      <Button
+        variant="primary"
+        icon="chevron-left"
+        iconOnly
+        title="Previous"
+        onClick={handlePrev}
+        style={{
+          opacity: showLeftArrow ? 1 : 0,
+        }}
+        className="absolute rounded-full left-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
+      />
+      <Button
+        variant="primary"
+        icon="chevron-right"
+        iconOnly
+        title="Previous"
+        onClick={handleNext}
+        style={{
+          opacity: showRightArrow ? 1 : 0,
+        }}
+        className="absolute rounded-full right-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
+      />
+    </div>
   );
 };
 

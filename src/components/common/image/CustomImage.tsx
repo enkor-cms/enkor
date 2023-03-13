@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import './custom-image.css';
 
 type ImageProps = {
   src: string;
@@ -48,7 +47,7 @@ export default function CustomImage({
         placeholder={loader ? 'blur' : 'empty'}
         blurDataURL={`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=`}
         style={{ objectFit: props.fit || 'cover' }}
-        className={`w-full h-full top-0 left-0 object-cover ${
+        className={`w-full h-full top-0 left-0 ${
           roundedClass[props.rounded || '']
         } ${className}`}
         {...props}
