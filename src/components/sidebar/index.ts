@@ -1,4 +1,3 @@
-export * from './Sidebar';
+export * from './NavBar';
 export * from './SideMenu';
 export * from './types';
-

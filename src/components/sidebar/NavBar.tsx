@@ -6,10 +6,11 @@ import React from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
 import { Flex } from '../common';
 import { NavIcon } from './NavIcons';
+import { SearchBar } from './SearchBar';
 
-interface ISidebarProps {}
+interface INavBarProps {}
 
-export const Sidebar: React.FC<ISidebarProps> = () => {
+export const NavBar: React.FC<INavBarProps> = () => {
   const { session } = useSupabase();
 
   return (
@@ -38,6 +39,9 @@ export const Sidebar: React.FC<ISidebarProps> = () => {
           <NavIcon icon="swatch" label="models" to="/dashboard/model" />
         </Flex>
         <Flex className="h-full px-3" />
+      </Flex>
+      <Flex className="w-full">
+        <SearchBar />
       </Flex>
       <Flex
         direction="row"

@@ -67,6 +67,7 @@ const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
               fullWidth={true}
               fit="cover"
               rounded="md"
+              className="z-10"
             />
           </div>
         ))}
@@ -80,7 +81,7 @@ const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
         style={{
           opacity: showLeftArrow ? 1 : 0,
         }}
-        className="absolute rounded-full left-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
+        className="absolute z-20 rounded-full left-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
       />
       <Button
         variant="primary"
@@ -91,7 +92,7 @@ const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
         style={{
           opacity: showRightArrow ? 1 : 0,
         }}
-        className="absolute rounded-full right-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
+        className="absolute z-20 rounded-full right-0 top-1/2 transform -translate-y-1/2 transition-opacity duration-300"
       />
     </div>
   );

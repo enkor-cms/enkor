@@ -10,6 +10,7 @@ import EyeClosed from './svg/eye-closed';
 import Github from './svg/github';
 import Google from './svg/google';
 import Hearth from './svg/hearth';
+import Loop from './svg/loop';
 import Map from './svg/map';
 import Models from './svg/models';
 import Photo from './svg/photo';
@@ -41,4 +42,5 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   'chevron-right': ChevronRight,
   star: Star,
   hearth: Hearth,
+  loop: Loop,
 };

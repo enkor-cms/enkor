@@ -18,7 +18,7 @@ export default async function RootLayout({ children }: IProps) {
         location("*")
       `
     )
-    .eq('id', 'd9b5c929-2a99-459b-b18c-706dbf8ac6d1')
+    .eq('id', '755f563a-c046-4ed2-9a77-a4ed5776684e')
     .limit(100);
 
   if (error) {

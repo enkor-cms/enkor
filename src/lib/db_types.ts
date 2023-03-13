@@ -196,13 +196,51 @@ export interface Database {
           updated_at: string | null
         }
       }
+      spot_search_view: {
+        Row: {
+          city: string | null
+          country: number | null
+          department: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["difficulty"] | null
+          id: string | null
+          location_id: number | null
+          name: string | null
+          note: number | null
+          type: Database["public"]["Enums"]["type"] | null
+        }
+      }
     }
     Functions: {
+      check_review_like: {
+        Args: {
+          user_id: number
+          spot_id: number
+        }
+        Returns: boolean
+      }
       parse_address: {
         Args: {
           "": string
         }
         Returns: Record<string, unknown>
+      }
+      search_spots: {
+        Args: {
+          keyword: string
+        }
+        Returns: {
+          city: string | null
+          country: number | null
+          department: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["difficulty"] | null
+          id: string | null
+          location_id: number | null
+          name: string | null
+          note: number | null
+          type: Database["public"]["Enums"]["type"] | null
+        }[]
       }
       standardize_address:
         | {

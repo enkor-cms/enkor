@@ -1,6 +1,6 @@
 'use client';
 
-import { Sidebar } from '@/components/sidebar';
+import { NavBar } from '@/components/sidebar';
 import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +21,7 @@ interface IProps {
 export default function RootLayout({ children }: IProps) {
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-white-200 dark:bg-dark-100">
-      <Sidebar />
+      <NavBar />
       <div className="w-full h-full overflow-auto">{children}</div>
       <ToastContainer
         toastClassName={({ type }) =>

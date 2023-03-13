@@ -82,7 +82,9 @@ export const Review = ({ review }: TReviewProps) => {
                 verticalAlign="top"
                 gap={0}
               >
-                <Text style="body">{review.title}</Text>
+                <Text style="body" className="px-1">
+                  {review.title}
+                </Text>
                 <Flex direction="row" horizontalAlign="left" gap={0}>
                   {Array.from({ length: 5 }, (_, i) => (
                     <Icon
