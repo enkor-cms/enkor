@@ -35,6 +35,87 @@ export interface Database {
           name?: string | null
         }
       }
+      events: {
+        Row: {
+          created_at: string | null
+          creator_id: string | null
+          end_at: string | null
+          id: string
+          name: string | null
+          spot_id: string | null
+          start_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          creator_id?: string | null
+          end_at?: string | null
+          id?: string
+          name?: string | null
+          spot_id?: string | null
+          start_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          creator_id?: string | null
+          end_at?: string | null
+          id?: string
+          name?: string | null
+          spot_id?: string | null
+          start_at?: string | null
+          updated_at?: string | null
+        }
+      }
+      events_invitations: {
+        Row: {
+          created_at: string | null
+          event_id: string | null
+          event_participation_id: string | null
+          id: string
+          status: Database["public"]["Enums"]["invitation_status"] | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_id?: string | null
+          event_participation_id?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["invitation_status"] | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string | null
+          event_participation_id?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["invitation_status"] | null
+          user_id?: string | null
+        }
+      }
+      events_participations: {
+        Row: {
+          created_at: string | null
+          event_id: string | null
+          id: string
+          status: Database["public"]["Enums"]["invitation_status"] | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_id?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["invitation_status"] | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["invitation_status"] | null
+          user_id?: string | null
+        }
+      }
       locations: {
         Row: {
           city: string | null
@@ -196,6 +277,47 @@ export interface Database {
           updated_at: string | null
         }
       }
+      spot_extanded_view: {
+        Row: {
+          created_at: string | null
+          creator: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["difficulty"] | null
+          id: string | null
+          image: string[] | null
+          location: number | null
+          name: string | null
+          note: number | null
+          type: Database["public"]["Enums"]["type"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          creator?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty"] | null
+          id?: string | null
+          image?: string[] | null
+          location?: number | null
+          name?: string | null
+          note?: never
+          type?: Database["public"]["Enums"]["type"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          creator?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty"] | null
+          id?: string | null
+          image?: string[] | null
+          location?: number | null
+          name?: string | null
+          note?: never
+          type?: Database["public"]["Enums"]["type"] | null
+          updated_at?: string | null
+        }
+      }
       spot_search_view: {
         Row: {
           city: string | null
@@ -274,6 +396,7 @@ export interface Database {
         | "South America"
       difficulty: "Easy" | "Medium" | "Hard"
       diffulty: "Easy" | "Medium" | "Hard"
+      invitation_status: "Pending" | "Accepted"
       type: "Indoor" | "Outdoor"
     }
     CompositeTypes: {

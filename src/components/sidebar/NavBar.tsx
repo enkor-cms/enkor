@@ -30,7 +30,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
           href={'/dashboard'}
           className="w-auto p-3 gap-2 flex justify-center items-center "
         >
-          <Image src="/logo_little.png" alt="Logo" width={40} height={40} />
+          <Image src="/logo_clear.png" alt="Logo" width={40} height={40} />
         </Link>
         <Flex className="h-full px-3">
           <NavIcon icon="map" label="map" to="/dashboard/maps" />

@@ -10,7 +10,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { Flex, Icon, Text } from '../common';
 import { SpotModal } from '../spot';
 import { LazyMapContainer, LazyMarker, LazyTileLayer } from './Lazy';
-import { IMapProps, ISpot } from './types';
+import { IMapProps, ISpotExtanded } from './types';
 
 const DEFAULT_ZOOM = 13;
 const DEFAULT_BOUNDS = new L.LatLngBounds(
@@ -18,7 +18,7 @@ const DEFAULT_BOUNDS = new L.LatLngBounds(
   new L.LatLng(0, 0)
 );
 
-export const getBounds = (spots: ISpot[]) => {
+export const getBounds = (spots: ISpotExtanded[]) => {
   if (!spots || spots.length === 0) {
     return DEFAULT_BOUNDS;
   }
@@ -52,8 +52,8 @@ export const getMarkerIcon = () => {
 };
 
 export const getMarker = (
-  spot: ISpot,
-  setActualSpot: (spot: ISpot) => void
+  spot: ISpotExtanded,
+  setActualSpot: (spot: ISpotExtanded) => void
 ) => {
   return (
     <LazyMarker
@@ -73,7 +73,7 @@ export const getMarker = (
 };
 
 const Map = ({ spots }: IMapProps) => {
-  const markers: ISpot[] | undefined = useMemo(() => {
+  const markers: ISpotExtanded[] | undefined = useMemo(() => {
     return spots?.map((spot) => {
       return {
         ...spot,
@@ -83,7 +83,9 @@ const Map = ({ spots }: IMapProps) => {
     });
   }, [spots]);
 
-  let [actualSpot, setActualSpot] = useState<ISpot | undefined>(undefined);
+  let [actualSpot, setActualSpot] = useState<ISpotExtanded | undefined>(
+    undefined
+  );
 
   const [open, setOpen, setClose, toggleOpen] = useToggle(false);
 
@@ -121,7 +123,7 @@ const Map = ({ spots }: IMapProps) => {
             direction="row"
             verticalAlign="stretch"
             horizontalAlign="center"
-            className="w-full h-16 px-3 border-b border-white-300 dark:border-dark-300"
+            className="w-full h-16 px-3"
           >
             <Flex
               direction="row"

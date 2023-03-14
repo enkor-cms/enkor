@@ -1,23 +1,18 @@
 import { Database } from '@/lib/db_types';
-import { ISpot } from '../maps';
+import { TTagColor } from '../common';
+import { ISpotExtanded } from '../maps';
 
 export type TSpotModalProps = {
-  spot: ISpot;
+  spot: ISpotExtanded;
   onClose?: () => void;
-  onConfirm?: (spot: ISpot) => void;
+  onConfirm?: (spot: ISpotExtanded) => void;
 };
 
-export type TReviewCreateModalProps = {
-  spotId: TReview['spot_id'];
-  creatorId: TReview['creator_id'];
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: (review: TReviewDetailed) => void;
+export const difficultyColors: Record<
+  NonNullable<Database['public']['Tables']['spots']['Row']['difficulty']>,
+  TTagColor
+> = {
+  Easy: 'green',
+  Medium: 'yellow',
+  Hard: 'red',
 };
-
-export type TReview = Database['public']['Tables']['review']['Row'];
-
-export type TReviewInsert = Database['public']['Tables']['review']['Insert'];
-
-export type TReviewDetailed =
-  Database['public']['Views']['detailed_review']['Row'];

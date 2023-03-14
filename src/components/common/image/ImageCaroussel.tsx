@@ -10,9 +10,9 @@ interface ImageCarouselControllerProps {
   }[];
 }
 
-const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
-  images,
-}) => {
+export const ImageCarouselController: React.FC<
+  ImageCarouselControllerProps
+> = ({ images }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = React.useState(false);
   const [showRightArrow, setShowRightArrow] = React.useState(true);
@@ -97,5 +97,3 @@ const ImageCarouselController: React.FC<ImageCarouselControllerProps> = ({
     </div>
   );
 };
-
-export default ImageCarouselController;

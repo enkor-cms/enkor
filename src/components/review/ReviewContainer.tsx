@@ -1,4 +1,4 @@
-import { Review } from './Review';
+import { Review } from './ReviewCard';
 import { TReviewDetailed } from './types';
 
 export type TReviewContainerProps = {

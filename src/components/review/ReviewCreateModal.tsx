@@ -1,4 +1,5 @@
-import { InputText, InputTextArea, Modal } from '@/components/common';
+import { Button, InputText, InputTextArea, Modal } from '@/components/common';
+import { useToggle } from '@/hooks';
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/browser';
 import { useState } from 'react';
@@ -13,11 +14,13 @@ import {
 export const ReviewCreateModal = ({
   spotId,
   creatorId,
-  isOpen,
   onClose,
   onConfirm,
 }: TReviewCreateModalProps) => {
   const supabase = createClient();
+
+  const [creatingModalOpen, openCreatingModal, closeCreatingModal] =
+    useToggle(false);
 
   const [note, setNote] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
@@ -62,41 +65,52 @@ export const ReviewCreateModal = ({
     });
 
     if (reviewCreated) {
-      onConfirm(reviewCreated as TReviewDetailed);
+      onConfirm && onConfirm(reviewCreated as TReviewDetailed);
     }
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      title="Add a review"
-      onClose={onClose}
-      size="large"
-      onConfirm={async () => {
-        await handleSubmit();
-      }}
-    >
-      <div className="flex flex-col gap-2">
-        <NumberSelector
-          maxNumber={5}
-          value={note}
-          setValue={(value) => {
-            setNote(value);
-          }}
-        />
-        <InputText
-          labelText="Title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <InputTextArea
-          labelText="Content"
-          type="text"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </div>
-    </Modal>
+    <>
+      <Button
+        title="Add a review"
+        variant="default"
+        onClick={() => openCreatingModal()}
+      />
+      <Modal
+        isOpen={creatingModalOpen}
+        title="Add a review"
+        onClose={() => {
+          closeCreatingModal();
+          onClose && onClose();
+        }}
+        size="large"
+        onConfirm={async () => {
+          await handleSubmit();
+          closeCreatingModal();
+        }}
+      >
+        <div className="flex flex-col gap-2">
+          <NumberSelector
+            maxNumber={5}
+            value={note}
+            setValue={(value) => {
+              setNote(value);
+            }}
+          />
+          <InputText
+            labelText="Title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <InputTextArea
+            labelText="Content"
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </div>
+      </Modal>
+    </>
   );
 };

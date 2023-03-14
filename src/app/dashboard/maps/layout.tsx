@@ -11,11 +11,11 @@ interface IProps {
 export default async function RootLayout({ children }: IProps) {
   const supabase = createClient();
   const { data: spots, error } = await supabase
-    .from('spots')
+    .from('spot_extanded_view')
     .select(
       `
         *,
-        location("*")
+        location(*)
       `
     )
     .eq('id', '755f563a-c046-4ed2-9a77-a4ed5776684e')
@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: IProps) {
 
   return (
     <div className="relative h-full w-full">
-      <Map spots={spots} />
+      <Map spots={spots || undefined} />
       <div className="absolute top-0 z-10">{children}</div>
     </div>
   );
