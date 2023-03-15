@@ -5,11 +5,7 @@ import { createClient } from '@/lib/supabase/browser';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import NumberSelector from '../common/input/NumberSelector';
-import {
-  TReviewCreateModalProps,
-  TReviewDetailed,
-  TReviewInsert,
-} from './types';
+import { TReviewCreateModalProps, TReviewInsert } from './types';
 
 export const ReviewCreateModal = ({
   spotId,
@@ -28,7 +24,7 @@ export const ReviewCreateModal = ({
 
   const handleCreateReview = async (review: TReviewInsert) => {
     const { data: newReview, error } = await supabase
-      .from('review')
+      .from('reviews')
       .insert(review)
       .select('*, creator:profiles(avatar_url)')
       .single();
@@ -65,7 +61,7 @@ export const ReviewCreateModal = ({
     });
 
     if (reviewCreated) {
-      onConfirm && onConfirm(reviewCreated as TReviewDetailed);
+      onConfirm && onConfirm(reviewCreated);
     }
   };
 

@@ -1,9 +1,9 @@
+import { GetSpotResponseSuccess } from '@/features/spots';
 import { Card, Flex, Icon, Tag, Text } from '../common';
-import { ISpotExtanded } from '../maps';
 import { difficultyColors } from './types';
 
 export type TSpotCardProps = {
-  spot: ISpotExtanded;
+  spot: NonNullable<GetSpotResponseSuccess>;
 };
 
 export const SpotCard = ({ spot }: TSpotCardProps) => {
@@ -34,7 +34,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
           </Flex>
           <Flex direction="row" horizontalAlign="left">
             <Text style="body" className="opacity-80">
-              {spot.location.city},
+              {spot.location.city}
             </Text>
             <Text style="body" className="opacity-50">
               {spot.location.department}

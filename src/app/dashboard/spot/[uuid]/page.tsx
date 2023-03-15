@@ -1,50 +1,28 @@
 import { Flex, ImageCarouselController, Text } from '@/components/common';
+import { EventContainer } from '@/components/event/EventContainer';
 import { ReviewContainer, ReviewCreateModal } from '@/components/review';
 import { SpotCard } from '@/components/spot';
+import { getSpotEvents } from '@/features/events/service';
+import { getSpotReviews } from '@/features/reviews';
+import { getSpot } from '@/features/spots';
 import { createClient } from '@/lib/supabase/server';
-import { logger } from '@supabase/auth-helpers-nextjs';
-
-const getSpot = async (uuid: string) => {
-  const supabase = createClient();
-  const { data: spot, error } = await supabase
-    .from('spot_extanded_view')
-    .select(
-      `
-        *,
-        location(*)
-      `
-    )
-    .eq('id', uuid)
-    .single();
-
-  if (error) {
-    logger.error(error);
-  }
-
-  return { spot, error };
-};
-
-const getReviews = async (uuid: string) => {
-  const supabase = createClient();
-  const { data: reviews, error } = await supabase
-    .from('detailed_review')
-    .select()
-    .limit(10)
-    .order('created_at', { ascending: false })
-    .eq('spot_id', uuid);
-
-  if (error) {
-    logger.error(error);
-  }
-
-  return { reviews, error };
-};
 
 export default async function Page({ params }: { params: { uuid: string } }) {
-  const { spot, error: errorSpots } = await getSpot(params.uuid);
-  const { reviews, error: errorReviews } = await getReviews(params.uuid);
-
   const supabase = createClient();
+
+  const { spot } = await getSpot({
+    client: supabase,
+    spotId: params.uuid,
+  });
+  const { reviews } = await getSpotReviews({
+    client: supabase,
+    spotId: params.uuid,
+  });
+  const { events } = await getSpotEvents({
+    client: supabase,
+    spotId: params.uuid,
+  });
+
   const {
     data: { session: session },
   } = await supabase.auth.getSession();
@@ -83,6 +61,11 @@ export default async function Page({ params }: { params: { uuid: string } }) {
           />
         </Flex>
         <SpotCard spot={spot} />
+        {events && events.length > 0 ? (
+          <EventContainer events={events} />
+        ) : (
+          <Text style="body">No Events</Text>
+        )}
         <Flex verticalAlign="top" className="w-full">
           <Flex direction="row" horizontalAlign="stretch" className="w-full">
             <Text style="title">{`Reviews (${reviews?.length})`}</Text>

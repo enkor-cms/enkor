@@ -3,7 +3,7 @@
 import { Flex, Icon, ImageCarouselController, Text } from '@/components/common';
 import { ReviewContainer } from '@/components/review/ReviewContainer';
 import { ReviewCreateModal } from '@/components/review/ReviewCreateModal';
-import { TReviewDetailed } from '@/components/review/types';
+import { getSpotReviews, ReviewsResponseSuccess } from '@/features/reviews';
 import { createClient } from '@/lib/supabase/browser';
 import { useEffect, useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
@@ -14,16 +14,14 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
   const supabase = createClient();
   const { session } = useSupabase();
 
-  const [reviews, setReviews] = useState<TReviewDetailed[]>([]);
+  const [reviews, setReviews] = useState<ReviewsResponseSuccess>([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(true);
 
   const fetchReviews = async () => {
-    const { data: reviews, error } = await supabase
-      .from('detailed_review')
-      .select()
-      .limit(10)
-      .order('created_at', { ascending: false })
-      .eq('spot_id', spot.id);
+    const { reviews, error } = await getSpotReviews({
+      client: supabase,
+      spotId: spot.id || '',
+    });
 
     if (error) {
       console.error(error);
@@ -68,13 +66,13 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
       <SpotCard spot={spot} />
       <Flex verticalAlign="top" className="w-full">
         <Flex direction="row" horizontalAlign="stretch" className="w-full">
-          <Text style="title">{`Reviews (${reviews.length})`}</Text>
+          <Text style="title">{`Reviews (${reviews?.length})`}</Text>
           {session ? (
             <ReviewCreateModal
               onConfirm={async (reviewCreated) => {
                 setReviews((reviews) => [reviewCreated, ...reviews]);
               }}
-              spotId={spot.id}
+              spotId={spot.id || ''}
               creatorId={session?.user?.id || ''}
             />
           ) : (
@@ -92,7 +90,7 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
           >
             <Icon name="spin" scale={2} className="animate-spin-slow" />
           </Flex>
-        ) : reviews.length > 0 ? (
+        ) : reviews && reviews?.length > 0 ? (
           <ReviewContainer reviews={reviews} />
         ) : (
           <Flex

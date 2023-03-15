@@ -1,8 +1,8 @@
+import { ReviewsResponseSuccess } from '@/features/reviews';
 import { Review } from './ReviewCard';
-import { TReviewDetailed } from './types';
 
 export type TReviewContainerProps = {
-  reviews: TReviewDetailed[];
+  reviews: NonNullable<ReviewsResponseSuccess>;
 };
 
 export const ReviewContainer = ({ reviews }: TReviewContainerProps) => {

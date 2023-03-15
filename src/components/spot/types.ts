@@ -1,11 +1,11 @@
+import { GetSpotResponseSuccess } from '@/features/spots';
 import { Database } from '@/lib/db_types';
 import { TTagColor } from '../common';
-import { ISpotExtanded } from '../maps';
 
 export type TSpotModalProps = {
-  spot: ISpotExtanded;
+  spot: NonNullable<GetSpotResponseSuccess>;
   onClose?: () => void;
-  onConfirm?: (spot: ISpotExtanded) => void;
+  onConfirm?: (spot: GetSpotResponseSuccess) => void;
 };
 
 export const difficultyColors: Record<

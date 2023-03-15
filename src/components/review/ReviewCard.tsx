@@ -1,14 +1,14 @@
 import { Button, Card, Flex, Icon, Text } from '@/components/common';
-import { formatDateString } from '@/lib';
+import { ReviewResponseSuccess } from '@/features/reviews';
+import { formatDateString, getFirstItem } from '@/lib';
 import { createClient } from '@/lib/supabase/browser';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSupabase } from '../auth/SupabaseProvider';
 import CustomImage from '../common/image/CustomImage';
-import { TReviewDetailed } from './types';
 
 export type TReviewProps = {
-  review: TReviewDetailed;
+  review: NonNullable<ReviewResponseSuccess>;
 };
 
 export const Review = ({ review }: TReviewProps) => {
@@ -16,12 +16,17 @@ export const Review = ({ review }: TReviewProps) => {
   const { session } = useSupabase();
 
   const [likesCount, setLikesCount] = useState<number>(
-    review.like_count as number
+    review.like_count[0]?.count || 0
   );
 
   const handleLike = async () => {
+    if (!session) {
+      toast.error('You need to be logged in to like a review');
+      return;
+    }
+
     const { data, error } = await supabase
-      .from('review_like')
+      .from('reviews_likes')
       .insert({
         review_id: review.id,
         profile_id: session?.user?.id,
@@ -68,7 +73,7 @@ export const Review = ({ review }: TReviewProps) => {
               gap={2}
             >
               <CustomImage
-                src={review.creator_avatar_url || ''}
+                src={getFirstItem(review.creator)?.avatar_url}
                 alt={'Avatar'}
                 width={30}
                 height={30}
