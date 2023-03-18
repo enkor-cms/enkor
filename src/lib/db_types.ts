@@ -41,10 +41,10 @@ export interface Database {
           creator_id: string
           end_at: string | null
           id: string
-          name: string | null
+          name: string
           places: number
           spot_id: string
-          start_at: string | null
+          start_at: string
           updated_at: string | null
         }
         Insert: {
@@ -52,10 +52,10 @@ export interface Database {
           creator_id: string
           end_at?: string | null
           id?: string
-          name?: string | null
+          name: string
           places?: number
           spot_id: string
-          start_at?: string | null
+          start_at: string
           updated_at?: string | null
         }
         Update: {
@@ -63,10 +63,10 @@ export interface Database {
           creator_id?: string
           end_at?: string | null
           id?: string
-          name?: string | null
+          name?: string
           places?: number
           spot_id?: string
-          start_at?: string | null
+          start_at?: string
           updated_at?: string | null
         }
       }

@@ -65,7 +65,9 @@ export const ImageCarouselController: React.FC<
               loader={true}
               height={300}
               fullWidth={true}
-              fit="cover"
+              style={{
+                objectFit: 'cover',
+              }}
               rounded="md"
               className="z-10"
             />

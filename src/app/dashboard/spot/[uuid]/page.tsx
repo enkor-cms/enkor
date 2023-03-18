@@ -1,4 +1,5 @@
 import { Flex, ImageCarouselController, Text } from '@/components/common';
+import { EventCreateFloatingPanel } from '@/components/event';
 import { EventContainer } from '@/components/event/EventContainer';
 import { ReviewContainer, ReviewCreateModal } from '@/components/review';
 import { SpotCard } from '@/components/spot';
@@ -32,7 +33,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
   }
 
   return (
-    <div className="w-5/6">
+    <div className="w-full md:w-5/6">
       <Flex
         fullSize
         verticalAlign="top"
@@ -70,7 +71,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               <span className="opacity-70">({events?.length})</span>{' '}
             </Text>
             {session ? (
-              <ReviewCreateModal
+              <EventCreateFloatingPanel
+                spot={spot}
                 spotId={spot.id}
                 creatorId={session?.user?.id || ''}
               />

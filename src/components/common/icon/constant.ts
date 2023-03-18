@@ -9,6 +9,7 @@ import Eye from './svg/eye';
 import EyeClosed from './svg/eye-closed';
 import Github from './svg/github';
 import Google from './svg/google';
+import Hamburger from './svg/hamburger';
 import Hearth from './svg/hearth';
 import Loop from './svg/loop';
 import Map from './svg/map';
@@ -43,4 +44,5 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   star: Star,
   hearth: Hearth,
   loop: Loop,
+  hamburger: Hamburger,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, IconNames } from '../icon';
 import { Text } from '../text';
+
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
   error?: string;
@@ -8,12 +9,12 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: IconNames;
 }
 
-export const InputText = React.forwardRef<HTMLInputElement, IProps>(
-  ({ className, children, labelText, type = 'text', error, ...props }, ref) => {
+export const InputDate = React.forwardRef<HTMLInputElement, IProps>(
+  ({ className, children, labelText, type = 'date', error, ...props }, ref) => {
     return (
       <div className={className + ' relative'}>
         {labelText && (
-          <label className="w-full text-left" htmlFor="txt">
+          <label className="w-full text-left" htmlFor="date">
             <Text style="caption" className="py-0 px-3">
               {labelText}
             </Text>
@@ -27,7 +28,7 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
         >
           {props.icon && <Icon name={props.icon} className="text-gray-400" />}
           <input
-            id="txt"
+            id="date"
             autoComplete="off"
             className="w-full outline-none bg-transparent border-none text-black-100 dark:text-white-100 group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-300/10 group-focus:border-transparent"
             {...props}
@@ -44,4 +45,4 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
   }
 );
 
-InputText.displayName = 'InputText';
+InputDate.displayName = 'InputDate';

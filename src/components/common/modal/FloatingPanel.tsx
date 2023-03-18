@@ -36,11 +36,11 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
   const getPanelWidth = () => {
     switch (size) {
       case 'medium':
-        return 'w-1/3';
+        return 'sm:w-5/6 md:w-2/3 lg:w-1/2 w-full';
       case 'large':
-        return 'w-7/12';
+        return 'sm:w-5/6 md:w-3/4 lg:w-2/3 w-full';
       default:
-        return 'w-1/3';
+        return 'sm:w-5/6 md:w-2/3 lg:w-1/2 w-full';
     }
   };
 
@@ -80,7 +80,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
           >
             <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col border-l border-gray-300 dark:border-dark-300">
               {props.customHeader || <DefaultHeader title={props.title} />}
-              <div className="overflow-hidden">{props.children}</div>
+              <div className="h-full overflow-hidden">{props.children}</div>
               {props.customFooter || (
                 <DefaultFooter
                   onCancel={() => {
