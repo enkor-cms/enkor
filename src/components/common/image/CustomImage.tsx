@@ -8,13 +8,12 @@ type ImageProps = {
   fullWidth?: boolean;
   width: number;
   height: number;
-  fit: 'cover' | 'contain';
   rounded?: 'sm' | 'md' | 'lg' | 'full';
 };
 
 type ICustomImageProps = ImageProps & React.ImgHTMLAttributes<HTMLImageElement>;
 
-export default function CustomImage({
+export function CustomImage({
   src,
   alt,
   loader = true,
@@ -46,7 +45,6 @@ export default function CustomImage({
         fill={true}
         placeholder={loader ? 'blur' : 'empty'}
         blurDataURL={`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=`}
-        style={{ objectFit: props.fit || 'cover' }}
         className={`w-full h-full absolute top-0 left-0 ${
           roundedClass[props.rounded || '']
         } ${className}`}

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Button } from '../button';
-import CustomImage from './CustomImage';
+import { CustomImage } from './CustomImage';
 
 interface ImageCarouselControllerProps {
   images: {

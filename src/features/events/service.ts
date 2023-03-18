@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger';
-import { getEventParams, getSpotEventsParams } from './types';
+import { getEventParams, getSpotEventsParams, joinEventParams } from './types';
 
 export const getEvent = async ({ eventId, client }: getEventParams) => {
   const { data: event, error } = await client
@@ -35,7 +35,7 @@ export const getSpotEvents = async ({
       `
     )
     .limit(10)
-    .order('created_at', { ascending: false })
+    .order('start_at', { ascending: true })
     .eq('spot_id', spotId);
 
   if (error) {
@@ -43,4 +43,21 @@ export const getSpotEvents = async ({
   }
 
   return { events, error };
+};
+
+export const joinEvent = async ({
+  eventId,
+  userId,
+  client,
+}: joinEventParams) => {
+  const { data: participation, error } = await client
+    .from('events_participations')
+    .insert({ event_id: eventId, user_id: userId })
+    .single();
+
+  if (error) {
+    logger.error(error);
+  }
+
+  return { participation, error };
 };

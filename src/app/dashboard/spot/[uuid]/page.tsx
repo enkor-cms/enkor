@@ -38,6 +38,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
         verticalAlign="top"
         horizontalAlign="left"
         className="h-full overflow-y-auto p-3"
+        gap={8}
       >
         <Flex className="h-full w-full">
           <ImageCarouselController
@@ -61,14 +62,36 @@ export default async function Page({ params }: { params: { uuid: string } }) {
           />
         </Flex>
         <SpotCard spot={spot} />
-        {events && events.length > 0 ? (
-          <EventContainer events={events} />
-        ) : (
-          <Text style="body">No Events</Text>
-        )}
+
         <Flex verticalAlign="top" className="w-full">
           <Flex direction="row" horizontalAlign="stretch" className="w-full">
-            <Text style="title">{`Reviews (${reviews?.length})`}</Text>
+            <Text style="title">
+              {`Events associated `}
+              <span className="opacity-70">({events?.length})</span>{' '}
+            </Text>
+            {session ? (
+              <ReviewCreateModal
+                spotId={spot.id}
+                creatorId={session?.user?.id || ''}
+              />
+            ) : (
+              <Text style="body" className="opacity-60">
+                {'Log in to add a review'}
+              </Text>
+            )}
+          </Flex>
+          {events && events.length > 0 ? (
+            <EventContainer events={events} />
+          ) : (
+            <Text style="body">No Events</Text>
+          )}
+        </Flex>
+        <Flex verticalAlign="top" className="w-full">
+          <Flex direction="row" horizontalAlign="stretch" className="w-full">
+            <Text style="title">
+              {`Reviews`}{' '}
+              <span className="opacity-70">({reviews?.length})</span>{' '}
+            </Text>
             {session ? (
               <ReviewCreateModal
                 spotId={spot.id}

@@ -1,11 +1,17 @@
-import { Button, Card, Flex, Icon, Text } from '@/components/common';
+import {
+  Button,
+  Card,
+  CustomImage,
+  Flex,
+  Icon,
+  Text,
+} from '@/components/common';
 import { ReviewResponseSuccess } from '@/features/reviews';
 import { formatDateString, getFirstItem } from '@/lib';
 import { createClient } from '@/lib/supabase/browser';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSupabase } from '../auth/SupabaseProvider';
-import CustomImage from '../common/image/CustomImage';
 
 export type TReviewProps = {
   review: NonNullable<ReviewResponseSuccess>;
@@ -64,7 +70,7 @@ export const Review = ({ review }: TReviewProps) => {
           <Flex
             direction="row"
             horizontalAlign="stretch"
-            className="w-full p-2 border-b border-white-300 dark:border-dark-300"
+            className="w-full px-2 border-b border-white-300 dark:border-dark-300"
           >
             <Flex
               direction="row"
@@ -95,9 +101,9 @@ export const Review = ({ review }: TReviewProps) => {
                     <Icon
                       key={i}
                       name="star"
-                      color="text-yellow-300"
+                      color="text-yellow-500"
                       className="p-0"
-                      scale={0.8}
+                      scale={0.7}
                       fill={review.note > i ? true : false}
                     />
                   ))}

@@ -5,6 +5,7 @@ import Loading from './loading';
 export default function RootLayout({ children }) {
   return (
     <Suspense fallback={<Loading />}>
+
       <Flex
         fullSize
         direction="column"
