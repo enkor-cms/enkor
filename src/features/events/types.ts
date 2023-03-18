@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { getEvent, getSpotEvents } from './service';
+import { getEvent, getSpotEvents, joinEvent } from './service';
 
 export type getEventParams = {
   client: ReturnType<typeof createClient>;
@@ -24,3 +24,7 @@ export type joinEventParams = {
   eventId: string;
   userId: string;
 };
+
+type JoinEventResponse = Awaited<ReturnType<typeof joinEvent>>;
+export type JoinEventResponseSuccess = JoinEventResponse['participation'];
+export type JoinEventResponseError = JoinEventResponse['error'];

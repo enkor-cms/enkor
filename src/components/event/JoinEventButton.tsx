@@ -9,7 +9,8 @@ import { Button } from '../common';
 
 export const JoinEventButton: React.FC<{
   event: NonNullable<EventResponseSuccess>;
-}> = ({ event }) => {
+  onJoinEvent?: (participation: any) => void;
+}> = ({ event, onJoinEvent }) => {
   const supabase = createClient();
   const { session } = useSupabase();
 
@@ -30,6 +31,7 @@ export const JoinEventButton: React.FC<{
     }
 
     if (participation) {
+      onJoinEvent && onJoinEvent(participation);
       toast.success('You have joined the event');
     }
   };

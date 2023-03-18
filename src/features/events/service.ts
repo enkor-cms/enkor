@@ -53,6 +53,12 @@ export const joinEvent = async ({
   const { data: participation, error } = await client
     .from('events_participations')
     .insert({ event_id: eventId, user_id: userId })
+    .select(
+      `
+        *,
+        user:profiles(avatar_url, username)
+      `
+    )
     .single();
 
   if (error) {

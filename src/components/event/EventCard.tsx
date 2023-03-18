@@ -1,4 +1,9 @@
-import { EventResponseSuccess } from '@/features/events';
+'use client';
+
+import {
+  EventResponseSuccess,
+  JoinEventResponseSuccess,
+} from '@/features/events';
 import { getFirstItem } from '@/lib';
 import { formatDate } from '@/lib/tsUtils';
 import Link from 'next/link';
@@ -19,6 +24,15 @@ export const EventCard: React.FC<{
   const [startDay, startHours] = formatDate(new Date(event.start_at)).split(
     '#'
   );
+
+  const [participations, setParticipations] = React.useState<
+    JoinEventResponseSuccess[]
+  >(event.participations);
+
+  const handleJoinEvent = (participation: JoinEventResponseSuccess) => {
+    const newParticipations = [...participations, participation];
+    setParticipations(newParticipations);
+  };
 
   return (
     <Card>
@@ -47,9 +61,9 @@ export const EventCard: React.FC<{
               objectPosition: 'top -20px left 50%',
             }}
           />
-          <JoinEventButton event={event} />
+          <JoinEventButton event={event} onJoinEvent={handleJoinEvent} />
           <Link
-            className="absolute top-0 left-0 w-full h-full"
+            className="absolute top-0 left-0"
             href={`/events/${event.id}`}
             target="_blank"
           >
@@ -86,15 +100,14 @@ export const EventCard: React.FC<{
           {event.creator && (
             <div>
               <Flex direction="row" gap={1}>
-                {event.participations &&
-                  Array.isArray(event.participations) && (
-                    <ImageHorizontalContainer
-                      images={event.participations.map((participation) => ({
-                        src: getFirstItem(participation.user)?.avatar_url,
-                        alt: getFirstItem(participation.user)?.username,
-                      }))}
-                    />
-                  )}
+                {participations && (
+                  <ImageHorizontalContainer
+                    images={participations.map((participation) => ({
+                      src: getFirstItem(participation?.user)?.avatar_url,
+                      alt: getFirstItem(participation?.user)?.username,
+                    }))}
+                  />
+                )}
               </Flex>
               <Text style="caption" color="text-brand-300">
                 {getFirstItem(event.creator).username}
@@ -102,7 +115,7 @@ export const EventCard: React.FC<{
             </div>
           )}
           <Text style="caption" className="tracking-widest">
-            <strong>{event.participations.length}</strong>
+            <strong>{participations.length}</strong>
             <span className="opacity-70">/{event.places}</span>
           </Text>
         </Flex>

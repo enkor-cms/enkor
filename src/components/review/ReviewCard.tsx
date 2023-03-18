@@ -70,7 +70,7 @@ export const Review = ({ review }: TReviewProps) => {
           <Flex
             direction="row"
             horizontalAlign="stretch"
-            className="w-full px-2 border-b border-white-300 dark:border-dark-300"
+            className="relative w-full px-2 border-b border-white-300 dark:border-dark-300"
           >
             <Flex
               direction="row"
@@ -88,13 +88,18 @@ export const Review = ({ review }: TReviewProps) => {
                 className="border border-gray-200"
               />
               <Flex
-                direction="column"
+                direction="row"
                 horizontalAlign="center"
-                verticalAlign="top"
+                verticalAlign="center"
                 gap={0}
+                className="py-2"
               >
-                <Text style="body" className="px-1">
-                  {review.title}
+                <Text
+                  style="body"
+                  className="px-1"
+                  color="text-brand-300 dark:text-brand-100"
+                >
+                  <strong>{review.title}</strong>
                 </Text>
                 <Flex direction="row" horizontalAlign="left" gap={0}>
                   {Array.from({ length: 5 }, (_, i) => (
@@ -110,36 +115,45 @@ export const Review = ({ review }: TReviewProps) => {
                 </Flex>
               </Flex>
             </Flex>
-            <Flex
-              direction="row"
-              horizontalAlign="center"
-              verticalAlign="center"
-              gap={0}
-            >
-              <Text style="body" className="opacity-80">
-                {likesCount}
+            <Card className="absolute right-3 -bottom-2 pl-2">
+              <Flex
+                direction="row"
+                horizontalAlign="center"
+                verticalAlign="center"
+                gap={0}
+              >
+                <Text style="body" className="opacity-80">
+                  {likesCount}
+                </Text>
+                <Button
+                  title={'Like'}
+                  className="text-red-500"
+                  variant="none"
+                  size="medium"
+                  icon="hearth"
+                  iconOnly
+                  disabled={session ? false : true}
+                  iconFill={likesCount > 0 ? true : false}
+                  onClick={handleLike}
+                />
+              </Flex>
+            </Card>
+          </Flex>
+          <Flex
+            direction="row"
+            horizontalAlign="stretch"
+            verticalAlign="stretch"
+            className="h-full w-full px-2 py-2"
+          >
+            <Text style="body" className="w-full px-1">
+              {review.content}
+            </Text>
+            <Flex className="h-full" horizontalAlign="right">
+              <Text style="overline" className="text-right px-2 py-1">
+                {formatDateString(review.created_at)}
               </Text>
-              <Button
-                title={'Like'}
-                className="text-red-500"
-                variant="none"
-                size="medium"
-                icon="hearth"
-                iconOnly
-                disabled={session ? false : true}
-                iconFill={likesCount > 0 ? true : false}
-                onClick={handleLike}
-              />
             </Flex>
           </Flex>
-
-          <Text style="caption" className="w-full h-full p-2">
-            {review.content}
-          </Text>
-
-          <Text style="overline" className="w-full text-right px-2 py-1">
-            {formatDateString(review.created_at)}
-          </Text>
         </Flex>
       </Flex>
     </Card>
