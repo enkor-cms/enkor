@@ -56,7 +56,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
                     setConfirmationOpen(true);
                     return;
                   } else {
-                    props.onConfirm();
+                    props.onClose();
                   }
                 }
               : undefined
@@ -88,7 +88,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
                       setConfirmationOpen(true);
                       return;
                     } else {
-                      props.onConfirm();
+                      props.onClose();
                     }
                   }}
                   onConfirm={props.onConfirm}
@@ -108,7 +108,8 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
         >
           <div className="text-center">
             <Text style="caption">
-              Are you sure you want to close this panel?
+              {props.forceValidationMessage ||
+                'If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?'}
             </Text>
           </div>
         </Modal>

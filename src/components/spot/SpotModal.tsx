@@ -8,6 +8,7 @@ import { getSpotReviews, ReviewsResponseSuccess } from '@/features/reviews';
 import { createClient } from '@/lib/supabase/browser';
 import { useEffect, useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
+import { EventCreateFloatingPanel } from '../event';
 import { EventContainer } from '../event/EventContainer';
 import { SpotCard } from './SpotCard';
 import { TSpotModalProps } from './types';
@@ -92,8 +93,8 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
             <span className="opacity-70">({events?.length})</span>{' '}
           </Text>
           {session ? (
-            <ReviewCreateModal
-              spotId={spot.id}
+            <EventCreateFloatingPanel
+              spot={spot}
               creatorId={session?.user?.id || ''}
             />
           ) : (

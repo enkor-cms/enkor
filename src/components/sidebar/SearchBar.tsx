@@ -1,13 +1,16 @@
 import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/browser';
-import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { Card, Flex, Icon, InputText, Text } from '../common';
 
 export type ISpotSearch =
   Database['public']['Views']['spot_search_view']['Row'];
 
-export const SearchBar = () => {
+export type TSearchBarProps = {
+  onClickItem?: (spot: ISpotSearch) => void;
+};
+
+export const SearchBar = ({ onClickItem }: TSearchBarProps) => {
   const supabase = createClient();
 
   const [search, setSearch] = React.useState('');
@@ -80,7 +83,15 @@ export const SearchBar = () => {
               gap={0}
             >
               {results.map((spot, index) => (
-                <SpotListItems key={index} spot={spot} />
+                <SpotListItems
+                  key={index}
+                  spot={spot}
+                  onClick={() => {
+                    setSearch('');
+                    setResults(null);
+                    onClickItem && onClickItem(spot);
+                  }}
+                />
               ))}
             </Flex>
           ) : (
@@ -94,44 +105,49 @@ export const SearchBar = () => {
   );
 };
 
-const SpotListItems = ({ spot }: { spot: ISpot }) => {
+const SpotListItems = ({
+  spot,
+  onClick,
+}: {
+  spot: ISpotSearch;
+  onClick: () => void;
+}) => {
   return (
-    <Flex fullSize verticalAlign="top" className="p-2">
-      <Link
-        href={`/dashboard/spot/${spot.id}`}
-        target="_blank"
+    <Flex
+      fullSize
+      verticalAlign="top"
+      className="p-2 cursor-pointer"
+      onClick={onClick}
+    >
+      <Flex
+        direction="row"
+        verticalAlign="center"
+        horizontalAlign="stretch"
         className="w-full"
       >
+        <Flex direction="row" className="w-full" horizontalAlign="left">
+          <Text style="body">{spot.name}</Text>
+          <Text
+            style="caption"
+            className="opacity-30"
+          >{`${spot.city}, ${spot.department}`}</Text>
+        </Flex>
         <Flex
           direction="row"
+          horizontalAlign="center"
           verticalAlign="center"
-          horizontalAlign="stretch"
-          className="w-full"
+          gap={0}
         >
-          <Flex direction="row" className="w-full" horizontalAlign="left">
-            <Text style="body">{spot.name}</Text>
-            <Text
-              style="caption"
-              className="opacity-30"
-            >{`${spot.city}, ${spot.department}`}</Text>
-          </Flex>
-          <Flex
-            direction="row"
-            horizontalAlign="center"
-            verticalAlign="center"
-            gap={0}
-          >
-            {spot.note ? (
-              <>
-                <Text style="body" className="opacity-80">
-                  {spot.note.toFixed(1)}
-                </Text>
-                <Icon name="star" color="text-yellow-400" fill />
-              </>
-            ) : null}
-          </Flex>
+          {spot.note ? (
+            <>
+              <Text style="body" className="opacity-80">
+                {spot.note.toFixed(1)}
+              </Text>
+              <Icon name="star" color="text-yellow-400" fill />
+            </>
+          ) : null}
         </Flex>
-      </Link>
+      </Flex>
     </Flex>
   );
 };

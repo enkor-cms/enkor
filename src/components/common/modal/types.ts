@@ -29,6 +29,7 @@ export type TModalDefaultProps = {
 
 export type TFloatingPanelProps = TModalDefaultProps & {
   forceValidation?: boolean;
+  forceValidationMessage?: string;
 };
 
 export type TModalProps = TModalDefaultProps;

@@ -8,7 +8,7 @@ export const SpotCardSmall: React.FC<{
   spot: NonNullable<GetSpotResponseSuccess>;
 }> = ({ spot }) => {
   return (
-    <Card className="w-full bg-white-300 dark:bg-dark-300">
+    <Card className="w-full dark:bg-dark-300">
       <Flex
         fullSize
         direction="column"
@@ -37,9 +37,9 @@ export const SpotCardSmall: React.FC<{
           <Link
             href={`/dashboard/spot/${spot.id}`}
             target="_blank"
-            className="absolute top-0 left-0"
+            className="absolute top-1 left-1"
           >
-            <Button title="see spot" icon="eye" iconOnly />
+            <Button title="Open spot page" icon="eye" />
           </Link>
         </Flex>
         <Flex

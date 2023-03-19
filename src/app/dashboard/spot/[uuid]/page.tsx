@@ -1,4 +1,9 @@
-import { Flex, ImageCarouselController, Text } from '@/components/common';
+import {
+  CustomImage,
+  Flex,
+  ImageCarouselController,
+  Text,
+} from '@/components/common';
 import { EventCreateFloatingPanel } from '@/components/event';
 import { EventContainer } from '@/components/event/EventContainer';
 import { ReviewContainer, ReviewCreateModal } from '@/components/review';
@@ -33,7 +38,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
   }
 
   return (
-    <div className="w-full md:w-5/6">
+    <div className="w-full md:w-11/12 lg:w-5/6">
       <Flex
         fullSize
         verticalAlign="top"
@@ -42,25 +47,30 @@ export default async function Page({ params }: { params: { uuid: string } }) {
         gap={8}
       >
         <Flex className="h-full w-full">
-          <ImageCarouselController
-            images={[
-              {
-                src: 'https://picsum.photos/id/1000/600/400',
-                alt: spot.name || 'Spot',
-                width: 600,
-              },
-              {
-                src: 'https://picsum.photos/id/1001/600/400',
-                alt: spot.name || 'Spot',
-                width: 300,
-              },
-              {
-                src: 'https://picsum.photos/id/1002/600/400',
-                alt: spot.name || 'Spot',
-                width: 600,
-              },
-            ]}
-          />
+          {spot.image && spot.image.length > 1 ? (
+            <ImageCarouselController
+              images={spot?.image?.map((image) => {
+                return {
+                  src: image,
+                  alt: spot.name,
+                  width: 400,
+                };
+              })}
+            />
+          ) : (
+            <CustomImage
+              src={spot.image[0]}
+              alt={spot.name}
+              loader={true}
+              height={300}
+              fullWidth={true}
+              style={{
+                objectFit: 'cover',
+              }}
+              rounded="md"
+              className="z-10"
+            />
+          )}
         </Flex>
         <SpotCard spot={spot} />
 
@@ -73,7 +83,6 @@ export default async function Page({ params }: { params: { uuid: string } }) {
             {session ? (
               <EventCreateFloatingPanel
                 spot={spot}
-                spotId={spot.id}
                 creatorId={session?.user?.id || ''}
               />
             ) : (

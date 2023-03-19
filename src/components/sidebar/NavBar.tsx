@@ -38,7 +38,9 @@ export const NavBar: React.FC<INavBarProps> = () => {
         </Link>
       </Flex>
       <Flex className="w-full md:w-1/2 lg:w-1/3 h-full">
-        <SearchBar />
+        <SearchBar
+          onClickItem={(item) => router.push(`/dashboard/spot/${item.id}`)}
+        />
       </Flex>
       <Flex
         direction="row"

@@ -16,7 +16,6 @@ export type EventInvitationInsert =
 
 export type TEventCreateModalProps = {
   spot?: GetSpotResponseSuccess;
-  spotId: Event['spot_id'];
   creatorId: Event['creator_id'];
   onClose?: () => void;
   onConfirm?: (event: Event) => void;
