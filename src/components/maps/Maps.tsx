@@ -112,7 +112,7 @@ const Map = ({ spots }: IMapProps) => {
       </div>
       <FloatingPanel
         isOpen={open}
-        text={actualSpot?.id || 'Map'}
+        title={actualSpot?.id || 'Map'}
         onClose={setClose}
         onConfirm={setClose}
         size="large"

@@ -27,9 +27,8 @@ export const EventCreateFloatingPanel = ({
 }: TEventCreateModalProps) => {
   const supabase = createClient();
   const router = useRouter();
-  const [spotSelected, setSpotSelected] = useState<GetSpotResponseSuccess>(
-    spot || null,
-  );
+  const [spotSelected, setSpotSelected] =
+    useState<GetSpotResponseSuccess | null>(spot || null);
 
   const [panelOpen, openPanel, closePanel] = useToggle(false);
   const [searchModalOpen, openSearchModal, closeSearchModal] = useToggle(false);
@@ -107,7 +106,7 @@ export const EventCreateFloatingPanel = ({
       />
       <FloatingPanel
         isOpen={panelOpen}
-        text="Create a new event"
+        title="Create a new event"
         onClose={() => {
           logger.info('Closing panel');
           closePanel();
@@ -154,7 +153,7 @@ export const EventCreateFloatingPanel = ({
                 <Button
                   text="Reset spot"
                   variant="primary"
-                  onClick={() => setSpotSelected(spot)}
+                  onClick={() => setSpotSelected(spot || null)}
                 />
                 <Button
                   text="Change spot"
@@ -164,7 +163,7 @@ export const EventCreateFloatingPanel = ({
                 />
               </Flex>
               <Modal
-                text="Change spot"
+                title="Change spot"
                 size="large"
                 isOpen={searchModalOpen}
                 onClose={() => closeSearchModal()}

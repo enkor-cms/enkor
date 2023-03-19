@@ -22,7 +22,7 @@ export const Review = ({ review }: TReviewProps) => {
   const { session } = useSupabase();
 
   const [likesCount, setLikesCount] = useState<number>(
-    review.like_count[0]?.count || 0
+    getFirstItem(review.like_count)?.count as number,
   );
 
   const handleLike = async () => {
@@ -79,12 +79,14 @@ export const Review = ({ review }: TReviewProps) => {
               gap={2}
             >
               <CustomImage
-                src={getFirstItem(review.creator)?.avatar_url}
+                src={getFirstItem(review.creator)?.avatar_url || ''}
                 alt={'Avatar'}
                 width={30}
                 height={30}
                 rounded="full"
-                fit="cover"
+                style={{
+                  objectFit: 'cover',
+                }}
                 className="border border-gray-200"
               />
               <Flex
@@ -109,7 +111,7 @@ export const Review = ({ review }: TReviewProps) => {
                       color="text-yellow-500"
                       className="p-0"
                       scale={0.7}
-                      fill={review.note > i ? true : false}
+                      fill={review.note && review.note > i ? true : false}
                     />
                   ))}
                 </Flex>
@@ -150,7 +152,7 @@ export const Review = ({ review }: TReviewProps) => {
             </Text>
             <Flex className="h-full" horizontalAlign="right">
               <Text variant="overline" className="text-right px-2 py-1">
-                {formatDateString(review.created_at)}
+                {formatDateString(review.created_at as string)}
               </Text>
             </Flex>
           </Flex>

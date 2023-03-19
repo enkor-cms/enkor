@@ -56,7 +56,7 @@ export const EventCard: React.FC<{
             fullWidth
             height={100}
             rounded="md"
-            styleVariant={{
+            style={{
               objectFit: 'cover',
               objectPosition: 'top -20px left 50%',
             }}

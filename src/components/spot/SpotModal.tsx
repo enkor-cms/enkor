@@ -11,6 +11,7 @@ import { ReviewContainer } from '@/components/review/ReviewContainer';
 import { ReviewCreateModal } from '@/components/review/ReviewCreateModal';
 import { EventsResponseSuccess, getSpotEvents } from '@/features/events';
 import { getSpotReviews, ReviewsResponseSuccess } from '@/features/reviews';
+import { getFirstItem } from '@/lib';
 import { createClient } from '@/lib/supabase/browser';
 import { useEffect, useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
@@ -76,19 +77,19 @@ export const SpotModal = ({ spot }: TSpotModalProps) => {
             images={spot?.image?.map((image) => {
               return {
                 src: image,
-                alt: spot.name,
+                alt: spot.name || '',
                 width: 400,
               };
             })}
           />
         ) : (
           <CustomImage
-            src={spot.image[0]}
-            alt={spot.name}
+            src={getFirstItem(spot.image) || ''}
+            alt={spot.name || ''}
             loader={true}
             height={300}
             fullWidth={true}
-            styleVariant={{
+            style={{
               objectFit: 'cover',
             }}
             rounded="md"

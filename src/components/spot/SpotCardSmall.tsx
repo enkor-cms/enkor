@@ -24,13 +24,13 @@ export const SpotCardSmall: React.FC<{
           className="relative rounded-t-md"
         >
           <CustomImage
-            src={getFirstItem(spot.image)}
+            src={getFirstItem(spot.image) || ''}
             // src="/hiking.png"
             alt={spot.name || 'spot'}
             fullWidth
             height={200}
             className="rounded-t-md"
-            styleVariant={{
+            style={{
               objectFit: 'cover',
             }}
           />
@@ -39,7 +39,7 @@ export const SpotCardSmall: React.FC<{
             target="_blank"
             className="absolute top-1 left-1"
           >
-            <Button text="Open spot page" icon="eye" />
+            <Button variant="primary" text="Open spot page" icon="eye" />
           </Link>
         </Flex>
         <Flex

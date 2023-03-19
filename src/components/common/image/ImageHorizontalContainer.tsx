@@ -20,7 +20,7 @@ export function ImageHorizontalContainer({
           width={25}
           height={25}
           rounded="full"
-          styleVariant={{
+          style={{
             marginLeft: index !== 0 ? `-${index * 10}px` : '0px',
             zIndex: images.length - index,
             objectFit: 'cover',
@@ -30,7 +30,7 @@ export function ImageHorizontalContainer({
       ))}
       {images.length > 5 && (
         <div
-          styleVariant={{
+          style={{
             marginLeft: `-35px`,
             zIndex: 6,
           }}

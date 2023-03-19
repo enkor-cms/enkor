@@ -50,6 +50,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
       >
         {/* Hamburger button */}
         <Button
+          variant="primary"
           text="Menu"
           icon="hamburger"
           iconOnly
