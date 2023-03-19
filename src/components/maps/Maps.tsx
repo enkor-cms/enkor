@@ -6,7 +6,7 @@ import { useToggle } from '@/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Flex, Icon, Text } from '../common';
 import { SpotModal } from '../spot';
@@ -86,7 +86,11 @@ const Map = ({ spots }: IMapProps) => {
     undefined,
   );
 
-  const [open, setClose, toggleOpen] = useToggle(false);
+  useEffect(() => {
+    console.log('actualSpot', actualSpot);
+  }, [actualSpot]);
+
+  const [open, setOpen, setClose] = useToggle(false);
 
   return (
     <>
@@ -105,7 +109,7 @@ const Map = ({ spots }: IMapProps) => {
           {markers?.map((spot) => {
             return getMarker(spot, (spot) => {
               setActualSpot(spot);
-              toggleOpen();
+              setOpen();
             });
           })}
         </LazyMapContainer>
