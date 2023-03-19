@@ -17,7 +17,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
             verticalAlign="center"
             gap={4}
           >
-            <Text style="title">{spot.name}</Text>
+            <Text variant="title">{spot.name}</Text>
             {spot.note ? (
               <Flex
                 direction="row"
@@ -25,7 +25,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
                 verticalAlign="center"
                 gap={0}
               >
-                <Text style="body" className="opacity-80">
+                <Text variant="body" className="opacity-80">
                   {spot.note.toFixed(1)}
                 </Text>
                 <Icon name="star" color="text-yellow-400" fill />
@@ -33,10 +33,10 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
             ) : null}
           </Flex>
           <Flex direction="row" horizontalAlign="left">
-            <Text style="body" className="opacity-80">
+            <Text variant="body" className="opacity-80">
               {spot.location.city}
             </Text>
-            <Text style="body" className="opacity-50">
+            <Text variant="body" className="opacity-50">
               {spot.location.department}
             </Text>
           </Flex>
@@ -52,7 +52,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
             >
               {spot.type && (
                 <>
-                  <Text style="caption">{'Type'}</Text>
+                  <Text variant="caption">{'Type'}</Text>
                   <Tag
                     text={spot.type}
                     color={spot.type === 'Outdoor' ? 'green' : 'blue'}
@@ -68,7 +68,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
             >
               {spot.difficulty && (
                 <>
-                  <Text style="caption">{'Difficulty'}</Text>
+                  <Text variant="caption">{'Difficulty'}</Text>
                   <Tag
                     text={spot.difficulty}
                     color={difficultyColors[spot.difficulty]}
@@ -79,7 +79,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
           </div>
         </Card>
       </Flex>
-      <Text style="body" className="opacity-60">
+      <Text variant="body" className="opacity-60">
         {spot.description}
       </Text>
     </>

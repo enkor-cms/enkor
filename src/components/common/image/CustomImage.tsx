@@ -20,6 +20,7 @@ export function CustomImage({
   fullWidth = false,
   width,
   height,
+  // eslint-disable-next-line no-unused-vars
   placeholder,
   className,
   ...props

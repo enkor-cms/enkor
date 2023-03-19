@@ -22,7 +22,7 @@ export const EventCard: React.FC<{
   event: NonNullable<EventResponseSuccess>;
 }> = ({ event }) => {
   const [startDay, startHours] = formatDate(new Date(event.start_at)).split(
-    '#'
+    '#',
   );
 
   const [participations, setParticipations] = React.useState<
@@ -56,7 +56,7 @@ export const EventCard: React.FC<{
             fullWidth
             height={100}
             rounded="md"
-            style={{
+            styleVariant={{
               objectFit: 'cover',
               objectPosition: 'top -20px left 50%',
             }}
@@ -67,7 +67,7 @@ export const EventCard: React.FC<{
             href={`/events/${event.id}`}
             target="_blank"
           >
-            <Button title="see event" icon="eye" iconOnly />
+            <Button text="see event" icon="eye" iconOnly />
           </Link>
         </Flex>
         <Flex
@@ -79,14 +79,14 @@ export const EventCard: React.FC<{
           gap={0}
         >
           <Flex direction="row" gap={3} className="opacity-80">
-            <Text style="overline">
+            <Text variant="overline">
               <strong>{startDay.toUpperCase()}</strong>
             </Text>
-            <Text style="overline" color="text-brand-300">
+            <Text variant="overline" color="text-brand-300">
               {startHours}
             </Text>
           </Flex>
-          <Text style="subtitle" color="text-brand-300 dark:text-brand-100">
+          <Text variant="subtitle" color="text-brand-300 dark:text-brand-100">
             {event.name}
           </Text>
         </Flex>
@@ -109,12 +109,12 @@ export const EventCard: React.FC<{
                   />
                 )}
               </Flex>
-              <Text style="caption" color="text-brand-300">
+              <Text variant="caption" color="text-brand-300">
                 {getFirstItem(event.creator).username}
               </Text>
             </div>
           )}
-          <Text style="caption" className="tracking-widest">
+          <Text variant="caption" className="tracking-widest">
             <strong>{participations.length}</strong>
             <span className="opacity-70">/{event.places}</span>
           </Text>

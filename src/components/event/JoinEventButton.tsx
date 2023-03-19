@@ -9,6 +9,7 @@ import { Button } from '../common';
 
 export const JoinEventButton: React.FC<{
   event: NonNullable<EventResponseSuccess>;
+  // eslint-disable-next-line no-unused-vars
   onJoinEvent?: (participation: any) => void;
 }> = ({ event, onJoinEvent }) => {
   const supabase = createClient();
@@ -38,7 +39,7 @@ export const JoinEventButton: React.FC<{
 
   return (
     <Button
-      title="Join"
+      text="Join"
       className="absolute bottom-[-20px] right-0 m-2"
       variant="secondary"
       size="small"

@@ -24,7 +24,7 @@ export default function RootLayout({ children }: IProps) {
       <NavBar />
       <div className="w-full h-full overflow-auto">{children}</div>
       <ToastContainer
-        toastClassName={({ type }) =>
+        toastClassName={({ type } = {}) =>
           contextClass[type || 'default'] +
           ' relative flex my-2 p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer border border-gray-300 dark:border-dark-300'
         }

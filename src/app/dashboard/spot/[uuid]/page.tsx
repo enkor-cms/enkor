@@ -11,6 +11,7 @@ import { SpotCard } from '@/components/spot';
 import { getSpotEvents } from '@/features/events/service';
 import { getSpotReviews } from '@/features/reviews';
 import { getSpot } from '@/features/spots';
+import { getFirstItem } from '@/lib';
 import { createClient } from '@/lib/supabase/server';
 
 export default async function Page({ params }: { params: { uuid: string } }) {
@@ -34,7 +35,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
   } = await supabase.auth.getSession();
 
   if (!spot) {
-    return <Text style="body">No Spot</Text>;
+    return <Text variant="body">No Spot</Text>;
   }
 
   return (
@@ -52,16 +53,17 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               images={spot?.image?.map((image) => {
                 return {
                   src: image,
-                  alt: spot.name,
+                  alt: spot.name || '',
                   width: 400,
                 };
               })}
             />
           ) : (
             <CustomImage
-              src={spot.image[0]}
-              alt={spot.name}
+              src={getFirstItem(spot.image) || ''}
+              alt={spot.name || ''}
               loader={true}
+              width={400}
               height={300}
               fullWidth={true}
               style={{
@@ -73,10 +75,9 @@ export default async function Page({ params }: { params: { uuid: string } }) {
           )}
         </Flex>
         <SpotCard spot={spot} />
-
         <Flex verticalAlign="top" className="w-full">
           <Flex direction="row" horizontalAlign="stretch" className="w-full">
-            <Text style="title">
+            <Text variant="title">
               {`Events associated `}
               <span className="opacity-70">({events?.length})</span>{' '}
             </Text>
@@ -86,7 +87,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                 creatorId={session?.user?.id || ''}
               />
             ) : (
-              <Text style="body" className="opacity-60">
+              <Text variant="body" className="opacity-60">
                 {'Log in to add a review'}
               </Text>
             )}
@@ -94,22 +95,22 @@ export default async function Page({ params }: { params: { uuid: string } }) {
           {events && events.length > 0 ? (
             <EventContainer events={events} />
           ) : (
-            <Text style="body">No Events</Text>
+            <Text variant="body">No Events</Text>
           )}
         </Flex>
         <Flex verticalAlign="top" className="w-full">
           <Flex direction="row" horizontalAlign="stretch" className="w-full">
-            <Text style="title">
+            <Text variant="title">
               {`Reviews`}{' '}
               <span className="opacity-70">({reviews?.length})</span>{' '}
             </Text>
             {session ? (
               <ReviewCreateModal
-                spotId={spot.id}
+                spotId={spot.id || ''}
                 creatorId={session?.user?.id || ''}
               />
             ) : (
-              <Text style="body" className="opacity-60">
+              <Text variant="body" className="opacity-60">
                 {'Log in to add a review'}
               </Text>
             )}
@@ -117,7 +118,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
           {reviews && reviews.length > 0 ? (
             <ReviewContainer reviews={reviews} />
           ) : (
-            <Text style="body">No Reviews</Text>
+            <Text variant="body">No Reviews</Text>
           )}
         </Flex>
       </Flex>

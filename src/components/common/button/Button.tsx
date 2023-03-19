@@ -7,7 +7,6 @@ export const Button: FunctionComponent<IButtonProps> = ({
   size = 'medium',
   isLoader = false,
   variant = 'primary',
-  title,
   icon,
   iconFill,
   iconOnly,
@@ -64,7 +63,7 @@ export const Button: FunctionComponent<IButtonProps> = ({
           )}
           {!iconOnly && (
             <div className={`${sizeDict[size]} ${icon ? 'pr-4' : 'px-4'}`}>
-              {title}
+              {props.text}
             </div>
           )}
         </>

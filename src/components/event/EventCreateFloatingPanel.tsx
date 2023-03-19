@@ -28,7 +28,7 @@ export const EventCreateFloatingPanel = ({
   const supabase = createClient();
   const router = useRouter();
   const [spotSelected, setSpotSelected] = useState<GetSpotResponseSuccess>(
-    spot || null
+    spot || null,
   );
 
   const [panelOpen, openPanel, closePanel] = useToggle(false);
@@ -101,13 +101,13 @@ export const EventCreateFloatingPanel = ({
   return (
     <>
       <Button
-        title="Create a new event"
+        text="Create a new event"
         variant="default"
         onClick={() => openPanel()}
       />
       <FloatingPanel
         isOpen={panelOpen}
-        title="Create a new event"
+        text="Create a new event"
         onClose={() => {
           logger.info('Closing panel');
           closePanel();
@@ -143,7 +143,7 @@ export const EventCreateFloatingPanel = ({
               horizontalAlign="stretch"
               verticalAlign="center"
             >
-              <Text style="body" className="py-0 px-3">
+              <Text variant="body" className="py-0 px-3">
                 Event details
               </Text>
               <Flex
@@ -152,19 +152,19 @@ export const EventCreateFloatingPanel = ({
                 verticalAlign="center"
               >
                 <Button
-                  title="Reset spot"
+                  text="Reset spot"
                   variant="primary"
                   onClick={() => setSpotSelected(spot)}
                 />
                 <Button
-                  title="Change spot"
+                  text="Change spot"
                   variant="default"
                   icon="loop"
                   onClick={() => openSearchModal()}
                 />
               </Flex>
               <Modal
-                title="Change spot"
+                text="Change spot"
                 size="large"
                 isOpen={searchModalOpen}
                 onClose={() => closeSearchModal()}
@@ -188,7 +188,7 @@ export const EventCreateFloatingPanel = ({
               <SpotCardSmall spot={spotSelected} />
             ) : (
               <Flex className="w-full">
-                <Text style="body" className="py-0 px-3 opacity-80">
+                <Text variant="body" className="py-0 px-3 opacity-80">
                   You must select a spot
                 </Text>
               </Flex>
@@ -230,7 +230,7 @@ export const EventCreateFloatingPanel = ({
             verticalAlign="top"
             gap={6}
           >
-            <Text style="body" className="py-0 px-3">
+            <Text variant="body" className="py-0 px-3">
               Optional fields
             </Text>
             <InputDate

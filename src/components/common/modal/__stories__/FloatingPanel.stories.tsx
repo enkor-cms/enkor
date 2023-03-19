@@ -9,7 +9,7 @@ const Template: StoryFn<TFloatingPanelProps> = (args) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Button title="Button" size="medium" onClick={() => setIsOpen(true)} />
+      <Button text="Button" size="medium" onClick={() => setIsOpen(true)} />
       <Component
         {...args}
         isOpen={isOpen}
@@ -17,7 +17,7 @@ const Template: StoryFn<TFloatingPanelProps> = (args) => {
         onConfirm={() => setIsOpen(false)}
         forceValidation={args.forceValidation}
       >
-        <Text style="caption">
+        <Text variant="caption">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
         </Text>
       </Component>

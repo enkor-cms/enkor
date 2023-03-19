@@ -8,7 +8,7 @@ export const DefaultHeader: FunctionComponent<TDefaultHeaderProps> = ({
 }) => {
   return (
     <div className="h-16 flex justify-between items-center border-b border-gray-300 dark:border-dark-300 p-3">
-      <Text style="body">{title}</Text>
+      <Text variant="body">{title}</Text>
     </div>
   );
 };
@@ -19,9 +19,9 @@ export const DefaultFooter: FunctionComponent<TDefaultFooterProps> = ({
 }) => {
   return (
     <div className="flex justify-end border-t border-gray-300 dark:border-dark-300 p-3">
-      {onCancel && <Button title="Cancel" onClick={onCancel} />}
+      {onCancel && <Button text="Cancel" onClick={onCancel} />}
       {onConfirm && (
-        <Button title="Confirm" variant="secondary" onClick={onConfirm} />
+        <Button text="Confirm" variant="secondary" onClick={onConfirm} />
       )}
     </div>
   );

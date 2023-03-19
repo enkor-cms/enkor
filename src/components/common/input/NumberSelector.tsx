@@ -4,6 +4,7 @@ import { Flex } from '../layout';
 interface NumberSelectorProps {
   maxNumber: number;
   value: number;
+  // eslint-disable-next-line no-unused-vars
   setValue: (value: number) => void;
 }
 

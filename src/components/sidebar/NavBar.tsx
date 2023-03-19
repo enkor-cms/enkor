@@ -50,7 +50,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
       >
         {/* Hamburger button */}
         <Button
-          title="Menu"
+          text="Menu"
           icon="hamburger"
           iconOnly
           className="flex-none"
@@ -65,7 +65,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
               gap={0}
             >
               <Button
-                title="Maps"
+                text="Maps"
                 className="w-full text-brand-300 dark:text-brand-100 "
                 variant="none"
                 icon="map"
@@ -76,7 +76,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
               />
 
               <Button
-                title="Models"
+                text="Models"
                 className="w-full text-brand-300 dark:text-brand-100 "
                 variant="none"
                 icon="swatch"
@@ -87,7 +87,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
               />
 
               <Button
-                title="Settings"
+                text="Settings"
                 className="w-full text-brand-300 dark:text-brand-100 "
                 variant="none"
                 icon="cog"

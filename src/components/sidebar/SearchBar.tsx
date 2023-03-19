@@ -7,6 +7,7 @@ export type ISpotSearch =
   Database['public']['Views']['spot_search_view']['Row'];
 
 export type TSearchBarProps = {
+  // eslint-disable-next-line no-unused-vars
   onClickItem?: (spot: ISpotSearch) => void;
 };
 
@@ -96,7 +97,7 @@ export const SearchBar = ({ onClickItem }: TSearchBarProps) => {
             </Flex>
           ) : (
             <Flex fullSize verticalAlign="center" horizontalAlign="center">
-              <Text style="body">No results</Text>
+              <Text variant="body">No results</Text>
             </Flex>
           )}
         </Card>
@@ -126,9 +127,9 @@ const SpotListItems = ({
         className="w-full"
       >
         <Flex direction="row" className="w-full" horizontalAlign="left">
-          <Text style="body">{spot.name}</Text>
+          <Text variant="body">{spot.name}</Text>
           <Text
-            style="caption"
+            variant="caption"
             className="opacity-30"
           >{`${spot.city}, ${spot.department}`}</Text>
         </Flex>
@@ -140,7 +141,7 @@ const SpotListItems = ({
         >
           {spot.note ? (
             <>
-              <Text style="body" className="opacity-80">
+              <Text variant="body" className="opacity-80">
                 {spot.note.toFixed(1)}
               </Text>
               <Icon name="star" color="text-yellow-400" fill />

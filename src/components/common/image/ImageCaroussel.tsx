@@ -20,7 +20,8 @@ export const ImageCarouselController: React.FC<
   React.useEffect(() => {
     if (carouselRef.current) {
       const handleScroll = () => {
-        const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+        const { scrollLeft, scrollWidth, clientWidth } =
+          carouselRef.current as HTMLDivElement;
         setShowLeftArrow(scrollLeft > 0);
         setShowRightArrow(scrollWidth > clientWidth + scrollLeft);
       };
@@ -63,6 +64,7 @@ export const ImageCarouselController: React.FC<
               src={image.src}
               alt={image.alt}
               loader={true}
+              width={image.width || 400}
               height={300}
               fullWidth={true}
               style={{
@@ -78,7 +80,7 @@ export const ImageCarouselController: React.FC<
         variant="primary"
         icon="chevron-left"
         iconOnly
-        title="Previous"
+        text="Previous"
         onClick={handlePrev}
         style={{
           opacity: showLeftArrow ? 1 : 0,
@@ -89,7 +91,7 @@ export const ImageCarouselController: React.FC<
         variant="primary"
         icon="chevron-right"
         iconOnly
-        title="Previous"
+        text="Previous"
         onClick={handleNext}
         style={{
           opacity: showRightArrow ? 1 : 0,

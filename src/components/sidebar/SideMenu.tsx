@@ -26,7 +26,7 @@ export const SideMenu: React.FC<ISideMenuProps> = ({ menuItems }) => {
           >
             <Flex direction="row" gap={1} fullSize horizontalAlign="left">
               <Icon name={item.icon} />
-              <Text key={item.label} style="body">
+              <Text key={item.label} variant="body">
                 {item.label}
               </Text>
             </Flex>

@@ -15,7 +15,7 @@ export const InputDate = React.forwardRef<HTMLInputElement, IProps>(
       <div className={className + ' relative'}>
         {labelText && (
           <label className="w-full text-left" htmlFor="date">
-            <Text style="caption" className="py-0 px-3">
+            <Text variant="caption" className="py-0 px-3">
               {labelText}
             </Text>
           </label>
@@ -42,7 +42,7 @@ export const InputDate = React.forwardRef<HTMLInputElement, IProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 InputDate.displayName = 'InputDate';

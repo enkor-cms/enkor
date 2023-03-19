@@ -30,7 +30,7 @@ export default function RootLayout({ children }: IProps) {
         direction="row"
         horizontalAlign="left"
       >
-        <Text style="title">Settings</Text>
+        <Text variant="title">Settings</Text>
       </Flex>
       <Flex
         fullSize
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: IProps) {
             ]}
           />
           <Button
-            title="Sign Out"
+            text="Sign Out"
             variant="primary"
             className="text-red-500"
             onClick={() => {

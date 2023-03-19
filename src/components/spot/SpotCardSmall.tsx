@@ -30,7 +30,7 @@ export const SpotCardSmall: React.FC<{
             fullWidth
             height={200}
             className="rounded-t-md"
-            style={{
+            styleVariant={{
               objectFit: 'cover',
             }}
           />
@@ -39,7 +39,7 @@ export const SpotCardSmall: React.FC<{
             target="_blank"
             className="absolute top-1 left-1"
           >
-            <Button title="Open spot page" icon="eye" />
+            <Button text="Open spot page" icon="eye" />
           </Link>
         </Flex>
         <Flex
@@ -50,14 +50,14 @@ export const SpotCardSmall: React.FC<{
           className="p-2"
           gap={0}
         >
-          <Text style="subtitle" color="text-brand-300 dark:text-brand-100">
+          <Text variant="subtitle" color="text-brand-300 dark:text-brand-100">
             {spot.name}
           </Text>
           <Flex direction="row" horizontalAlign="left">
-            <Text style="body" className="opacity-80">
+            <Text variant="body" className="opacity-80">
               {spot.location.city}
             </Text>
-            <Text style="body" className="opacity-50">
+            <Text variant="body" className="opacity-50">
               {spot.location.department}
             </Text>
           </Flex>
@@ -69,7 +69,7 @@ export const SpotCardSmall: React.FC<{
           horizontalAlign="stretch"
           className="p-2"
         >
-          <Text style="caption" color="text-brand-300">
+          <Text variant="caption" color="text-brand-300">
             {spot.type && (
               <Tag
                 text={spot.type}
@@ -84,7 +84,7 @@ export const SpotCardSmall: React.FC<{
             className="h-full ml-auto"
             gap={0}
           >
-            <Text style="caption" className="tracking-widest">
+            <Text variant="caption" className="tracking-widest">
               {spot.note?.toFixed(1)}
               <span className="opacity-70">/5</span>
             </Text>

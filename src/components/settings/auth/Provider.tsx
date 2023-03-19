@@ -55,7 +55,7 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
         pending: 'Enabling provider',
         success: `Provider ${label} enabled`,
         error: `Failed to enable provider ${label}`,
-      }
+      },
     );
   };
 
@@ -82,7 +82,7 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
         pending: 'Disabling provider',
         success: `Provider ${label} disabled`,
         error: `Failed to disable provider ${label}`,
-      }
+      },
     );
   };
 
@@ -90,7 +90,7 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
     <Flex fullSize direction="row" horizontalAlign="stretch" className="p-3">
       <Flex className="w-60" direction="row" horizontalAlign="left">
         <Icon name={icon} scale={1.2} />
-        <Text style="subtitle">{label}</Text>
+        <Text variant="subtitle">{label}</Text>
       </Flex>
       {/* {dataState && (
         <Flex direction="row" horizontalAlign="right">
@@ -109,7 +109,7 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
           <>
             <Tag color="green" text="Enabled" />
             <Button
-              title="Disable"
+              text="Disable"
               icon="cross"
               variant="primary"
               iconOnly
@@ -118,20 +118,20 @@ export const ProviderBlock: React.FC<IProviderProps> = ({
           </>
         ) : (
           <Button
-            title="Enable"
+            text="Enable"
             variant="primary"
             onClick={() => setIsOpen(true)}
           />
         )}
       </Flex>
       <Modal
-        title="Configure provider"
+        text="Configure provider"
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onConfirm={() => handleSubmit()}
       >
         <Flex direction="column" horizontalAlign="left" className="p-3">
-          <Text style="body" className="text-left m-2">
+          <Text variant="body" className="text-left m-2">
             To enable {label} provider you need to provide your public and
             secret key. You can find them in your {label} developer page.
           </Text>

@@ -2,9 +2,9 @@ import { Meta, StoryFn } from '@storybook/react';
 import { icons } from '../constant';
 
 import { Icon as IconComponent } from '../Icon';
-import { TIconProps } from '../types';
+import { IIconProps } from '../types';
 
-const Template: StoryFn<TIconProps> = (args: TIconProps) => (
+const Template: StoryFn<IIconProps> = (args: IIconProps) => (
   <>
     <IconComponent {...args} />
   </>

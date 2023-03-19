@@ -20,22 +20,22 @@ export function ImageHorizontalContainer({
           width={25}
           height={25}
           rounded="full"
-          fit={'cover'}
-          style={{
+          styleVariant={{
             marginLeft: index !== 0 ? `-${index * 10}px` : '0px',
             zIndex: images.length - index,
+            objectFit: 'cover',
           }}
           className="border border-white-300 dark:border-dark-300"
         />
       ))}
       {images.length > 5 && (
         <div
-          style={{
+          styleVariant={{
             marginLeft: `-35px`,
             zIndex: 6,
           }}
         >
-          <Text style="overline">+{images.length - 5}</Text>
+          <Text variant="overline">+{images.length - 5}</Text>
         </div>
       )}
     </Flex>

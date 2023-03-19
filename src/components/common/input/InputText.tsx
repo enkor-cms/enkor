@@ -14,7 +14,7 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
       <div className={className + ' relative'}>
         {labelText && (
           <label className="w-full text-left" htmlFor="txt">
-            <Text style="caption" className="py-0 px-3">
+            <Text variant="caption" className="py-0 px-3">
               {labelText}
             </Text>
           </label>

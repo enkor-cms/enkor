@@ -5,6 +5,7 @@ import { TTagColor } from '../common';
 export type TSpotModalProps = {
   spot: NonNullable<GetSpotResponseSuccess>;
   onClose?: () => void;
+  // eslint-disable-next-line no-unused-vars
   onConfirm?: (spot: GetSpotResponseSuccess) => void;
 };
 

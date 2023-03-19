@@ -25,40 +25,38 @@ export const Modal: FunctionComponent<TModalProps> = ({
     }
   };
 
-  return (
-    (hasTransitionedIn || isOpen) && (
-      <BackgroundOverlay
-        onMouseDown={allowClose}
-        onMouseUp={canClose ? props.onClose : undefined}
-        className={`floating-panel-right-background ${
-          hasTransitionedIn && 'in'
-        } ${isOpen && 'visible'}`}
+  return hasTransitionedIn || isOpen ? (
+    <BackgroundOverlay
+      onMouseDown={allowClose}
+      onMouseUp={canClose ? props.onClose : undefined}
+      className={`floating-panel-right-background ${
+        hasTransitionedIn && 'in'
+      } ${isOpen && 'visible'}`}
+    >
+      <div
+        className={`modal ${hasTransitionedIn && 'in'} ${
+          isOpen && 'visible'
+        } absolute ${getPanelWidth()} top-1/2 transform -translate-y-1/2 z-10 flex justify-center`}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          preventClose();
+        }}
+        onMouseUp={(e) => {
+          e.stopPropagation();
+          preventClose();
+        }}
       >
-        <div
-          className={`modal ${hasTransitionedIn && 'in'} ${
-            isOpen && 'visible'
-          } absolute ${getPanelWidth()} top-1/2 transform -translate-y-1/2 z-10 flex justify-center`}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            preventClose();
-          }}
-          onMouseUp={(e) => {
-            e.stopPropagation();
-            preventClose();
-          }}
-        >
-          <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col shadow-lg rounded-sm border border-gray-300 dark:border-dark-300">
-            {props.customHeader || <DefaultHeader title={props.title} />}
-            <div className="grow p-3 text-center">{children}</div>
-            {props.customFooter || (
-              <DefaultFooter
-                onCancel={props.onClose}
-                onConfirm={props.onConfirm}
-              />
-            )}
-          </div>
+        <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col shadow-lg rounded-sm border border-gray-300 dark:border-dark-300">
+          {props.customHeader || <DefaultHeader text={props.title} />}
+          <div className="grow p-3 text-center">{children}</div>
+          {props.customFooter || (
+            <DefaultFooter
+              onCancel={props.onClose}
+              onConfirm={props.onConfirm}
+            />
+          )}
         </div>
-      </BackgroundOverlay>
-    )
-  );
+      </div>
+    </BackgroundOverlay>
+  ) : null;
 };

@@ -7,7 +7,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Text style="body">{params.slug}</Text>
+      <Text variant="body">{params.slug}</Text>
       <button
         onClick={() => {
           setIsOpen(true);
@@ -26,7 +26,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         }}
       >
         <Flex direction="column" horizontalAlign="left">
-          <Text style="subtitle">Public key</Text>
+          <Text variant="subtitle">Public key</Text>
         </Flex>
       </FloatingPanel>
     </div>

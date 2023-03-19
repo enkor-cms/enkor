@@ -25,7 +25,7 @@ export const ProvidersContainer = () => {
     <>
       <Flex>
         <Button
-          title={`Continue with Google`}
+          text={`Continue with Google`}
           variant="primary"
           size="large"
           icon={'google'}
@@ -37,7 +37,7 @@ export const ProvidersContainer = () => {
       </Flex>
       <Flex>
         <Button
-          title={`Continue with Github`}
+          text={`Continue with Github`}
           variant="primary"
           size="large"
           icon={'github'}

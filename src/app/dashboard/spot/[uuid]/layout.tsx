@@ -1,11 +1,14 @@
 import { Flex } from '@/components/common';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import Loading from './loading';
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <Suspense fallback={<Loading />}>
-
       <Flex
         fullSize
         direction="column"

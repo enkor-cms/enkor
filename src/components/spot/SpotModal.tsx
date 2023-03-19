@@ -1,6 +1,12 @@
 'use client';
 
-import { Flex, Icon, ImageCarouselController, Text } from '@/components/common';
+import {
+  CustomImage,
+  Flex,
+  Icon,
+  ImageCarouselController,
+  Text,
+} from '@/components/common';
 import { ReviewContainer } from '@/components/review/ReviewContainer';
 import { ReviewCreateModal } from '@/components/review/ReviewCreateModal';
 import { EventsResponseSuccess, getSpotEvents } from '@/features/events';
@@ -13,11 +19,11 @@ import { EventContainer } from '../event/EventContainer';
 import { SpotCard } from './SpotCard';
 import { TSpotModalProps } from './types';
 
-export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
+export const SpotModal = ({ spot }: TSpotModalProps) => {
   const supabase = createClient();
   const { session } = useSupabase();
 
-  const [reviews, setReviews] = useState<ReviewsResponseSuccess>([]);
+  const [reviews, setReviews] = useState<ReviewsResponseSuccess>(null);
   const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(true);
 
   const fetchReviews = async () => {
@@ -34,7 +40,7 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
     setReviews(reviews || []);
   };
 
-  const [events, setEvents] = useState<EventsResponseSuccess>([]);
+  const [events, setEvents] = useState<EventsResponseSuccess>(null);
   const [isLoadingEvents, setIsLoadingEvents] = useState<boolean>(true);
 
   const fetchEvents = async () => {
@@ -65,30 +71,35 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
       gap={6}
     >
       <Flex className="h-full w-full">
-        <ImageCarouselController
-          images={[
-            {
-              src: 'https://picsum.photos/id/1000/600/400',
-              alt: spot.name || 'Spot',
-              width: 600,
-            },
-            {
-              src: 'https://picsum.photos/id/1001/600/400',
-              alt: spot.name || 'Spot',
-              width: 300,
-            },
-            {
-              src: 'https://picsum.photos/id/1002/600/400',
-              alt: spot.name || 'Spot',
-              width: 600,
-            },
-          ]}
-        />
+        {spot.image && spot.image.length > 1 ? (
+          <ImageCarouselController
+            images={spot?.image?.map((image) => {
+              return {
+                src: image,
+                alt: spot.name,
+                width: 400,
+              };
+            })}
+          />
+        ) : (
+          <CustomImage
+            src={spot.image[0]}
+            alt={spot.name}
+            loader={true}
+            height={300}
+            fullWidth={true}
+            styleVariant={{
+              objectFit: 'cover',
+            }}
+            rounded="md"
+            className="z-10"
+          />
+        )}
       </Flex>
       <SpotCard spot={spot} />
       <Flex verticalAlign="top" className="w-full">
         <Flex direction="row" horizontalAlign="stretch" className="w-full">
-          <Text style="title">
+          <Text variant="title">
             {`Events associated `}
             <span className="opacity-70">({events?.length})</span>{' '}
           </Text>
@@ -98,30 +109,50 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
               creatorId={session?.user?.id || ''}
             />
           ) : (
-            <Text style="body" className="opacity-60">
+            <Text variant="body" className="opacity-60">
               {'Log in to add a review'}
             </Text>
           )}
         </Flex>
-        {events && events.length > 0 ? (
+        {isLoadingEvents ? (
+          <Flex
+            direction="column"
+            horizontalAlign="center"
+            verticalAlign="center"
+            className="w-full"
+          >
+            <Icon name="spin" scale={2} className="animate-spin-slow" />
+          </Flex>
+        ) : events && events?.length > 0 ? (
           <EventContainer events={events} />
         ) : (
-          <Text style="body">No Events</Text>
+          <Flex
+            direction="column"
+            horizontalAlign="center"
+            verticalAlign="center"
+            className="w-full"
+          >
+            <Text variant="body" className="opacity-60">
+              {'No events yet'}
+            </Text>
+          </Flex>
         )}
       </Flex>
       <Flex verticalAlign="top" className="w-full">
         <Flex direction="row" horizontalAlign="stretch" className="w-full">
-          <Text style="title">{`Reviews (${reviews?.length})`}</Text>
+          <Text variant="title">{`Reviews (${reviews?.length})`}</Text>
           {session ? (
             <ReviewCreateModal
               onConfirm={async (reviewCreated) => {
-                setReviews((reviews) => [reviewCreated, ...reviews]);
+                setReviews((prev) => {
+                  return [reviewCreated, ...prev];
+                });
               }}
               spotId={spot.id || ''}
               creatorId={session?.user?.id || ''}
             />
           ) : (
-            <Text style="body" className="opacity-60">
+            <Text variant="body" className="opacity-60">
               {'Log in to add a review'}
             </Text>
           )}
@@ -144,7 +175,7 @@ export const SpotModal = ({ spot, onClose, onConfirm }: TSpotModalProps) => {
             verticalAlign="center"
             className="w-full"
           >
-            <Text style="body" className="opacity-60">
+            <Text variant="body" className="opacity-60">
               {'No reviews yet'}
             </Text>
           </Flex>

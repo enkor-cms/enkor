@@ -44,76 +44,74 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
     }
   };
 
-  return (
-    (hasTransitionedIn || props.isOpen) && (
-      <>
-        <BackgroundOverlay
-          onMouseDown={allowClose}
-          onMouseUp={
-            canClose
-              ? () => {
+  return hasTransitionedIn || props.isOpen ? (
+    <>
+      <BackgroundOverlay
+        onMouseDown={allowClose}
+        onMouseUp={
+          canClose
+            ? () => {
+                if (props.forceValidation) {
+                  setConfirmationOpen(true);
+                  return;
+                } else {
+                  props.onClose();
+                }
+              }
+            : undefined
+        }
+        className={`floating-panel-right-background ${
+          hasTransitionedIn && 'in'
+        } ${props.isOpen && 'visible'}`}
+      >
+        <div
+          className={`floating-panel-right ${hasTransitionedIn && 'in'} ${
+            props.isOpen && 'visible'
+          } fixed bottom-0 top-0 right-0 z-10 ${getPanelWidth()} flex justify-center`}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            preventClose();
+          }}
+          onMouseUp={(e) => {
+            e.stopPropagation();
+            preventClose();
+          }}
+        >
+          <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col border-l border-gray-300 dark:border-dark-300">
+            {props.customHeader || <DefaultHeader text={props.title} />}
+            <div className="h-full overflow-hidden">{props.children}</div>
+            {props.customFooter || (
+              <DefaultFooter
+                onCancel={() => {
                   if (props.forceValidation) {
                     setConfirmationOpen(true);
                     return;
                   } else {
                     props.onClose();
                   }
-                }
-              : undefined
-          }
-          className={`floating-panel-right-background ${
-            hasTransitionedIn && 'in'
-          } ${props.isOpen && 'visible'}`}
-        >
-          <div
-            className={`floating-panel-right ${hasTransitionedIn && 'in'} ${
-              props.isOpen && 'visible'
-            } fixed bottom-0 top-0 right-0 z-10 ${getPanelWidth()} flex justify-center`}
-            onMouseDown={(e) => {
-              e.stopPropagation();
-              preventClose();
-            }}
-            onMouseUp={(e) => {
-              e.stopPropagation();
-              preventClose();
-            }}
-          >
-            <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col border-l border-gray-300 dark:border-dark-300">
-              {props.customHeader || <DefaultHeader title={props.title} />}
-              <div className="h-full overflow-hidden">{props.children}</div>
-              {props.customFooter || (
-                <DefaultFooter
-                  onCancel={() => {
-                    if (props.forceValidation) {
-                      setConfirmationOpen(true);
-                      return;
-                    } else {
-                      props.onClose();
-                    }
-                  }}
-                  onConfirm={props.onConfirm}
-                />
-              )}
-            </div>
+                }}
+                onConfirm={props.onConfirm}
+              />
+            )}
           </div>
-        </BackgroundOverlay>
-        <Modal
-          isOpen={confirmationOpen}
-          onClose={() => setConfirmationOpen(false)}
-          onConfirm={() => {
-            setConfirmationOpen(false);
-            props.onClose();
-          }}
-          title="Confirmation"
-        >
-          <div className="text-center">
-            <Text style="caption">
-              {props.forceValidationMessage ||
-                'If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?'}
-            </Text>
-          </div>
-        </Modal>
-      </>
-    )
-  );
+        </div>
+      </BackgroundOverlay>
+      <Modal
+        isOpen={confirmationOpen}
+        onClose={() => setConfirmationOpen(false)}
+        onConfirm={() => {
+          setConfirmationOpen(false);
+          props.onClose();
+        }}
+        text="Confirmation"
+      >
+        <div className="text-center">
+          <Text variant="caption">
+            {props.forceValidationMessage ||
+              'If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?'}
+          </Text>
+        </div>
+      </Modal>
+    </>
+  ) : null;
 };

@@ -3,7 +3,7 @@ import { ITextProps, textConfig } from './index';
 
 export const Text: FunctionComponent<ITextProps> = ({
   children,
-  style,
+  variant: variant,
   color,
   className,
   ...props
@@ -13,7 +13,7 @@ export const Text: FunctionComponent<ITextProps> = ({
 
   return (
     <div
-      className={`${textConfig[style]} ${
+      className={`${textConfig[variant]} ${
         color ? color : colorClass
       } ${className}`}
       {...props}

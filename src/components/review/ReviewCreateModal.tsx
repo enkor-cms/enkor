@@ -68,13 +68,13 @@ export const ReviewCreateModal = ({
   return (
     <>
       <Button
-        title="Add a review"
+        text="Add a review"
         variant="default"
         onClick={() => openCreatingModal()}
       />
       <Modal
         isOpen={creatingModalOpen}
-        title="Add a review"
+        text="Add a review"
         onClose={() => {
           closeCreatingModal();
           onClose && onClose();

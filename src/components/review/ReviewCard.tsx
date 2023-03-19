@@ -95,7 +95,7 @@ export const Review = ({ review }: TReviewProps) => {
                 className="py-2"
               >
                 <Text
-                  style="body"
+                  variant="body"
                   className="px-1"
                   color="text-brand-300 dark:text-brand-100"
                 >
@@ -122,11 +122,11 @@ export const Review = ({ review }: TReviewProps) => {
                 verticalAlign="center"
                 gap={0}
               >
-                <Text style="body" className="opacity-80">
+                <Text variant="body" className="opacity-80">
                   {likesCount}
                 </Text>
                 <Button
-                  title={'Like'}
+                  text={'Like'}
                   className="text-red-500"
                   variant="none"
                   size="medium"
@@ -145,11 +145,11 @@ export const Review = ({ review }: TReviewProps) => {
             verticalAlign="stretch"
             className="h-full w-full px-2 py-2"
           >
-            <Text style="body" className="w-full px-1">
+            <Text variant="body" className="w-full px-1">
               {review.content}
             </Text>
             <Flex className="h-full" horizontalAlign="right">
-              <Text style="overline" className="text-right px-2 py-1">
+              <Text variant="overline" className="text-right px-2 py-1">
                 {formatDateString(review.created_at)}
               </Text>
             </Flex>

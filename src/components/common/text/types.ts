@@ -1,4 +1,4 @@
-import React from 'react';
+import { HTMLAttributes } from 'react';
 
 export type TTextStyles =
   | 'title'
@@ -7,8 +7,7 @@ export type TTextStyles =
   | 'caption'
   | 'overline';
 
-export interface ITextProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  style: TTextStyles;
+export interface ITextProps extends HTMLAttributes<HTMLDivElement> {
+  variant: TTextStyles;
   color?: string;
 }

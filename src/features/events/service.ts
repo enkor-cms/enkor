@@ -46,7 +46,6 @@ export const createEvent = async ({ client, event }: createEventParams) => {
   return { event: createdEvent, error };
 };
 
-
 export const getSpotEvents = async ({
   spotId,
   client,

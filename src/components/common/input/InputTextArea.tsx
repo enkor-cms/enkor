@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { LegacyRef } from 'react';
 import { Text } from '../text';
-interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface IProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   labelText?: string;
   error?: string;
   children?: React.ReactNode;
 }
 
-export const InputTextArea = React.forwardRef<HTMLInputElement, IProps>(
-  ({ className, children, labelText, type = 'text', error, ...props }, ref) => {
+export const InputTextArea = React.forwardRef<HTMLTextAreaElement, IProps>(
+  ({ className, children, labelText, error, ...props }, ref) => {
     return (
       <div className={className + ' relative'}>
         {labelText && (
           <label className="w-full text-left" htmlFor="txt">
-            <Text style="caption" className="py-0 px-3">
+            <Text variant="caption" className="py-0 px-3">
               {labelText}
             </Text>
           </label>
@@ -26,8 +26,7 @@ export const InputTextArea = React.forwardRef<HTMLInputElement, IProps>(
               children ? 'rounded-r-md' : 'rounded-md'
             }`}
             {...props}
-            ref={ref}
-            type={type}
+            ref={ref as LegacyRef<HTMLTextAreaElement>}
           ></textarea>
 
           <div className="flex">{children}</div>
@@ -37,7 +36,7 @@ export const InputTextArea = React.forwardRef<HTMLInputElement, IProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 InputTextArea.displayName = 'InputTextArea';

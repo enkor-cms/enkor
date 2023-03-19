@@ -5,7 +5,7 @@ export default async function Page() {
     <>
       <Card className="m-2">
         <Flex>
-          <Text style="body">Maps</Text>
+          <Text variant="body">Maps</Text>
         </Flex>
       </Card>
     </>

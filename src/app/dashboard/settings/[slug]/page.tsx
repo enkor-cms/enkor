@@ -4,7 +4,7 @@ import { Text } from '@/components/common/text';
 export default function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="flex flex-col justify-center items-center">
-      <Text style="body">{params.slug}</Text>
+      <Text variant="body">{params.slug}</Text>
     </div>
   );
 }

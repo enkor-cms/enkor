@@ -17,7 +17,7 @@ export default async function Page() {
 
   return (
     <Flex fullSize>
-      <Text style="caption">{session.user.user_metadata.name}</Text>
+      <Text variant="caption">{session.user.user_metadata.name}</Text>
     </Flex>
   );
 }

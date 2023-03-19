@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, FloatingPanel } from '@/components/common';
+import { ISpotExtanded } from '@/features/spots';
 import { useToggle } from '@/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -10,15 +11,15 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { Flex, Icon, Text } from '../common';
 import { SpotModal } from '../spot';
 import { LazyMapContainer, LazyMarker, LazyTileLayer } from './Lazy';
-import { IMapProps, ISpotExtanded } from './types';
+import { IMapProps } from './types';
 
 const DEFAULT_ZOOM = 13;
 const DEFAULT_BOUNDS = new L.LatLngBounds(
   new L.LatLng(0, 0),
-  new L.LatLng(0, 0)
+  new L.LatLng(0, 0),
 );
 
-export const getBounds = (spots: ISpotExtanded[]) => {
+export const getBounds = (spots?: ISpotExtanded[]) => {
   if (!spots || spots.length === 0) {
     return DEFAULT_BOUNDS;
   }
@@ -28,8 +29,8 @@ export const getBounds = (spots: ISpotExtanded[]) => {
     },
     new L.LatLngBounds(
       new L.LatLng(spots[0].location.latitude, spots[0].location.longitude),
-      new L.LatLng(spots[0].location.latitude, spots[0].location.longitude)
-    )
+      new L.LatLng(spots[0].location.latitude, spots[0].location.longitude),
+    ),
   );
   return bounds;
 };
@@ -39,7 +40,7 @@ export const getMarkerIcon = () => {
     <Flex className="relative bg-brand-200 border border-white-200 w-6 h-6 p-2 rounded-full">
       <div className="absolute -bottom-1 -z-1 w-3 h-3 bg-brand-200 border-r border-b border-white-200 transform rotate-45" />
       <Icon name="eye" color="text-white-100" className="z-10" scale={1} />
-    </Flex>
+    </Flex>,
   );
 
   return L.divIcon({
@@ -53,16 +54,14 @@ export const getMarkerIcon = () => {
 
 export const getMarker = (
   spot: ISpotExtanded,
-  setActualSpot: (spot: ISpotExtanded) => void
+  // eslint-disable-next-line no-unused-vars
+  setActualSpot: (spot: ISpotExtanded) => void,
 ) => {
   return (
     <LazyMarker
       icon={getMarkerIcon()}
       key={spot.id}
-      position={[
-        parseFloat(spot.location.latitude),
-        parseFloat(spot.location.longitude),
-      ]}
+      position={[spot.location.latitude, spot.location.longitude]}
       eventHandlers={{
         click: () => {
           setActualSpot(spot);
@@ -73,21 +72,21 @@ export const getMarker = (
 };
 
 const Map = ({ spots }: IMapProps) => {
-  const markers: ISpotExtanded[] | undefined = useMemo(() => {
+  const markers = useMemo(() => {
     return spots?.map((spot) => {
       return {
         ...spot,
-        latitude: parseFloat(spot.location.latitude),
-        longitude: parseFloat(spot.location.longitude),
+        latitude: spot.location.latitude,
+        longitude: spot.location.longitude,
       };
     });
   }, [spots]);
 
   let [actualSpot, setActualSpot] = useState<ISpotExtanded | undefined>(
-    undefined
+    undefined,
   );
 
-  const [open, setOpen, setClose, toggleOpen] = useToggle(false);
+  const [open, setClose, toggleOpen] = useToggle(false);
 
   return (
     <>
@@ -113,7 +112,7 @@ const Map = ({ spots }: IMapProps) => {
       </div>
       <FloatingPanel
         isOpen={open}
-        title={actualSpot?.id || 'Map'}
+        text={actualSpot?.id || 'Map'}
         onClose={setClose}
         onConfirm={setClose}
         size="large"
@@ -133,11 +132,11 @@ const Map = ({ spots }: IMapProps) => {
             >
               <Button
                 icon="chevron-left"
-                title="Back"
+                text="Back"
                 onClick={setClose}
                 variant="primary"
               />
-              <Text style="body" className="ml-2">
+              <Text variant="body" className="ml-2">
                 <strong>Spots</strong> / {actualSpot?.name}
               </Text>
             </Flex>
@@ -153,7 +152,7 @@ const Map = ({ spots }: IMapProps) => {
               >
                 <Button
                   icon="eye"
-                  title="View"
+                  text="View"
                   onClick={setClose}
                   variant="primary"
                 />
