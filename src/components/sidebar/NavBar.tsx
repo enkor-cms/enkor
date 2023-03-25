@@ -37,7 +37,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
           <Image src="/logo_clear.png" alt="Logo" width={40} height={40} />
         </Link>
       </Flex>
-      <Flex className="w-full md:w-1/2 lg:w-1/3 h-full">
+      <Flex className="absolute w-8/12 md:w-1/2 lg:w-1/3 h-full left-1/2 transform -translate-x-1/2">
         <SearchBar
           onClickItem={(item) => router.push(`/dashboard/spot/${item.id}`)}
         />
