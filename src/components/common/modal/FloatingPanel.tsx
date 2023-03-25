@@ -78,7 +78,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
           }}
         >
           <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col border-l border-gray-300 dark:border-dark-300">
-            {props.customHeader || <DefaultHeader text={props.title} />}
+            {props.customHeader || <DefaultHeader title={props.title} />}
             <div className="h-full overflow-hidden">{props.children}</div>
             {props.customFooter || (
               <DefaultFooter
@@ -103,7 +103,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
           setConfirmationOpen(false);
           props.onClose();
         }}
-        text="Confirmation"
+        title="Confirmation"
       >
         <div className="text-center">
           <Text variant="caption">

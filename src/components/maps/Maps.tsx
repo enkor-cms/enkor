@@ -140,7 +140,7 @@ const Map = ({ spots }: IMapProps) => {
                 onClick={setClose}
                 variant="primary"
               />
-              <Text variant="body" className="ml-2">
+              <Text variant="body" className="w-full ml-2">
                 <strong>Spots</strong> / {actualSpot?.name}
               </Text>
             </Flex>
@@ -148,7 +148,7 @@ const Map = ({ spots }: IMapProps) => {
               direction="row"
               verticalAlign="center"
               horizontalAlign="right"
-              className="h-16 w-full"
+              className="h-16"
             >
               <Link
                 href={`/dashboard/spot/${actualSpot?.id}`}

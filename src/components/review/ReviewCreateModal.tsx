@@ -74,7 +74,7 @@ export const ReviewCreateModal = ({
       />
       <Modal
         isOpen={creatingModalOpen}
-        text="Add a review"
+        title="Add a review"
         onClose={() => {
           closeCreatingModal();
           onClose && onClose();

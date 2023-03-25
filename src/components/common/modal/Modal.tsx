@@ -47,7 +47,7 @@ export const Modal: FunctionComponent<TModalProps> = ({
         }}
       >
         <div className="bg-white-200 dark:bg-dark-200 w-full h-full flex flex-col shadow-lg rounded-sm border border-gray-300 dark:border-dark-300">
-          {props.customHeader || <DefaultHeader text={props.title} />}
+          {props.customHeader || <DefaultHeader title={props.title} />}
           <div className="grow p-3 text-center">{children}</div>
           {props.customFooter || (
             <DefaultFooter
