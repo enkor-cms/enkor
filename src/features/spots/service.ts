@@ -42,7 +42,7 @@ export const listSpots = async ({
         location(*)
       `,
     )
-    .eq('id', '755f563a-c046-4ed2-9a77-a4ed5776684e')
+    // .eq('id', '755f563a-c046-4ed2-9a77-a4ed5776684e')
     .limit(limit);
 
   if (error) {
