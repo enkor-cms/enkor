@@ -71,7 +71,7 @@ export const SpotModal = ({ spot }: TSpotModalProps) => {
       className="h-full overflow-y-auto p-3"
       gap={6}
     >
-      <Flex className="h-full w-full">
+      <Flex className="h-auto w-full">
         {spot.image && spot.image.length > 1 ? (
           <ImageCarouselController
             images={spot?.image?.map((image) => {
@@ -89,6 +89,7 @@ export const SpotModal = ({ spot }: TSpotModalProps) => {
             loader={true}
             height={300}
             fullWidth={true}
+            width={400}
             style={{
               objectFit: 'cover',
             }}

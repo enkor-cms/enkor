@@ -24,3 +24,10 @@ export const LazyClusterGroup = dynamic(
     ssr: false,
   },
 );
+
+export const LazyTooltip = dynamic(
+  async () => (await import('react-leaflet')).Tooltip,
+  {
+    ssr: false,
+  },
+);

@@ -3,8 +3,9 @@ import L, { MarkerCluster } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMemo } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Flex, Icon } from '../common';
+import { Flex, Icon, Text } from '../common';
 import { LazyClusterGroup, LazyMarker } from './Lazy';
+import { Tooltip } from './Tooltip';
 
 export type TClusterProps = {
   spots: ISpotExtanded[];
@@ -13,10 +14,13 @@ export type TClusterProps = {
 
 export const getMarkerIcon = () => {
   const marker = renderToStaticMarkup(
-    <Flex className="relative bg-brand-200 border border-white-200 w-6 h-6 p-2 rounded-full">
-      <div className="absolute -bottom-1 -z-1 w-3 h-3 bg-brand-200 border-r border-b border-white-200 transform rotate-45" />
-      <Icon name="eye" color="text-white-100" className="z-10" scale={1} />
-    </Flex>,
+    <Icon
+      name="pin"
+      color="text-brand-500"
+      fill
+      className="z-10"
+      scale={1.5}
+    />,
   );
 
   return L.divIcon({
@@ -47,11 +51,15 @@ export const getClusterIcon = (cluster: MarkerCluster) => {
     <Flex
       className={`relative ${getColor(
         count,
-      )} border border-white-200 dark:border-dark-200 w-8 h-8 rounded-full`}
+      )} border border-white-200 dark:border-dark-200 w-8 h-8 rounded-full opacity-90`}
     >
-      <span className="absolute text-xs text-white-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <Text
+        variant="caption"
+        color="text-white-100 dark:text-dark-100"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      >
         {count}
-      </span>
+      </Text>
     </Flex>,
   );
 
@@ -77,7 +85,9 @@ export const getMarker = (
           setActualSpot(spot);
         },
       }}
-    />
+    >
+      <Tooltip spot={spot} />
+    </LazyMarker>
   );
 };
 
@@ -92,15 +102,11 @@ export default function Cluster({ spots, setActualSpot }: TClusterProps) {
     });
   }, [spots]);
 
-  //   return markers?.map((spot) => {
-  //     return getMarker(spot, setActualSpot);
-  //   });
-
   return (
     <LazyClusterGroup
       maxClusterRadius={50}
       polygonOptions={{
-        color: 'red',
+        color: 'green',
         weight: 1,
         opacity: 0.5,
         fillOpacity: 0.2,

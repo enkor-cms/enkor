@@ -15,6 +15,7 @@ import Loop from './svg/loop';
 import Map from './svg/map';
 import Models from './svg/models';
 import Photo from './svg/photo';
+import Pin from './svg/pin';
 import Puzzle from './svg/puzzle';
 import Servers from './svg/servers';
 import Spin from './svg/spin';
@@ -45,4 +46,5 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   hearth: Hearth,
   loop: Loop,
   hamburger: Hamburger,
+  pin: Pin,
 };
