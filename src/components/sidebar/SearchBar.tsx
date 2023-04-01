@@ -1,7 +1,8 @@
 import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/browser';
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { Card, Flex, Icon, InputText, Text } from '../common';
+import { Button, Card, Flex, Icon, InputText, Text } from '../common';
 
 export type ISpotSearch =
   Database['public']['Views']['spot_search_view']['Row'];
@@ -73,7 +74,7 @@ export const SearchBar = ({ onClickItem }: TSearchBarProps) => {
       />
       {results && focus && (
         <Card
-          className="search-bar-results absolute top-12 w-full z-30"
+          className="search-bar-results absolute top-12 w-full z-50"
           ref={resultsRef}
         >
           {results.length > 0 ? (
@@ -87,6 +88,7 @@ export const SearchBar = ({ onClickItem }: TSearchBarProps) => {
                 <SpotListItems
                   key={index}
                   spot={spot}
+                  setFocus={setFocus}
                   onClick={() => {
                     setSearch('');
                     setResults(null);
@@ -108,11 +110,15 @@ export const SearchBar = ({ onClickItem }: TSearchBarProps) => {
 
 const SpotListItems = ({
   spot,
+  setFocus,
   onClick,
 }: {
   spot: ISpotSearch;
+  setFocus: (focus: boolean) => void;
   onClick: () => void;
 }) => {
+  const router = useRouter();
+
   return (
     <Flex
       fullSize
@@ -147,6 +153,18 @@ const SpotListItems = ({
               <Icon name="star" color="text-yellow-400" fill />
             </>
           ) : null}
+          <Button
+            variant="none"
+            text="See on map"
+            icon="map"
+            className="text-brand-400"
+            iconOnly={true}
+            onClick={(e) => {
+              e.stopPropagation();
+              setFocus(false);
+              router.push(`/dashboard/maps?spotId=${spot.id}`);
+            }}
+          />
         </Flex>
       </Flex>
     </Flex>

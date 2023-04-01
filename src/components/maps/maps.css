@@ -1,0 +1,12 @@
+.spot-card-right {
+    position: fixed;
+    margin: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity .4s ease-in-out, transform .4s ease-in-out;
+}
+
+.spot-card.in.visible {
+    opacity: 1;
+    transform: translateX(0);
+}

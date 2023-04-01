@@ -1,15 +1,17 @@
 import { ISpotExtanded } from '@/features/spots';
-import L, { MarkerCluster } from 'leaflet';
+import L, { Marker, MarkerCluster } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useMemo } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { useMap } from 'react-leaflet';
 import { Flex, Icon, Text } from '../common';
+import { SpotCardSmall } from '../spot';
 import { LazyClusterGroup, LazyMarker } from './Lazy';
-import { Tooltip } from './Tooltip';
-
+import { Popup } from './Popup';
 export type TClusterProps = {
   spots: ISpotExtanded[];
-  setActualSpot: (spot: ISpotExtanded) => void;
+  onMarkerClick?: (spot: ISpotExtanded) => void;
 };
 
 export const getMarkerIcon = () => {
@@ -70,28 +72,45 @@ export const getClusterIcon = (cluster: MarkerCluster) => {
   });
 };
 
-export const getMarker = (
-  spot: ISpotExtanded,
-  // eslint-disable-next-line no-unused-vars
-  setActualSpot: (spot: ISpotExtanded) => void,
-) => {
-  return (
-    <LazyMarker
-      icon={getMarkerIcon()}
-      key={spot.id}
-      position={[spot.location.latitude, spot.location.longitude]}
-      eventHandlers={{
-        click: () => {
-          setActualSpot(spot);
-        },
-      }}
-    >
-      <Tooltip spot={spot} />
-    </LazyMarker>
-  );
+type TForkedLazyMarker = {
+  spot: ISpotExtanded;
+  map: L.Map;
+  setActualSpot?: (spot: ISpotExtanded) => void;
 };
 
-export default function Cluster({ spots, setActualSpot }: TClusterProps) {
+const ForwardedLazyMarker = React.forwardRef<Marker, TForkedLazyMarker>(
+  ({ spot, map, setActualSpot }, markerRef) => {
+    return (
+      <LazyMarker
+        icon={getMarkerIcon()}
+        ref={markerRef}
+        key={spot.id}
+        position={[spot.location.latitude, spot.location.longitude]}
+        eventHandlers={{
+          click: () => {
+            map.flyTo([spot.location.latitude, spot.location.longitude], 10, {
+              animate: true,
+              duration: 1,
+            });
+            map.once('moveend', function () {
+              setActualSpot && setActualSpot(spot);
+            });
+          },
+        }}
+      >
+        <Popup spot={spot} />
+      </LazyMarker>
+    );
+  },
+);
+
+ForwardedLazyMarker.displayName = 'ForwardedLazyMarker';
+
+export default function Cluster({ spots, onMarkerClick }: TClusterProps) {
+  const map = useMap();
+  const searchParams = useSearchParams();
+  const spotId = searchParams.get('spotId');
+
   const markers = useMemo(() => {
     return spots?.map((spot) => {
       return {
@@ -101,6 +120,59 @@ export default function Cluster({ spots, setActualSpot }: TClusterProps) {
       };
     });
   }, [spots]);
+
+  const markersList = useMemo(() => {
+    return markers?.map((spot, index) => (
+      <ForwardedLazyMarker
+        key={spot.id}
+        spot={spot}
+        map={map}
+        setActualSpot={onMarkerClick}
+      />
+    ));
+  }, [spots]);
+
+  // if spotId is in url, fly to spot
+  React.useEffect(() => {
+    if (spotId) {
+      const marker = markersList.find(
+        (marker) => marker.props.spot.id === spotId,
+      );
+
+      if (marker) {
+        map.flyTo(
+          [
+            marker.props.spot.location.latitude,
+            marker.props.spot.location.longitude,
+          ],
+          10,
+          {
+            animate: true,
+            duration: 1,
+          },
+        );
+
+        map.once('moveend', function () {
+          const popup = L.popup({
+            offset: L.point(10, -3),
+          })
+            .setLatLng([
+              marker.props.spot.location.latitude,
+              marker.props.spot.location.longitude,
+            ])
+            .setContent(
+              renderToStaticMarkup(
+                <SpotCardSmall
+                  spot={marker.props.spot}
+                  orientation="vertical"
+                />,
+              ),
+            );
+          map.openPopup(popup);
+        });
+      }
+    }
+  }, [spotId]);
 
   return (
     <LazyClusterGroup
@@ -114,9 +186,7 @@ export default function Cluster({ spots, setActualSpot }: TClusterProps) {
       showCoverageOnHover={true}
       iconCreateFunction={getClusterIcon}
     >
-      {markers?.map((spot) => {
-        return getMarker(spot, setActualSpot);
-      })}
+      {markersList}
     </LazyClusterGroup>
   );
 }

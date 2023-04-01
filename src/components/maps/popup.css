@@ -1,0 +1,35 @@
+.leaflet-popup-content-wrapper {
+    background-color: #E0E3E6; 
+    border: none;
+    border-radius: 8px;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+    width: 400px;
+    margin: 0;
+}
+
+.leaflet-popup-tip-container {
+}
+
+.leaflet-popup-tip {
+    background-color: #E0E3E6;
+}
+
+.leaflet-popup {
+    background-color: #E0E3E6;
+}
+
+@media (prefers-color-scheme: dark) {
+    .leaflet-popup-content-wrapper {
+        background-color: #343434; 
+    }
+
+    .leaflet-popup-tip {
+        background-color: #343434;
+    }
+
+    .leaflet-popup {
+        background-color: transparent;
+    }
+}

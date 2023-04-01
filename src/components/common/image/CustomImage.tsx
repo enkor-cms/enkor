@@ -15,7 +15,7 @@ type ICustomImageProps = ImageProps & React.ImgHTMLAttributes<HTMLImageElement>;
 
 export function CustomImage({
   src,
-  alt,
+  alt = src,
   loader = true,
   fullWidth = false,
   width,

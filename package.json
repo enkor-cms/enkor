@@ -34,6 +34,7 @@
     "encoding": "^0.1.13",
     "formidable": "v3",
     "framer-motion": "^4",
+    "jotai": "^2.0.3",
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "^1.5.3",
     "lodash": "^4.17.21",

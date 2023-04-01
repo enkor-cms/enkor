@@ -26,6 +26,7 @@ export const BackgroundOverlay: FunctionComponent<TBackgroundOverlayProps> = ({
 
 export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
   size = 'medium',
+  backgroundOverlay = true,
   ...props
 }) => {
   const [canClose, allowClose, preventClose] = useToggle();

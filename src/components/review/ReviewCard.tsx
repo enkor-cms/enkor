@@ -52,7 +52,7 @@ export const Review = ({ review }: TReviewProps) => {
   };
 
   return (
-    <Card className="">
+    <Card className="w-full">
       <Flex
         direction="row"
         horizontalAlign="stretch"

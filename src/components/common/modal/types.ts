@@ -23,6 +23,7 @@ export type TModalDefaultProps = {
   size?: 'medium' | 'large';
   customHeader?: React.ReactNode;
   customFooter?: React.ReactNode;
+  backgroundOverlay?: boolean;
   onClose: () => void | Promise<void>;
   onConfirm: () => void | Promise<void>;
 };
