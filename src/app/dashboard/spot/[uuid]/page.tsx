@@ -38,6 +38,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
     return <Text variant="body">No Spot</Text>;
   }
 
+  console.log(spot);
+
   return (
     <div className="w-full md:w-11/12 lg:w-5/6">
       <Flex
@@ -68,6 +70,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               fullWidth={true}
               style={{
                 objectFit: 'cover',
+                objectPosition: 'bottom',
               }}
               rounded="md"
               className="z-10"

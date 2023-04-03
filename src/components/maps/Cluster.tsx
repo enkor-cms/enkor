@@ -43,9 +43,9 @@ export const getClusterIcon = (cluster: MarkerCluster) => {
     } else if (count < 100) {
       return 'bg-brand-300';
     } else if (count < 1000) {
-      return 'bg-brand-400';
+      return 'bg-brand-600';
     } else {
-      return 'bg-brand-100';
+      return 'bg-brand-800';
     }
   };
 

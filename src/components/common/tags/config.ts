@@ -5,9 +5,9 @@ export const tagsConfig = {
     bgColor: 'bg-red-700',
   },
   green: {
-    textColor: 'text-green-700 brightness-200',
-    borderColor: 'border-green-700',
-    bgColor: 'bg-green-700',
+    textColor: 'text-green-800 brightness-200',
+    borderColor: 'border-green-800',
+    bgColor: 'bg-green-800',
   },
   blue: {
     textColor: 'text-blue-700 brightness-200',
