@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                 };
               })}
             />
-          ) : (
+          ) : spot.image && spot.image.length == 1 ? (
             <CustomImage
               src={getFirstItem(spot.image) || ''}
               alt={spot.name || ''}
@@ -72,6 +72,15 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               rounded="md"
               className="z-10"
             />
+          ) : (
+            <Flex
+              className="bg-gray-100 dark:bg-dark-100 w-full h-full rounded-md"
+              fullSize
+              verticalAlign="center"
+              horizontalAlign="center"
+            >
+              <Text variant="body">No Image</Text>
+            </Flex>
           )}
         </Flex>
         <SpotCard spot={spot} />

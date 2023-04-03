@@ -57,7 +57,7 @@ export const getClusterIcon = (cluster: MarkerCluster) => {
     >
       <Text
         variant="caption"
-        color="text-white-100 dark:text-dark-100"
+        color="text-white-100 dark:text-white-100"
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
         {count}
@@ -88,7 +88,7 @@ const ForwardedLazyMarker = React.forwardRef<Marker, TForkedLazyMarker>(
         position={[spot.location.latitude, spot.location.longitude]}
         eventHandlers={{
           click: () => {
-            map.flyTo([spot.location.latitude, spot.location.longitude], 10, {
+            map.flyTo([spot.location.latitude, spot.location.longitude], 16, {
               animate: true,
               duration: 1,
             });
@@ -138,6 +138,10 @@ export default function Cluster({ spots, onMarkerClick }: TClusterProps) {
       const marker = markersList.find(
         (marker) => marker.props.spot.id === spotId,
       );
+
+      console.log(marker);
+      console.log(spotId);
+      console.log(spots);
 
       if (marker) {
         map.flyTo(

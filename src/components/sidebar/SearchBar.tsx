@@ -90,8 +90,7 @@ export const SearchBar = ({ onClickItem }: TSearchBarProps) => {
                   spot={spot}
                   setFocus={setFocus}
                   onClick={() => {
-                    setSearch('');
-                    setResults(null);
+                    setFocus(false);
                     onClickItem && onClickItem(spot);
                   }}
                 />

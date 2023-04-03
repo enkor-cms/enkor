@@ -11,6 +11,13 @@ export const LazyMapContainer = dynamic(
   },
 );
 
+export const LazyLayersControl = dynamic(
+  async () => (await import('react-leaflet')).LayersControl,
+  {
+    ssr: false,
+  },
+);
+
 export const LazyTileLayer = dynamic(
   async () => (await import('react-leaflet')).TileLayer,
   {

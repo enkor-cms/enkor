@@ -9,7 +9,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet/dist/leaflet.css';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Button, Flex, FloatingPanel, Text } from '../common';
 import { SpotModal } from '../spot';
 import Cluster from './Cluster';
@@ -40,9 +40,17 @@ export const getBounds = (spots?: ISpotExtanded[]) => {
 };
 
 const GenericMap = ({ spots }: IMapProps) => {
+  const preferredColorScheme = false;
   const [spot, setSpot] = useAtom(actualSpotAtom);
   const [floatingPanelIsOpen, openFloatingPanel, closeFloatingPanel] =
     useToggle(false);
+
+  const tileLayerUrl = useMemo(() => {
+    if (preferredColorScheme) {
+      return 'https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png';
+    }
+    return 'https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png';
+  }, [preferredColorScheme]);
 
   useEffect(() => {
     if (spot) {
@@ -64,8 +72,9 @@ const GenericMap = ({ spots }: IMapProps) => {
         >
           <LazyTileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png"
+            url={tileLayerUrl}
           />
+
           {spots && <Cluster spots={spots} />}
         </LazyMapContainer>
       </div>

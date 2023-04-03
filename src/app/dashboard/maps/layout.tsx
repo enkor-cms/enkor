@@ -13,7 +13,6 @@ export default async function RootLayout({ children }: IProps) {
   const supabase = createClient();
   const { spots, error } = await listSpots({
     client: supabase,
-    limit: 1000,
   });
 
   if (error) {

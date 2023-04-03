@@ -82,7 +82,7 @@ export const SpotModal = ({ spot }: TSpotModalProps) => {
               };
             })}
           />
-        ) : (
+        ) : spot.image && spot.image.length == 1 ? (
           <CustomImage
             src={getFirstItem(spot.image) || ''}
             alt={spot.name || ''}
@@ -96,6 +96,15 @@ export const SpotModal = ({ spot }: TSpotModalProps) => {
             rounded="md"
             className="z-10"
           />
+        ) : (
+          <Flex
+            className="bg-gray-100 dark:bg-dark-100 w-full h-full rounded-md py-2"
+            fullSize
+            verticalAlign="center"
+            horizontalAlign="center"
+          >
+            <Text variant="body">No Image</Text>
+          </Flex>
         )}
       </Flex>
       <SpotCard spot={spot} />
