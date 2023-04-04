@@ -4,20 +4,28 @@ import { NextResponse } from 'next/server';
 import { i18n } from './i18n';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
-import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import {
+  createMiddlewareSupabaseClient,
+  logger,
+} from '@supabase/auth-helpers-nextjs';
 import Negotiator from 'negotiator';
 import { Database } from './lib/db_types';
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
+  try {
+    const negotiatorHeaders: Record<string, string> = {};
+    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  // Use negotiator and intl-localematcher to get best locale
-  let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales;
-  return matchLocale(languages, locales, i18n.defaultLocale);
+    // Use negotiator and intl-localematcher to get best locale
+    let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
+    // @ts-ignore locales are readonly
+    const locales: string[] = i18n.locales;
+    return matchLocale(languages, locales, i18n.defaultLocale);
+  } catch (error) {
+    logger.error('getLocale', error);
+    return undefined;
+  }
 }
 
 export async function middleware(request: NextRequest) {
