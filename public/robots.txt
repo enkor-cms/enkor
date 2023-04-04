@@ -1,5 +1,8 @@
 //robots.txt
 
+# Host
+Host: https://climbingspot.victorbillaud.fr
+
 # Block all crawlers for /settings
 User-agent: *
 Disallow: /settings
