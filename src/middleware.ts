@@ -65,9 +65,14 @@ export async function middleware(request: NextRequest) {
   return res;
 }
 
+// export const config = {
+//   // Matcher ignoring `/_next/` and `/api/`
+//   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+// };
+
 export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  // Matcher ignoring `/api/`, `/_next/static/`, `/_next/image/`, `/favicon.ico`, and files with extensions (e.g., `.css`, `.js`)
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|robots.txt).*)'],
 };
 
 // export async function middleware(req: NextRequest) {
