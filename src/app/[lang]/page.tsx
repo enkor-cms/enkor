@@ -16,7 +16,7 @@ export default async function Page({
       horizontalAlign="left"
       className="container mx-auto px-4 py-12"
     >
-      <Flex className="py-6">
+      <Flex className="py-7">
         <Text variant="title" className="text-center">
           {dictionary.home.title}
         </Text>
