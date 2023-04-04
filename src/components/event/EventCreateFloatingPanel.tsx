@@ -15,7 +15,7 @@ import { createClient } from '@/lib/supabase/browser';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { SearchBar } from '../sidebar/SearchBar';
+import { SearchBar } from '../navbar/SearchBar';
 import { SpotCardSmall } from '../spot';
 import { TEventCreateModalProps, TEventInsert } from './types';
 

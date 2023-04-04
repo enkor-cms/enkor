@@ -3,7 +3,7 @@
 import { useSupabase } from '@/components/auth/SupabaseProvider';
 import { Button, Text } from '@/components/common';
 import { Flex } from '@/components/common/layout';
-import { SideMenu } from '@/components/sidebar';
+import { SideMenu } from '@/components/navbar';
 import { ReactNode } from 'react';
 
 interface IProps {

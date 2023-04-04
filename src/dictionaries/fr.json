@@ -23,5 +23,9 @@
                 "text": "Lancez-vous dans l'aventure de l'escalade avec ClimbingSpot ! Créez un compte gratuit, explorez notre carte interactive et connectez-vous avec des grimpeurs du monde entier. Vivez le frisson de l'escalade tout en nouant des amitiés et des souvenirs durables."
             }
         }
+    },
+    "locales": {
+        "fr": "Français",
+        "en": "Anglais"
     }
 }

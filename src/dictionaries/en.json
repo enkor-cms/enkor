@@ -23,5 +23,9 @@
                 "text": " Embark on your climbing adventure with ClimbingSpot! Create a free account, explore our interactive map, and connect with climbers from all corners of the globe. Experience the thrill of climbing while making lasting friendships and memories."
             }
         }
+    },
+    "locales": {
+        "fr": "French",
+        "en": "English"
     }
 }
