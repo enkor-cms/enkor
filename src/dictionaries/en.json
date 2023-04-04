@@ -1,9 +1,27 @@
 {
-    "server-component": {
-        "welcome": "Welcome"
-    },
-    "counter": {
-        "increment": "Increment",
-        "decrement": "Decrement"
+    "home": {
+        "title": "Welcome to ClimbingSpot, the Global Climbing Community!",
+        "part": {
+            "first": {
+                "title": "Explore the Best Climbing Sites",
+                "text": "Discover the best climbing sites in the world, starting with our comprehensive database of climbing destinations in France. Our interactive map offers detailed information on each site, including difficulty levels, route types, and nearby facilities. Whether you're a beginner or an experienced climber, our platform has something for everyone."
+            },
+            "second": {
+                "title": "Connect with Fellow Climbers",
+                "text": "Our community-focused approach encourages climbers to meet, share experiences, and learn from one another. Create a profile and start connecting with climbers who share your passion for the sport. Join conversations, ask questions, and share your favorite climbing sites with others."
+            },
+            "third": {
+                "title": "Organize and Participate in Climbing Events",
+                "text": "Enhance your climbing experience by organizing or participating in events at your favorite climbing sites. Our platform makes it easy to create and manage events, invite climbers, and coordinate details. Find local events or plan a climbing trip with new friends from around the world."
+            },
+            "fourth": {
+                "title": "Stay Updated on Climbing News and Tips",
+                "text": " Keep up with the latest news in the climbing world, from competitions and events to new route openings and gear reviews. Our blog also features helpful tips, techniques, and advice from experienced climbers to help you improve your skills and stay safe on the rocks."
+            },
+            "five": {
+                "title": "Stay Updated on Climbing News and Tips!",
+                "text": " Embark on your climbing adventure with ClimbingSpot! Create a free account, explore our interactive map, and connect with climbers from all corners of the globe. Experience the thrill of climbing while making lasting friendships and memories."
+            }
+        }
     }
 }

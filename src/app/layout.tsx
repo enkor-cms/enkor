@@ -23,6 +23,11 @@ interface IProps {
   children: ReactNode;
 }
 
+export const metadata = {
+  title: `ClimbingSpot - Communauté d'escalade mondiale - Découvrez, connectez-vous et grimpez ensemble !`,
+  description: `Rejoignez ClimbingSpot, la communauté d'escalade en pleine croissance, pour explorer les meilleurs sites d'escalade, rencontrer d'autres grimpeurs et organiser des événements pour grimper ensemble. Commencez votre aventure d'escalade dès aujourd'hui !`,
+};
+
 export default async function RootLayout({ children }: IProps) {
   const supabase = createClient();
 

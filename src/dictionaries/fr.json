@@ -1,9 +1,27 @@
 {
-    "server-component": {
-        "welcome": "Bonjour"
-    },
-    "counter": {
-        "increment": "Increment",
-        "decrement": "Decrement"
+    "home": {
+        "title": "Bienvenue sur ClimbingSpot, la communauté mondiale d'escalade !",
+        "part": {
+            "first": {
+                "title": "Explorez les meilleurs sites d'escalade",
+                "text": "Découvrez les meilleurs sites d'escalade du monde, en commençant par notre base de données exhaustive des destinations d'escalade en France. Notre carte interactive offre des informations détaillées sur chaque site, y compris les niveaux de difficulté, les types de voies et les équipements à proximité. Que vous soyez débutant ou grimpeur expérimenté, notre plateforme a quelque chose pour tout le monde."
+            },
+            "second": {
+                "title": "Connectez-vous avec d'autres grimpeurs",
+                "text": "Notre approche axée sur la communauté encourage les grimpeurs à se rencontrer, à partager leurs expériences et à apprendre les uns des autres. Créez un profil et commencez à vous connecter avec des grimpeurs qui partagent votre passion pour le sport. Participez aux conversations, posez des questions et partagez vos sites d'escalade préférés avec les autres."
+            },
+            "third": {
+                "title": "Organisez et participez à des événements d'escalade",
+                "text": "Améliorez votre expérience d'escalade en organisant ou en participant à des événements sur vos sites d'escalade préférés. Notre plateforme facilite la création et la gestion d'événements, l'invitation de grimpeurs et la coordination des détails. Trouvez des événements locaux ou planifiez un voyage d'escalade avec de nouveaux amis du monde entier."
+            },
+            "fourth": {
+                "title": "Restez informé des actualités et conseils d'escalade",
+                "text": "Suivez les dernières nouvelles du monde de l'escalade, des compétitions et événements aux ouvertures de nouvelles voies et aux avis sur le matériel. Notre blog propose également des conseils utiles, des techniques et des recommandations de grimpeurs expérimentés pour vous aider à améliorer vos compétences et à rester en sécurité sur les rochers."
+            },
+            "five": {
+                "title": "Commencez dès aujourd'hui !",
+                "text": "Lancez-vous dans l'aventure de l'escalade avec ClimbingSpot ! Créez un compte gratuit, explorez notre carte interactive et connectez-vous avec des grimpeurs du monde entier. Vivez le frisson de l'escalade tout en nouant des amitiés et des souvenirs durables."
+            }
+        }
     }
 }
