@@ -22,7 +22,7 @@ export default function LocaleSwitcher() {
       {i18n.locales.map((locale) => {
         return (
           <Link key={locale} href={redirectedPathName(locale)}>
-            <Text>{dictionary.locales[locale]}</Text>
+            <Text variant="caption">{dictionary.locales[locale]}</Text>
           </Link>
         );
       })}

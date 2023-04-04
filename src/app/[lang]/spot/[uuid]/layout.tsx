@@ -1,4 +1,5 @@
 import { Flex } from '@/components/common';
+import Footer from '@/components/footer/Footer';
 import React, { Suspense } from 'react';
 import Loading from './loading';
 
@@ -13,10 +14,11 @@ export default function RootLayout({
         fullSize
         direction="column"
         verticalAlign="center"
-        horizontalAlign="left"
-        className="overflow-x-hidden py-10"
+        horizontalAlign="stretch"
+        className="overflow-x-hidden pt-10"
       >
         {children}
+        <Footer />
       </Flex>
     </Suspense>
   );
