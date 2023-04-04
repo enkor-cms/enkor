@@ -1,5 +1,3 @@
-//robots.txt
-
 # Host
 Host: https://climbingspot.victorbillaud.fr
 
