@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { i18n } from '../../i18n';
-import { Flex } from '../common';
+import { Flex, Text } from '../common';
 import { useDictionary } from '../DictionaryProvider';
 
 export default function LocaleSwitcher() {
@@ -22,7 +22,7 @@ export default function LocaleSwitcher() {
       {i18n.locales.map((locale) => {
         return (
           <Link key={locale} href={redirectedPathName(locale)}>
-            {dictionary.locales[locale]}
+            <Text>{dictionary.locales[locale]}</Text>
           </Link>
         );
       })}

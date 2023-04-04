@@ -20,7 +20,7 @@ export default async function RootLayout({ children, params }: IProps) {
       <NavBar />
       <DictionaryProvider dictionary={dictionary}>
         <div className="w-full h-full overflow-auto">
-          <div className="h-full">{children}</div>
+          <div className="min-h-full">{children}</div>
           <Footer />
         </div>
       </DictionaryProvider>

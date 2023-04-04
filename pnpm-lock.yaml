@@ -30,6 +30,7 @@ specifiers:
   '@types/sharp': ^0.31.1
   '@types/suncalc': ^1.9.0
   '@types/uuid': ^9.0.1
+  '@vercel/analytics': ^0.1.11
   autoprefixer: ^10.4.13
   bcrypt: ^5.1.0
   chalk: ^5.0.0
@@ -96,6 +97,7 @@ dependencies:
   '@types/node': 18.13.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
+  '@vercel/analytics': 0.1.11_react@18.2.0
   bcrypt: 5.1.0_encoding@0.1.13
   chalk: 5.2.0
   cookies-next: 2.1.1
@@ -5239,6 +5241,14 @@ packages:
       '@typescript-eslint/types': 5.53.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@vercel/analytics/0.1.11_react@18.2.0:
+    resolution: {integrity: sha512-mj5CPR02y0BRs1tN3oZcBNAX9a8NxsIUl9vElDPcqxnMfP0RbRc9fI9Ud7+QDg/1Izvt5uMumsr+6YsmVHcyuw==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@webassemblyjs/ast/1.11.1:
     resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}

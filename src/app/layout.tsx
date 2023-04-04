@@ -1,13 +1,13 @@
-import '@/styles/globals.css';
-import { ReactNode } from 'react';
-
+import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import SupabaseListener from '@/components/auth/SupabaseListener';
 import SupabaseProvider from '@/components/auth/SupabaseProvider';
 import { JobaiProvider } from '@/components/JobaiProvider';
 import type { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/server';
+import '@/styles/globals.css';
 import { Barlow } from '@next/font/google';
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { ReactNode } from 'react';
 export type TypedSupabaseClient = SupabaseClient<Database>;
 
 const barlow = Barlow({
@@ -43,6 +43,7 @@ export default async function RootLayout({ children }: IProps) {
           <JobaiProvider>
             <div className="h-full w-full">{children}</div>
           </JobaiProvider>
+          <AnalyticsProvider />
         </SupabaseProvider>
       </body>
     </html>

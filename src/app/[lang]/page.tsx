@@ -45,7 +45,7 @@ export default async function Page({
           </Text>
         </Flex>
       </Flex>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 container mx-auto px-4 py-4">
+      <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-6 container mx-auto px-4 py-4">
         {Object.entries(dictionary.home.part).map(([key, value]) => (
           <Card key={key} className="p-6">
             <Text variant="subtitle">{value.title}</Text>
