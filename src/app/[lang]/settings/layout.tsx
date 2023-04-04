@@ -48,7 +48,7 @@ export default function RootLayout({ children }: IProps) {
               {
                 label: 'User',
                 icon: 'user-circle',
-                to: '/dashboard/settings/user',
+                to: '/settings/user',
               },
             ]}
           />

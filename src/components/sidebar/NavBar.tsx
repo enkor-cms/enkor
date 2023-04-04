@@ -31,16 +31,14 @@ export const NavBar: React.FC<INavBarProps> = () => {
         gap={0}
       >
         <Link
-          href={'/dashboard'}
+          href={'/'}
           className="w-auto pl-3 gap-2 flex justify-center items-center "
         >
           <Image src="/logo_clear.png" alt="Logo" width={40} height={40} />
         </Link>
       </Flex>
       <Flex className="absolute w-8/12 md:w-1/2 lg:w-1/3 h-full left-1/2 z-30 transform -translate-x-1/2">
-        <SearchBar
-          onClickItem={(item) => router.push(`/dashboard/spot/${item.id}`)}
-        />
+        <SearchBar onClickItem={(item) => router.push(`/spot/${item.id}`)} />
       </Flex>
       <Flex
         direction="row"
@@ -72,7 +70,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
                 icon="map"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  router.push('/dashboard/maps');
+                  router.push('/maps');
                 }}
               />
 
@@ -83,7 +81,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
                 icon="swatch"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  router.push('/dashboard/model');
+                  router.push('/model');
                 }}
               />
 
@@ -94,7 +92,7 @@ export const NavBar: React.FC<INavBarProps> = () => {
                 icon="cog"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  router.push('/dashboard/settings/user');
+                  router.push('/settings/user');
                 }}
               />
             </Flex>
@@ -108,16 +106,16 @@ export const NavBar: React.FC<INavBarProps> = () => {
         gap={0}
       >
         <Flex className="h-full px-3">
-          <NavIcon icon="map" label="map" to="/dashboard/maps" />
+          <NavIcon icon="map" label="map" to="/maps" />
         </Flex>
         <Flex className="h-full px-3">
-          <NavIcon icon="swatch" label="models" to="/dashboard/model" />
+          <NavIcon icon="swatch" label="models" to="/model" />
         </Flex>
         <Flex className="h-full px-3">
           <NavIcon
             icon="cog"
             label="settings"
-            to="/dashboard/settings/user"
+            to="/settings/user"
             userImage={
               session ? session.user.user_metadata?.avatar_url : undefined
             }

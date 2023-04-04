@@ -161,7 +161,7 @@ const SpotListItems = ({
             onClick={(e) => {
               e.stopPropagation();
               setFocus(false);
-              router.push(`/dashboard/maps?spotId=${spot.id}`);
+              router.push(`/maps?spotId=${spot.id}`);
             }}
           />
         </Flex>
