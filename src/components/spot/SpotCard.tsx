@@ -59,41 +59,50 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
             <Compass orientation={getFirstItem(spot.orientation)} />
           )}
           <Card className="w-auto">
-            <div className="grid grid-cols-1 divide-y divide-white-300 dark:divide-dark-300">
-              <Flex
-                direction="row"
-                verticalAlign="center"
-                horizontalAlign="stretch"
-                className="w-full py-1 px-3"
-              >
+            <table className="w-full">
+              <tbody className="divide-y divide-white-300 dark:divide-dark-300">
                 {spot.type && (
-                  <>
-                    <Text variant="caption">{'Type'}</Text>
-                    <Tag
-                      text={spot.type}
-                      color={spot.type === 'Outdoor' ? 'green' : 'blue'}
-                    />
-                  </>
+                  <tr>
+                    <th className="py-2 px-3 text-left">
+                      <Text variant="caption">{'Type'}</Text>
+                    </th>
+                    <td className="py-2 px-3 text-right">
+                      <Tag
+                        text={spot.type}
+                        color={spot.type === 'Outdoor' ? 'green' : 'blue'}
+                      />
+                    </td>
+                  </tr>
                 )}
-              </Flex>
 
-              <Flex
-                direction="row"
-                verticalAlign="center"
-                horizontalAlign="stretch"
-                className="w-full py-1 px-3"
-              >
                 {spot.difficulty && (
-                  <>
-                    <Text variant="caption">{'Difficulty'}</Text>
-                    <Tag
-                      text={spot.difficulty}
-                      color={difficultyColors[spot.difficulty]}
-                    />
-                  </>
+                  <tr>
+                    <th className="py-2 px-3 text-left">
+                      <Text variant="caption">{'Difficulty'}</Text>
+                    </th>
+                    <td className="py-2 px-3 text-right">
+                      <Tag
+                        text={spot.difficulty}
+                        color={difficultyColors[spot.difficulty]}
+                      />
+                    </td>
+                  </tr>
                 )}
-              </Flex>
-            </div>
+
+                {spot.cliff_height && (
+                  <tr>
+                    <th className="py-2 px-3 text-left">
+                      <Text variant="caption">{'Cliff height'}</Text>
+                    </th>
+                    <td className="py-2 px-3 text-center">
+                      <Text variant="body" className="opacity-80 font-bold">
+                        {`${spot.cliff_height}m`}
+                      </Text>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </Card>
         </Flex>
       </Flex>

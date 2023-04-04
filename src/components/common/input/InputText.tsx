@@ -13,14 +13,14 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <div className={className + ' relative'}>
         {labelText && (
-          <label className="w-full text-left mb-1" htmlFor="txt">
+          <label className="w-full text-left mb-2" htmlFor="txt">
             <Text variant="caption" className="py-0 px-3">
               {labelText}
             </Text>
           </label>
         )}
         <div
-          className={`group flex gap-2 items-stretch border border-white-300 dark:border-dark-300 w-full outline-none mt-1 py-2 px-2 transition-all text-s lg:text-sm xl:text-base dark:bg-dark-200 bg-white-200 text-black-100 dark:text-white-100 group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-300/10 group-focus:border-transparent
+          className={`group flex gap-2 items-stretch border border-white-300 dark:border-dark-300 w-full outline-none py-2 px-2 transition-all text-s lg:text-sm xl:text-base dark:bg-dark-200 bg-white-200 text-black-100 dark:text-white-100 group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-300/10 group-focus:border-transparent
               ${error && 'border-red-500 border animate-shake'} ${
             children ? 'rounded-r-md' : 'rounded-md'
           }`}

@@ -31,7 +31,7 @@ const SeasonDiagram: React.FC<SeasonDiagramProps> = ({ months }) => {
   return (
     <>
       <Flex
-        className="w-full bg-gray-200 rounded-xs"
+        className="w-full bg-gray-300 dark:bg-dark-300 rounded-xs"
         direction="row"
         horizontalAlign="left"
         gap={0}
@@ -40,7 +40,13 @@ const SeasonDiagram: React.FC<SeasonDiagramProps> = ({ months }) => {
           <Flex
             key={month}
             className={`flex-1 h-6 ${
-              index === 0 ? '' : 'border-l-1 border-gray-200'
+              index === 0
+                ? ''
+                : 'border-l-1 border-gray-300 dark:border-dark-300 '
+            } ${
+              index === months.length - 1
+                ? ''
+                : 'border-r-1 border-gray-300 dark:border-dark-300'
             } ${
               monthIsActive[index] && !monthIsActive[index - 1]
                 ? 'border rounded-l-xs'
@@ -49,11 +55,11 @@ const SeasonDiagram: React.FC<SeasonDiagramProps> = ({ months }) => {
               monthIsActive[index] && !monthIsActive[index + 1]
                 ? 'border rounded-r-xs'
                 : ''
-            } ${monthIsActive[index] ? 'bg-brand-300' : ''} ${
+            } ${monthIsActive[index] ? 'bg-brand-200' : ''} ${
               monthIsActive[index]
-                ? 'border border-brand-200'
+                ? 'border border-brand-400'
                 : 'border border-transparent'
-            }`}
+            } first:rounded-l-xs last:rounded-r-xs`}
           >
             <Text variant="overline">{month.slice(0, 3)}</Text>
           </Flex>

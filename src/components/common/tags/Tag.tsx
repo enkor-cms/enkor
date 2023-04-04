@@ -15,7 +15,7 @@ export const Tag: FunctionComponent<ITag> = ({
   };
   return (
     <span
-      className={`${tagsConfig[color].textColor} bg-opacity-10 ${tagsConfig[color].bgColor} border ${tagsConfig[color].borderColor} rounded-full px-2 py-1 m-1 w-fit ${sizeConfig[size]} ${className}`}
+      className={`${tagsConfig[color].textColor} bg-opacity-10 ${tagsConfig[color].bgColor} border ${tagsConfig[color].borderColor} rounded-full px-2 py-1 m-0 w-fit ${sizeConfig[size]} ${className}`}
       {...props}
     >
       {text}

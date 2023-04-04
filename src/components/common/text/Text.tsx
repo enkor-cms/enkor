@@ -13,8 +13,8 @@ export const Text: FunctionComponent<ITextProps> = ({
 
   return (
     <div
-      className={`${textConfig[variant]} ${
-        color ? color : colorClass
+      className={`${color ? color : colorClass}  ${
+        textConfig[variant]
       } ${className}`}
       {...props}
     >
