@@ -73,34 +73,7 @@ export async function middleware(request: NextRequest) {
   return res;
 }
 
-// export const config = {
-//   // Matcher ignoring `/_next/` and `/api/`
-//   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-// };
-
 export const config = {
   // Matcher ignoring `/api/`, `/_next/static/`, `/_next/image/`, `/favicon.ico`, and files with extensions (e.g., `.css`, `.js`)
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|robots.txt).*)'],
+  matcher: '/((?!api|static|.*\\..*|_next).*)',
 };
-
-// export async function middleware(req: NextRequest) {
-//   const res = NextResponse.next();
-
-//   const supabase = createMiddlewareSupabaseClient<Database>({ req, res });
-
-//   const {
-//     data: { session },
-//   } = await supabase.auth.getSession();
-
-//   if (!session) {
-//     const redirectUrl = new URL('/dashboard/auth/login', req.nextUrl.origin);
-//     redirectUrl.searchParams.set('redirect', req.nextUrl.clone().href);
-//     return NextResponse.redirect(redirectUrl);
-//   }
-
-//   return res;
-// }
-
-// export const config = {
-//   matcher: ['/dashboard/settings/:path*'],
-// };
