@@ -4,7 +4,9 @@ import { NextResponse } from 'next/server';
 import { i18n } from './i18n';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
+import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Negotiator from 'negotiator';
+import { Database } from './lib/db_types';
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -18,19 +20,8 @@ function getLocale(request: NextRequest): string | undefined {
   return matchLocale(languages, locales, i18n.defaultLocale);
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-
-  // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
-  // // If you have one
-  // if (
-  //   [
-  //     '/manifest.json',
-  //     '/favicon.ico',
-  //     // Your other files in `public`
-  //   ].includes(pathname)
-  // )
-  //   return
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
@@ -48,6 +39,30 @@ export function middleware(request: NextRequest) {
       new URL(`/${locale}/${pathname}`, request.url),
     );
   }
+
+  // Add the second part of the code
+  const res = NextResponse.next();
+
+  const supabase = createMiddlewareSupabaseClient<Database>({
+    req: request,
+    res,
+  });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  // if session is not found and the pathname begin with settings
+  if (!session && pathname.startsWith(`/${getLocale(request)}/settings`)) {
+    const redirectUrl = new URL(
+      `${getLocale(request)}/auth/login`,
+      request.nextUrl.origin,
+    );
+    redirectUrl.searchParams.set('redirect', request.nextUrl.clone().href);
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  return res;
 }
 
 export const config = {
