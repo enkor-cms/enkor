@@ -1,0 +1,9 @@
+//robots.txt
+
+# Block all crawlers for /settings
+User-agent: *
+Disallow: /settings
+
+# Allow all crawlers
+User-agent: *
+Allow: /
