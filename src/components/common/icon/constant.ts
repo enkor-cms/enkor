@@ -1,4 +1,3 @@
-import React from 'react';
 import ArrowRight from './svg/arrow-right';
 import Bolt from './svg/bolt';
 import ChevronLeft from './svg/chevron-left';
@@ -17,13 +16,14 @@ import Models from './svg/models';
 import Photo from './svg/photo';
 import Pin from './svg/pin';
 import Puzzle from './svg/puzzle';
+import Refresh from './svg/refresh';
 import Servers from './svg/servers';
 import Spin from './svg/spin';
 import Star from './svg/star';
 import Swatch from './svg/swatch';
 import UserCircle from './svg/user-circle';
 
-export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
+export const icons = {
   'arrow-right': ArrowRight,
   bolt: Bolt,
   spin: Spin,
@@ -47,4 +47,5 @@ export const icons: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   loop: Loop,
   hamburger: Hamburger,
   pin: Pin,
+  refresh: Refresh,
 };
