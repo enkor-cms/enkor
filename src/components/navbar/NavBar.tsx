@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
-import { Button, Card, Flex } from '../common';
+import { Button, Flex, FloatingPanel } from '../common';
+import LocaleSwitcher from '../footer/LocaleSwitcher';
 import { NavIcon } from './NavIcons';
 import { SearchBar } from './SearchBar';
 
@@ -53,52 +54,68 @@ export const NavBar: React.FC<INavBarProps> = () => {
           text="Menu"
           icon="hamburger"
           iconOnly
-          className="flex-none"
+          className="mr-3 flex-none"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         />
-        {mobileMenuOpen && (
-          <Card className="absolute z-40 top-[4.2rem] left-1 right-1">
+        <FloatingPanel
+          isOpen={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}
+          title={'Settings'}
+          onConfirm={function (): void | Promise<void> {
+            throw new Error('Function not implemented.');
+          }}
+          customHeader={
             <Flex
-              direction="column"
-              className="divide-y w-full divide-white-300 dark:divide-dark-300"
-              horizontalAlign="right"
-              gap={0}
+              direction="row"
+              verticalAlign="center"
+              horizontalAlign="left"
+              className="w-full h-16 px-3"
             >
               <Button
-                text="Maps"
-                className="w-full text-brand-300 dark:text-brand-100 "
-                variant="none"
-                icon="map"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  router.push('/maps');
-                }}
-              />
-
-              <Button
-                text="Models"
-                className="w-full text-brand-300 dark:text-brand-100 "
-                variant="none"
-                icon="swatch"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  router.push('/model');
-                }}
-              />
-
-              <Button
-                text="Settings"
-                className="w-full text-brand-300 dark:text-brand-100 "
-                variant="none"
-                icon="cog"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  router.push('/settings/user');
-                }}
+                variant="secondary"
+                text="Go back"
+                icon="chevron-left"
+                onClick={() => setMobileMenuOpen(false)}
               />
             </Flex>
-          </Card>
-        )}
+          }
+          customFooter={<LocaleSwitcher />}
+        >
+          <Flex className="p-2">
+            <Button
+              text="Maps"
+              className="w-full"
+              variant="primary"
+              icon="map"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                router.push('/maps');
+              }}
+            />
+
+            <Button
+              text="Models"
+              variant="primary"
+              className="w-full"
+              icon="swatch"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                router.push('/model');
+              }}
+            />
+
+            <Button
+              text="Settings"
+              variant="primary"
+              className="w-full"
+              icon="cog"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                router.push('/settings/user');
+              }}
+            />
+          </Flex>
+        </FloatingPanel>
       </Flex>
       <Flex
         direction="row"
