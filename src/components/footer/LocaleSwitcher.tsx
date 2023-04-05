@@ -1,18 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { i18n } from '../../i18n';
 import { Flex, Text } from '../common';
 import { useDictionary } from '../DictionaryProvider';
 
 export default function LocaleSwitcher() {
   const pathName = usePathname();
+  const params = useSearchParams();
+
   const redirectedPathName = (locale: string) => {
-    if (!pathName) return '/';
+    if (!pathName) return `/`;
     const segments = pathName.split('/');
     segments[1] = locale;
-    return segments.join('/');
+    return `${segments.join('/')}?${params.toString()}`;
   };
 
   const dictionary = useDictionary();

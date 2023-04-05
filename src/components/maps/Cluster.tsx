@@ -139,17 +139,13 @@ export default function Cluster({ spots, onMarkerClick }: TClusterProps) {
         (marker) => marker.props.spot.id === spotId,
       );
 
-      console.log(marker);
-      console.log(spotId);
-      console.log(spots);
-
       if (marker) {
         map.flyTo(
           [
             marker.props.spot.location.latitude,
             marker.props.spot.location.longitude,
           ],
-          10,
+          16,
           {
             animate: true,
             duration: 1,

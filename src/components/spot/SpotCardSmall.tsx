@@ -21,6 +21,7 @@ export const SpotCardSmall: React.FC<TSpotCardSmallProps> = ({
   openFloatingPanel = false,
 }) => {
   const [actualSpot, setActualSpot] = useAtom(actualSpotAtom);
+
   return (
     <Card className="w-full h-full dark:bg-dark-300">
       <Flex
@@ -66,7 +67,7 @@ export const SpotCardSmall: React.FC<TSpotCardSmallProps> = ({
             </Flex>
           )}
           <Link
-            href={`/spot/${spot.id}`}
+            href={`/spot/${spot.id}?${window.location.search}`}
             target="_blank"
             className="absolute top-1 left-1"
           >

@@ -28,9 +28,30 @@ function getLocale(request: NextRequest): string | undefined {
   }
 }
 
+function getLocaleFromReferer(request: NextRequest): string | undefined {
+  const referer = request.headers.get('referer');
+  if (!referer) return undefined;
+
+  const refererUrl = new URL(referer);
+  const refererPath = refererUrl.pathname;
+
+  // Check if there is any supported locale in the referer
+  const refererIsMissingLocale = i18n.locales.every(
+    (locale) =>
+      !refererPath.startsWith(`/${locale}/`) && refererPath !== `/${locale}`,
+  );
+
+  // If there is no locale in the referer, we can't get the locale from it
+  if (refererIsMissingLocale) return undefined;
+
+  // Get the locale from the referer
+  const refererLocale = refererPath.split('/')[1];
+  return refererLocale;
+}
+
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-
+  logger.debug(pathname);
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) =>
@@ -39,12 +60,15 @@ export async function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
+    const locale = getLocaleFromReferer(request) || getLocale(request);
 
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
+    logger.debug(locale);
+
     return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, request.url),
+      new URL(
+        `/${locale}/${pathname}${request.nextUrl.search}`,
+        request.nextUrl.origin,
+      ),
     );
   }
 

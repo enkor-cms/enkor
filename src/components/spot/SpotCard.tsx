@@ -1,6 +1,8 @@
 import { GetSpotResponseSuccess } from '@/features/spots';
 import { getFirstItem } from '@/lib';
-import { Card, Flex, Icon, Tag, Text } from '../common';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Button, Card, Flex, Icon, Tag, Text } from '../common';
 import { useDictionary } from '../DictionaryProvider';
 import Compass from './Compass';
 import SeasonDiagram from './SeasonDiagram';
@@ -12,6 +14,7 @@ export type TSpotCardProps = {
 
 export const SpotCard = ({ spot }: TSpotCardProps) => {
   const dictionary = useDictionary();
+  const router = useRouter();
 
   return (
     <Flex className="w-full" verticalAlign="top" gap={5}>
@@ -50,6 +53,15 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
             <Text variant="body" className="opacity-50">
               {spot.location.department}
             </Text>
+            <Link href={`/maps?spotId=${spot.id}`}>
+              <Button
+                variant="none"
+                text="See on map"
+                icon="map"
+                className="text-brand-400"
+                iconOnly={true}
+              />
+            </Link>
           </Flex>
         </Flex>
         <Flex
