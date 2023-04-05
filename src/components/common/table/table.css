@@ -1,0 +1,90 @@
+.BaseTable {
+  background-color: #f8f9fa;
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+.BaseTable__table {
+  background-color: #f8f9fa;
+  outline: none;
+  border-radius: 8px;
+}
+
+.BaseTable__table-main {
+  background-color: #f8f9fa;
+  outline: none;
+  border: 1px solid #dfe3e6;
+  border-radius: 8px;
+}
+
+.BaseTable__header-row {
+  background-color: #dfe3e6;
+  border-bottom: 1px solid #dfe3e6;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.BaseTable__row {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dfe3e6;
+  color: black;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.BaseTable__row:hover {
+  background-color: rgba(223, 227, 230, .5);
+  cursor: pointer;
+}
+
+.BaseTable__table-main .BaseTable__header {
+  background-color: #dfe3e6;
+  border-bottom: 1px solid #dfe3e6;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .BaseTable {
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+
+  .BaseTable__table {
+    background-color: transparent;
+    outline: none;
+    border-radius: 8px;
+  }
+
+  .BaseTable__table-main {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid #343434;
+    border-radius: 8px;
+  }
+
+  .BaseTable__header-row {
+    background-color: transparent;
+    border-bottom: 1px solid #343434;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+
+  .BaseTable__row {
+    background-color: transparent;
+    border-bottom: 1px solid #343434;
+    color: white;
+  }
+
+  .BaseTable__row:hover {
+    background-color: #232323;
+    cursor: pointer;
+  }
+
+  .BaseTable__table-main .BaseTable__header {
+    background-color: #232323;
+    border-bottom: 1px solid #343434;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+}

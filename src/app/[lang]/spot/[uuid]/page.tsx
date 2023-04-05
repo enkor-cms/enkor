@@ -51,7 +51,7 @@ export default async function Page({
         fullSize
         verticalAlign="top"
         horizontalAlign="left"
-        className="h-full overflow-y-auto"
+        className="h-full overflow-y-auto p-3 pt-0"
         gap={8}
       >
         <Flex className="h-full w-full">

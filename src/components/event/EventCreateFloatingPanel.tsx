@@ -8,7 +8,7 @@ import {
   Text,
 } from '@/components/common';
 import { createEvent } from '@/features/events';
-import { getSpot, GetSpotResponseSuccess } from '@/features/spots';
+import { GetSpotResponseSuccess, getSpot } from '@/features/spots';
 import { useToggle } from '@/hooks';
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/browser';
@@ -180,6 +180,7 @@ export const EventCreateFloatingPanel = ({
                     setSpotSelected(spot);
                     closeSearchModal();
                   }}
+                  showMapLink={false}
                 />
               </Modal>
             </Flex>

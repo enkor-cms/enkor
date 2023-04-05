@@ -51,7 +51,8 @@ function getLocaleFromReferer(request: NextRequest): string | undefined {
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  logger.debug(pathname);
+  const locale = getLocaleFromReferer(request) || getLocale(request);
+
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) =>
@@ -60,10 +61,6 @@ export async function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocaleFromReferer(request) || getLocale(request);
-
-    logger.debug(locale);
-
     return NextResponse.redirect(
       new URL(
         `/${locale}/${pathname}${request.nextUrl.search}`,
@@ -85,7 +82,7 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getSession();
 
   // if session is not found and the pathname begin with settings
-  if (!session && pathname.startsWith(`/${getLocale(request)}/settings`)) {
+  if (!session && pathname.startsWith(`/${locale}/settings`)) {
     const redirectUrl = new URL(
       `${getLocale(request)}/auth/login`,
       request.nextUrl.origin,

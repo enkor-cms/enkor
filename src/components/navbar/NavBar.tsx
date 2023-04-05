@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
 import { Button, Flex, FloatingPanel } from '../common';
@@ -15,6 +15,7 @@ interface INavBarProps {}
 export const NavBar: React.FC<INavBarProps> = () => {
   const { session } = useSupabase();
   const router = useRouter();
+  const params = useSearchParams();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -39,7 +40,11 @@ export const NavBar: React.FC<INavBarProps> = () => {
         </Link>
       </Flex>
       <Flex className="absolute w-8/12 md:w-1/2 lg:w-1/3 h-full left-1/2 z-30 transform -translate-x-1/2">
-        <SearchBar />
+        <SearchBar
+          onClickItem={(spot) => {
+            router.push(`/spot/${spot.id}?${params.toString()}`);
+          }}
+        />
       </Flex>
       <Flex
         direction="row"

@@ -9,7 +9,15 @@ import { Button, Card, Flex, Icon, InputText, Text } from '../common';
 export type ISpotSearch =
   Database['public']['Views']['spot_search_view']['Row'];
 
-export const SearchBar = () => {
+type SearchBarProps = {
+  onClickItem?: (spot: ISpotSearch) => void;
+  showMapLink?: boolean;
+};
+
+export const SearchBar = ({
+  onClickItem,
+  showMapLink = true,
+}: SearchBarProps) => {
   const supabase = createClient();
   const params = useSearchParams();
   const router = useRouter();
@@ -113,13 +121,18 @@ export const SearchBar = () => {
                   setFocus={setFocus}
                   onClickText={() => {
                     setFocus(false);
-                    router.push(`/spot/${spot.id}?${params.toString()}`);
+                    onClickItem && onClickItem(spot);
                   }}
                   onClickMaps={(e) => {
                     e.stopPropagation();
-                    setFocus(false);
-                    router.push(`/maps?spotId=${spot.id}&${params.toString()}`);
+                    if (showMapLink) {
+                      setFocus(false);
+                      router.push(
+                        `/maps?spotId=${spot.id}&${params.toString()}`,
+                      );
+                    }
                   }}
+                  showMapLink={showMapLink}
                 />
               ))}
             </Flex>
@@ -137,12 +150,14 @@ export const SearchBar = () => {
 const SpotListItems = ({
   spot,
   setFocus,
+  showMapLink = true,
   onClickText,
   onClickMaps,
 }: {
   spot: ISpotSearch;
   // eslint-disable-next-line no-unused-vars
   setFocus: (focus: boolean) => void;
+  showMapLink?: boolean;
   // eslint-disable-next-line no-unused-vars
   onClickText: MouseEventHandler<HTMLDivElement>;
   // eslint-disable-next-line no-unused-vars
@@ -188,14 +203,16 @@ const SpotListItems = ({
           ) : null}
         </Flex>
       </Flex>
-      <Button
-        variant="none"
-        text="See on map"
-        icon="map"
-        className="text-brand-400"
-        iconOnly={true}
-        onClick={onClickMaps}
-      />
+      {showMapLink && (
+        <Button
+          variant="none"
+          text="See on map"
+          icon="map"
+          className="text-brand-400"
+          iconOnly={true}
+          onClick={onClickMaps}
+        />
+      )}
     </Flex>
   );
 };

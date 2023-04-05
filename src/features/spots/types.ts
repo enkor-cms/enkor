@@ -1,6 +1,6 @@
 import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/server';
-import { getSpot } from './service';
+import { getSpot, listCreatorSpots } from './service';
 
 export type getSpotParams = {
   client: ReturnType<typeof createClient>;
@@ -32,3 +32,10 @@ export type SpotExtanded =
 export interface ISpotExtanded extends Omit<SpotExtanded, 'location'> {
   location: Location;
 }
+
+export type CreatorsSpotsResponse = Awaited<
+  ReturnType<typeof listCreatorSpots>
+>;
+
+export type CreatorsSpotsResponseError = CreatorsSpotsResponse['error'];
+export type CreatorsSpotsResponseSuccess = CreatorsSpotsResponse['spots'];

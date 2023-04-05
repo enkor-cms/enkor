@@ -27,7 +27,7 @@ export const getSpot = async ({
   return { spot: spot as unknown as ISpotExtanded, error };
 };
 
-export const listSpots = async ({
+export const listMapSpots = async ({
   client,
   limit,
 }: listSpotsParams): Promise<{
@@ -91,6 +91,39 @@ export const listSpots = async ({
 
   return {
     spots: allSpots as unknown as ISpotExtanded[],
+    error,
+  };
+};
+
+export const listCreatorSpots = async ({
+  client,
+  creatorId,
+  limit = 100,
+  page = 0,
+}: listSpotsParams & { creatorId: string; page?: number }) => {
+  let error: PostgrestError | null = null;
+
+  const { data: spots, error: currentError } = await client
+    .from('spots')
+    .select(
+      `
+      name,
+      description,
+      difficulty,
+      rock_type,
+      cliff_height
+      `,
+    )
+    .eq('creator', creatorId)
+    .range(page * limit, (page + 1) * limit - 1);
+
+  if (currentError) {
+    logger.error(currentError);
+    error = currentError;
+  }
+
+  return {
+    spots,
     error,
   };
 };
