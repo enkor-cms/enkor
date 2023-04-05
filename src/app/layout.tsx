@@ -7,8 +7,15 @@ import { createClient } from '@/lib/supabase/server';
 import '@/styles/globals.css';
 import { Barlow } from '@next/font/google';
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
+import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
 export type TypedSupabaseClient = SupabaseClient<Database>;
+
+const ColorSchemeProvider = dynamic(
+  async () =>
+    (await import('@/components/ColorSchemeProvider')).ColorSchemeProvider,
+  { ssr: false },
+);
 
 const barlow = Barlow({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -40,10 +47,12 @@ export default async function RootLayout({ children }: IProps) {
       <body className="w-screen h-screen flex justify-center items-center bg-white-200 dark:bg-dark-100">
         <SupabaseProvider session={session}>
           <SupabaseListener serverAccessToken={session?.access_token} />
-          <JobaiProvider>
-            <div className="h-full w-full">{children}</div>
-          </JobaiProvider>
           <AnalyticsProvider />
+          <JobaiProvider>
+            <ColorSchemeProvider>
+              <div className="h-full w-full">{children}</div>
+            </ColorSchemeProvider>
+          </JobaiProvider>
         </SupabaseProvider>
       </body>
     </html>

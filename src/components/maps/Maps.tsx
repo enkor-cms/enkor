@@ -10,6 +10,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet/dist/leaflet.css';
 import Link from 'next/link';
 import { useEffect, useMemo } from 'react';
+import { useColorScheme } from '../ColorSchemeProvider';
 import { Button, Flex, FloatingPanel, Text } from '../common';
 import { SpotModal } from '../spot';
 import Cluster from './Cluster';
@@ -40,17 +41,21 @@ export const getBounds = (spots?: ISpotExtanded[]) => {
 };
 
 const GenericMap = ({ spots }: IMapProps) => {
-  const preferredColorScheme = false;
+  const { colorScheme } = useColorScheme();
   const [spot, setSpot] = useAtom(actualSpotAtom);
   const [floatingPanelIsOpen, openFloatingPanel, closeFloatingPanel] =
     useToggle(false);
 
   const tileLayerUrl = useMemo(() => {
-    if (preferredColorScheme) {
-      return 'https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png';
+    switch (colorScheme) {
+      case 'light':
+        return 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+      case 'dark':
+        return 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+      default:
+        break;
     }
-    return 'https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png';
-  }, [preferredColorScheme]);
+  }, [colorScheme]);
 
   useEffect(() => {
     if (spot) {
@@ -67,14 +72,13 @@ const GenericMap = ({ spots }: IMapProps) => {
           bounds={getBounds(spots)}
           zoom={DEFAULT_ZOOM}
           scrollWheelZoom={true}
-          className="w-full h-full bg-black"
+          className="w-full h-full bg-black z-0"
           zoomControl={false}
         >
           <LazyTileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             url={tileLayerUrl}
           />
-
           {spots && <Cluster spots={spots} />}
         </LazyMapContainer>
       </div>
