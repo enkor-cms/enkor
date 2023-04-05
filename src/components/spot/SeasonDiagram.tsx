@@ -55,7 +55,7 @@ const SeasonDiagram: React.FC<SeasonDiagramProps> = ({ months }) => {
               monthIsActive[index] && !monthIsActive[index + 1]
                 ? 'border rounded-r-xs'
                 : ''
-            } ${monthIsActive[index] ? 'bg-brand-200' : ''} ${
+            } ${monthIsActive[index] ? 'bg-brand-300 dark:bg-brand-700' : ''} ${
               monthIsActive[index]
                 ? 'border border-brand-400'
                 : 'border border-transparent'

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useSupabase } from '../auth/SupabaseProvider';
 import { Button, Flex, FloatingPanel } from '../common';
@@ -15,7 +15,6 @@ interface INavBarProps {}
 export const NavBar: React.FC<INavBarProps> = () => {
   const { session } = useSupabase();
   const router = useRouter();
-  const params = useSearchParams();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -94,17 +93,6 @@ export const NavBar: React.FC<INavBarProps> = () => {
             />
 
             <Button
-              text="Models"
-              variant="primary"
-              className="w-full"
-              icon="swatch"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                router.push('/model');
-              }}
-            />
-
-            <Button
               text="Settings"
               variant="primary"
               className="w-full"
@@ -125,9 +113,6 @@ export const NavBar: React.FC<INavBarProps> = () => {
       >
         <Flex className="h-full px-3">
           <NavIcon icon="map" label="map" to="/maps" />
-        </Flex>
-        <Flex className="h-full px-3">
-          <NavIcon icon="swatch" label="models" to="/model" />
         </Flex>
         <Flex className="h-full px-3">
           <NavIcon
