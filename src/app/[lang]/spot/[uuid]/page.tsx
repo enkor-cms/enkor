@@ -11,11 +11,18 @@ import { SpotCard } from '@/components/spot';
 import { getSpotEvents } from '@/features/events/service';
 import { getSpotReviews } from '@/features/reviews';
 import { getSpot } from '@/features/spots';
+import { Locale } from '@/i18n';
 import { getFirstItem } from '@/lib';
+import { getDictionary } from '@/lib/get-dictionary';
 import { createClient } from '@/lib/supabase/server';
 
-export default async function Page({ params }: { params: { uuid: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: { uuid: string; lang: Locale };
+}) {
   const supabase = createClient();
+  const dictionary = await getDictionary(params.lang);
 
   const { spot } = await getSpot({
     client: supabase,
@@ -37,8 +44,6 @@ export default async function Page({ params }: { params: { uuid: string } }) {
   if (!spot) {
     return <Text variant="body">No Spot</Text>;
   }
-
-  console.log(spot);
 
   return (
     <div className="w-full md:w-11/12 lg:w-5/6">
@@ -82,7 +87,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               verticalAlign="center"
               horizontalAlign="center"
             >
-              <Text variant="body">No Image</Text>
+              <Text variant="body">{dictionary.common.no_image}</Text>
             </Flex>
           )}
         </Flex>
@@ -90,8 +95,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
         <Flex verticalAlign="top" className="w-full">
           <Flex direction="row" horizontalAlign="stretch" className="w-full">
             <Text variant="title">
-              {`Events associated `}
-              <span className="opacity-70">({events?.length})</span>{' '}
+              {dictionary.events.title}
+              <span className="ml-1 opacity-70">({events?.length})</span>{' '}
             </Text>
             {session ? (
               <EventCreateFloatingPanel
@@ -100,21 +105,21 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               />
             ) : (
               <Text variant="body" className="opacity-60">
-                {'Log in to add a review'}
+                {dictionary.events.login_to_create}
               </Text>
             )}
           </Flex>
           {events && events.length > 0 ? (
             <EventContainer events={events} />
           ) : (
-            <Text variant="body">No Events</Text>
+            <Text variant="body">{dictionary.events.no_events}</Text>
           )}
         </Flex>
         <Flex verticalAlign="top" className="w-full">
           <Flex direction="row" horizontalAlign="stretch" className="w-full">
             <Text variant="title">
-              {`Reviews`}{' '}
-              <span className="opacity-70">({reviews?.length})</span>{' '}
+              {dictionary.reviews.title}
+              <span className="ml-1 opacity-70">({reviews?.length})</span>{' '}
             </Text>
             {session ? (
               <ReviewCreateModal
@@ -123,14 +128,14 @@ export default async function Page({ params }: { params: { uuid: string } }) {
               />
             ) : (
               <Text variant="body" className="opacity-60">
-                {'Log in to add a review'}
+                {dictionary.reviews.login_to_review}
               </Text>
             )}
           </Flex>
           {reviews && reviews.length > 0 ? (
             <ReviewContainer reviews={reviews} />
           ) : (
-            <Text variant="body">No Reviews</Text>
+            <Text variant="body">{dictionary.reviews.no_reviews}</Text>
           )}
         </Flex>
       </Flex>

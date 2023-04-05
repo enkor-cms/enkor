@@ -1,6 +1,7 @@
 import { GetSpotResponseSuccess } from '@/features/spots';
 import { getFirstItem } from '@/lib';
 import { Card, Flex, Icon, Tag, Text } from '../common';
+import { useDictionary } from '../DictionaryProvider';
 import Compass from './Compass';
 import SeasonDiagram from './SeasonDiagram';
 import { difficultyColors } from './types';
@@ -10,6 +11,8 @@ export type TSpotCardProps = {
 };
 
 export const SpotCard = ({ spot }: TSpotCardProps) => {
+  const dictionary = useDictionary();
+
   return (
     <Flex className="w-full" verticalAlign="top" gap={5}>
       <Flex className="w-full" direction="row" horizontalAlign="stretch">
@@ -64,11 +67,11 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
                 {spot.type && (
                   <tr>
                     <th className="py-2 px-3 text-left">
-                      <Text variant="caption">{'Type'}</Text>
+                      <Text variant="caption">{dictionary.common.type}</Text>
                     </th>
-                    <td className="py-2 px-3 text-right">
+                    <td className="py-2 px-3 text-center">
                       <Tag
-                        text={spot.type}
+                        text={dictionary.spots.type[spot.type]}
                         color={spot.type === 'Outdoor' ? 'green' : 'blue'}
                       />
                     </td>
@@ -78,11 +81,13 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
                 {spot.difficulty && (
                   <tr>
                     <th className="py-2 px-3 text-left">
-                      <Text variant="caption">{'Difficulty'}</Text>
+                      <Text variant="caption">
+                        {dictionary.common.difficulty}
+                      </Text>
                     </th>
-                    <td className="py-2 px-3 text-right">
+                    <td className="py-2 px-3 text-center">
                       <Tag
-                        text={spot.difficulty}
+                        text={dictionary.spots.difficulty[spot.difficulty]}
                         color={difficultyColors[spot.difficulty]}
                       />
                     </td>
@@ -92,7 +97,9 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
                 {spot.cliff_height && (
                   <tr>
                     <th className="py-2 px-3 text-left">
-                      <Text variant="caption">{'Cliff height'}</Text>
+                      <Text variant="caption">
+                        {dictionary.common.cliff_height}
+                      </Text>
                     </th>
                     <td className="py-2 px-3 text-center">
                       <Text variant="body" className="opacity-80 font-bold">
@@ -114,7 +121,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
       </Text>
       <Flex fullSize verticalAlign="top" className="mt-4">
         <Text variant="subtitle" className="opacity-60">
-          {'Approach'}
+          {dictionary.common.approach}
         </Text>
         <Text variant="body" className="opacity-60">
           {spot.approach}

@@ -27,5 +27,52 @@
     "locales": {
         "fr": "Français",
         "en": "Anglais"
+    },
+    "common": {
+        "no_image": "Aucune image",
+        "type": "Type",
+        "difficulty": "Difficulté",
+        "cliff_height": "Hauteur de falaise",
+        "approach": "Approche"
+    },
+    "events": {
+        "title": "Événements",
+        "login_to_participate": "Connectez-vous pour participer",
+        "login_to_create": "Connectez-vous pour créer un événement",
+        "no_events": "Aucun événement",
+        "create_event": "Créer un événement",
+        "upcoming_events": "Événements à venir",
+        "past_events": "Événements passés",
+        "event_details": "Détails de l'événement",
+        "attendees": "Participants"
+    },
+    "reviews": {
+        "title": "Avis",
+        "login_to_review": "Connectez-vous pour écrire un avis",
+        "no_reviews": "Aucun avis",
+        "review_details": "Détails de l'avis",
+        "review_title": "Titre de l'avis",
+        "review_description": "Description de l'avis",
+        "rating": "Évaluation",
+        "submit_review": "Soumettre l'avis"
+    },
+    "spots": {
+        "title": "Spots",
+        "login_to_create": "Connectez-vous pour créer un spot",
+        "create_spot": "Créer un spot",
+        "spot_name": "Nom du spot",
+        "spot_description": "Description du spot",
+        "location": "Emplacement",
+        "coordinates": "Coordonnées",
+        "submit_spot": "Soumettre le spot",
+        "type": {
+            "Outdoor": "Extérieur",
+            "Indoor": "Intérieur"
+        },
+        "difficulty": {
+            "Easy": "Facile",
+            "Medium": "Moyen",
+            "Hard": "Difficile"
+        }
     }
 }

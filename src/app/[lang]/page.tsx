@@ -12,7 +12,7 @@ export default async function Page({
 
   return (
     <>
-      <Flex fullSize verticalAlign="center" horizontalAlign="left">
+      <Flex fullSize verticalAlign="center" horizontalAlign="stretch">
         <Flex className="w-full relative" gap={0}>
           <Flex verticalAlign="center" className="w-full h-full relative">
             <CustomImage

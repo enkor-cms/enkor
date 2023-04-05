@@ -27,5 +27,52 @@
     "locales": {
         "fr": "French",
         "en": "English"
+    },
+    "common": {
+        "no_image": "No image",
+        "type": "Type",
+        "difficulty": "Difficulty",
+        "cliff_height": "Cliff height",
+        "approach": "Approach"
+    },
+    "events": {
+        "title": "Events",
+        "login_to_participate": "Login to participate",
+        "login_to_create": "Login to create an event",
+        "no_events": "No events",
+        "create_event": "Create an event",
+        "upcoming_events": "Upcoming events",
+        "past_events": "Past events",
+        "event_details": "Event details",
+        "attendees": "Attendees"
+    },
+    "reviews": {
+        "title": "Reviews",
+        "login_to_review": "Login to review",
+        "no_reviews": "No reviews",
+        "review_details": "Review details",
+        "review_title": "Review title",
+        "review_description": "Review description",
+        "rating": "Rating",
+        "submit_review": "Submit review"
+    },
+    "spots": {
+        "title": "Spots",
+        "login_to_create": "Login to create a spot",
+        "create_spot": "Create a spot",
+        "spot_name": "Spot name",
+        "spot_description": "Spot description",
+        "location": "Location",
+        "coordinates": "Coordinates",
+        "submit_spot": "Submit spot",
+        "type": {
+            "Outdoor": "Outdoor",
+            "Indoor": "Indoor"
+        },
+        "difficulty": {
+            "Easy": "Easy",
+            "Medium": "Medium",
+            "Hard": "Hard"
+        }
     }
 }
