@@ -254,7 +254,7 @@ export interface Database {
           id?: string;
           image?: string[] | null;
           location: number;
-          name?: string;
+          name: string;
           orientation?: Database['public']['Enums']['orientation'][] | null;
           period?: Database['public']['Enums']['month'][] | null;
           rock_type?: string | null;
@@ -463,7 +463,7 @@ export interface Database {
         Args: {
           '': string;
         };
-        Returns: string[];
+        Returns: unknown;
       };
       standardize_address:
         | {
@@ -474,7 +474,7 @@ export interface Database {
               micro: string;
               macro: string;
             };
-        Returns: Database['public']['CompositeTypes']['stdaddr'];
+            Returns: Database['public']['CompositeTypes']['stdaddr'];
           }
         | {
             Args: {
@@ -483,34 +483,34 @@ export interface Database {
               rultab: string;
               address: string;
             };
-          Returns: Database['public']['CompositeTypes']['stdaddr'];
-        };
+            Returns: Database['public']['CompositeTypes']['stdaddr'];
+          };
     };
     Enums: {
       continents:
-      | 'Africa'
-      | 'Antarctica'
-      | 'Asia'
-      | 'Europe'
-      | 'Oceania'
-      | 'North America'
-      | 'South America';
+        | 'Africa'
+        | 'Antarctica'
+        | 'Asia'
+        | 'Europe'
+        | 'Oceania'
+        | 'North America'
+        | 'South America';
       difficulty: 'Easy' | 'Medium' | 'Hard';
       diffulty: 'Easy' | 'Medium' | 'Hard';
       invitation_status: 'Pending' | 'Accepted';
       month:
-      | 'January'
-      | 'February'
-      | 'March'
-      | 'April'
-      | 'May'
-      | 'June'
-      | 'July'
-      | 'August'
-      | 'September'
-      | 'October'
-      | 'November'
-      | 'December';
+        | 'January'
+        | 'February'
+        | 'March'
+        | 'April'
+        | 'May'
+        | 'June'
+        | 'July'
+        | 'August'
+        | 'September'
+        | 'October'
+        | 'November'
+        | 'December';
       orientation: 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
       type: 'Indoor' | 'Outdoor';
     };

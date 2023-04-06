@@ -108,6 +108,7 @@ export const listCreatorSpots = async ({
     .select(
       `
       name,
+      created_at,
       description,
       difficulty,
       rock_type,
@@ -115,6 +116,7 @@ export const listCreatorSpots = async ({
       `,
     )
     .eq('creator', creatorId)
+    .order('created_at', { ascending: false })
     .range(page * limit, (page + 1) * limit - 1);
 
   if (currentError) {

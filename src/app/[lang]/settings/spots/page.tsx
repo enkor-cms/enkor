@@ -1,4 +1,5 @@
-import { Flex, Text, VirtualizedTable } from '@/components/common';
+import { Flex, VirtualizedTable } from '@/components/common';
+import { SpotCreationPanel } from '@/components/spot/';
 import { listCreatorSpots } from '@/features/spots';
 import { createClient } from '@/lib/supabase/server';
 import { toast } from 'react-toastify';
@@ -25,10 +26,18 @@ export default async function Page() {
 
   return (
     <>
+      <Flex
+        className="w-full p-3 pb-0"
+        verticalAlign="bottom"
+        horizontalAlign="center"
+      >
+        <SpotCreationPanel />
+      </Flex>
       <VirtualizedTable
         rows={spots}
         headers={[
           { title: 'name', width: 300 },
+          { title: 'created_at', width: 300 },
           { title: 'description' },
           { title: 'difficulty', width: 100 },
           { title: 'rock_type', width: 100 },
@@ -38,11 +47,6 @@ export default async function Page() {
           },
         ]}
       />
-      <Flex fullSize>
-        <Text variant="body" weight={500} className="capitalize">
-          Cou
-        </Text>
-      </Flex>
     </>
   );
 }

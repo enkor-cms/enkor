@@ -8,6 +8,10 @@ export function exclude<User, Key extends keyof User>(
   return user;
 }
 
+export function getEnumValues<T extends string>(...values: T[]): readonly T[] {
+  return values;
+}
+
 export function getFirstItem<T>(value: T | T[]): T {
   if (Array.isArray(value)) {
     return value[0];

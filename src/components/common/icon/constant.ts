@@ -1,5 +1,6 @@
 import ArrowRight from './svg/arrow-right';
 import Bolt from './svg/bolt';
+import Chart from './svg/chart';
 import ChevronLeft from './svg/chevron-left';
 import ChevronRight from './svg/chevron-right';
 import Cog from './svg/cog';
@@ -7,6 +8,7 @@ import Cross from './svg/cross';
 import Eye from './svg/eye';
 import EyeClosed from './svg/eye-closed';
 import Github from './svg/github';
+import GlobeAlt from './svg/globe-alt';
 import Google from './svg/google';
 import Hamburger from './svg/hamburger';
 import Hearth from './svg/hearth';
@@ -48,4 +50,6 @@ export const icons = {
   hamburger: Hamburger,
   pin: Pin,
   refresh: Refresh,
+  chart: Chart,
+  'globe-alt': GlobeAlt,
 };
