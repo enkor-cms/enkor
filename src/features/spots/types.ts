@@ -1,6 +1,6 @@
 import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/server';
-import { getSpot, listCreatorSpots } from './service';
+import { getSpot, listCreatorSpots, searchSpotsWithBounds } from './service';
 
 export type getSpotParams = {
   client: ReturnType<typeof createClient>;
@@ -39,3 +39,22 @@ export type CreatorsSpotsResponse = Awaited<
 
 export type CreatorsSpotsResponseError = CreatorsSpotsResponse['error'];
 export type CreatorsSpotsResponseSuccess = CreatorsSpotsResponse['spots'];
+
+export type spotsSearchWithBoundsParams = {
+  client: ReturnType<typeof createClient>;
+  bounds: {
+    latitude_lte: number;
+    latitude_gte: number;
+    longitude_lte: number;
+    longitude_gte: number;
+  };
+};
+
+export type spotsSearchWithBoundsResponse = Awaited<
+  ReturnType<typeof searchSpotsWithBounds>
+>;
+
+export type spotsSearchWithBoundsResponseError =
+  spotsSearchWithBoundsResponse['error'];
+export type spotsSearchWithBoundsResponseSuccess =
+  spotsSearchWithBoundsResponse['spots'];

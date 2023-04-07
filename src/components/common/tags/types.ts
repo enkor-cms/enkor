@@ -8,7 +8,8 @@ export type TTagColor =
   | 'orange'
   | 'purple'
   | 'pink'
-  | 'brand';
+  | 'brand'
+  | 'warning';
 
 export type TTagSize = 'small' | 'medium' | 'large';
 

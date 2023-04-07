@@ -14,11 +14,11 @@ export type TClusterProps = {
   onMarkerClick?: (spot: ISpotExtanded) => void;
 };
 
-export const getMarkerIcon = () => {
+export const getMarkerIcon = (color?: string) => {
   const marker = renderToStaticMarkup(
     <Icon
       name="pin"
-      color="text-brand-500"
+      color={color || 'text-brand-500'}
       fill
       className="z-10"
       scale={1.5}
@@ -29,7 +29,7 @@ export const getMarkerIcon = () => {
     html: marker,
     className: 'hidden',
     iconSize: [20, 20],
-    iconAnchor: [10, 10],
+    iconAnchor: [20, 20],
     popupAnchor: [0, 0],
   });
 };

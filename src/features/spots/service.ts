@@ -1,6 +1,11 @@
 import { logger } from '@/lib/logger';
 import { PostgrestError } from '@supabase/supabase-js';
-import { getSpotParams, ISpotExtanded, listSpotsParams } from './types';
+import {
+  getSpotParams,
+  ISpotExtanded,
+  listSpotsParams,
+  spotsSearchWithBoundsParams,
+} from './types';
 
 export const getSpot = async ({
   spotId,
@@ -118,6 +123,39 @@ export const listCreatorSpots = async ({
     .eq('creator', creatorId)
     .order('created_at', { ascending: false })
     .range(page * limit, (page + 1) * limit - 1);
+
+  if (currentError) {
+    logger.error(currentError);
+    error = currentError;
+  }
+
+  return {
+    spots,
+    error,
+  };
+};
+
+export const searchSpotsWithBounds = async ({
+  client,
+  bounds,
+}: spotsSearchWithBoundsParams) => {
+  let error: PostgrestError | null = null;
+
+  const { data: spots, error: currentError } = await client
+    .from('spots')
+    .select(
+      `
+      id,
+      name,
+      description,
+      created_at,
+      location!inner(latitude, longitude)
+      `,
+    )
+    .gte('location.latitude', bounds.latitude_gte)
+    .lte('location.latitude', bounds.latitude_lte)
+    .gte('location.longitude', bounds.longitude_gte)
+    .lte('location.longitude', bounds.longitude_lte);
 
   if (currentError) {
     logger.error(currentError);

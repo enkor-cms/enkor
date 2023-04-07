@@ -39,4 +39,9 @@ export const tagsConfig = {
     borderColor: 'border-brand-500',
     bgColor: 'bg-brand-500',
   },
+  warning: {
+    textColor: 'text-warning-500 brightness-200',
+    borderColor: 'border-warning-500',
+    bgColor: 'bg-warning-500',
+  },
 };

@@ -91,7 +91,7 @@ export function SpotCreationPanel({
             gap={6}
           >
             <InputText
-              labelText="Event name"
+              labelText="Spot name"
               type="text"
               value={spotForm.name}
               onChange={(e) => setSpotForm.name(e.target.value)}
@@ -134,13 +134,12 @@ export function SpotCreationPanel({
 
             <InputMaps
               onChangeLocation={(location) => {
-                logger.info(location);
+                // logger.info(location);
               }}
             />
           </Flex>
           <Flex
-            fullSize
-            className="p-6"
+            className="w-full p-6"
             direction="column"
             horizontalAlign="left"
             verticalAlign="top"

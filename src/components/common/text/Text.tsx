@@ -23,8 +23,8 @@ export const Text: FunctionComponent<ITextProps> = ({
   };
 
   const weightVariantClass = {
-    title: 'font-bold',
-    subtitle: 'font-bold',
+    title: 'font-semibold',
+    subtitle: 'font-semibold',
     body: 'font-normal',
     caption: 'font-normal',
     overline: 'font-normal',

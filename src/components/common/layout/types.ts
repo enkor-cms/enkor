@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconNames } from '../icon';
+import { TTagColor } from '../tags';
 
 export interface ILayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -11,4 +13,10 @@ export interface IFlexProps extends ILayoutProps {
   verticalAlign?: 'top' | 'center' | 'bottom' | 'stretch';
   horizontalAlign?: 'left' | 'center' | 'right' | 'stretch';
   gap?: number;
+}
+
+export interface IInfoCardProps extends ILayoutProps {
+  message: string;
+  color: TTagColor;
+  icon: IconNames;
 }

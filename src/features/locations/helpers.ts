@@ -6,6 +6,25 @@ export const findCountryIdFromName = (name: string) => {
   return country?.id;
 };
 
+export function getDeltaLatLon(
+  latitudeInDegrees: number,
+  radiusInMeters: number,
+): { deltaLatitude: number; deltaLongitude: number } {
+  const EARTH_RADIUS_METERS = 6371000;
+  const DEGREE_TO_RADIAN = Math.PI / 180;
+  const RADIAN_TO_DEGREE = 180 / Math.PI;
+
+  const latitudeInRadians = latitudeInDegrees * DEGREE_TO_RADIAN;
+
+  const deltaLatitude =
+    (radiusInMeters / EARTH_RADIUS_METERS) * RADIAN_TO_DEGREE;
+  const deltaLongitude =
+    (radiusInMeters / (EARTH_RADIUS_METERS * Math.cos(latitudeInRadians))) *
+    RADIAN_TO_DEGREE;
+
+  return { deltaLatitude, deltaLongitude };
+}
+
 export async function getAddressFromOpenStreetMap(lat: number, lng: number) {
   try {
     const response = await fetch(

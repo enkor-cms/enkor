@@ -1,8 +1,8 @@
 import { GetSpotResponseSuccess } from '@/features/spots';
 import { getFirstItem } from '@/lib';
 import Link from 'next/link';
-import { Button, Card, Flex, Icon, Tag, Text } from '../common';
 import { useDictionary } from '../DictionaryProvider';
+import { Button, Card, Flex, Icon, Tag, Text } from '../common';
 import Compass from './Compass';
 import SeasonDiagram from './SeasonDiagram';
 import { difficultyColors } from './types';
@@ -21,7 +21,7 @@ export const SpotCard = ({ spot }: TSpotCardProps) => {
           direction="row"
           verticalAlign="center"
           horizontalAlign="center"
-          className="w-full md:w-3/4 py-4 px-2"
+          className="w-full md:w-3/4 py-4"
         >
           <Flex
             fullSize

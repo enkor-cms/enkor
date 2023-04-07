@@ -24,6 +24,7 @@ import Spin from './svg/spin';
 import Star from './svg/star';
 import Swatch from './svg/swatch';
 import UserCircle from './svg/user-circle';
+import Warning from './svg/warning';
 
 export const icons = {
   'arrow-right': ArrowRight,
@@ -52,4 +53,5 @@ export const icons = {
   refresh: Refresh,
   chart: Chart,
   'globe-alt': GlobeAlt,
+  warning: Warning,
 };

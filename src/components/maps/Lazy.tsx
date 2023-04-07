@@ -45,3 +45,10 @@ export const LazyPopup = dynamic(
     ssr: false,
   },
 );
+
+export const LazyCircle = dynamic(
+  async () => (await import('react-leaflet')).Circle,
+  {
+    ssr: false,
+  },
+);
