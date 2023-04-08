@@ -8,11 +8,18 @@ import {
   InputMultipleSelect,
   InputText,
   InputTextArea,
+  Modal,
   Select,
   Text,
 } from '@/components/common';
 import { TLocationInsert, insertLocation } from '@/features/locations';
-import { SPOT_PERIODS, TSpot, TSpotInsert, insertSpot } from '@/features/spots';
+import {
+  SPOT_PERIODS,
+  TSpot,
+  TSpotInsert,
+  insertSpot,
+  spotsSearchWithBoundsResponseSuccess,
+} from '@/features/spots';
 import {
   SPOT_DIFFICULTIES,
   SPOT_ORIENTATIONS,
@@ -21,10 +28,12 @@ import {
 import useCustomForm from '@/features/spots/hooks';
 import { deleteFiles, uploadFiles } from '@/features/storage';
 import { useToggle } from '@/hooks';
+import { formatDateString } from '@/lib';
 import { Database } from '@/lib/db_types';
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/browser';
-import { useState } from 'react';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSupabase } from '../auth/SupabaseProvider';
 import { InputMaps } from '../maps';
@@ -52,7 +61,7 @@ export function SpotCreationPanel({
     cliff_height: undefined,
     period: undefined,
     orientation: undefined,
-    image: undefined,
+    image: [],
     creator: '',
     location: 0,
     type: 'Indoor',
@@ -61,6 +70,8 @@ export function SpotCreationPanel({
   const [spotForm, setSpotForm, errors, setErrors] =
     useCustomForm(initialState);
   const [location, setLocation] = useState<TLocationInsert | null>(null);
+  const [spotsCloseToLocation, setSpotsCloseToLocation] =
+    useState<spotsSearchWithBoundsResponseSuccess>();
   const [images, setImages] = useState<File[]>([]);
 
   const handleFileUpload = async (files: File[]) => {
@@ -125,11 +136,11 @@ export function SpotCreationPanel({
     });
 
     if (
-      errors.name ||
-      errors.difficulty ||
-      errors.type ||
-      errors.location ||
-      errors.image
+      spotForm.name === '' ||
+      spotForm.difficulty.length == 0 ||
+      spotForm.type.length == 0 ||
+      location === null ||
+      images.length == 0
     ) {
       setSubmittingMessage(undefined);
       return false;
@@ -206,6 +217,34 @@ export function SpotCreationPanel({
     string | undefined
   >(undefined);
 
+  const [confirmModalOpen, openConfirmModal, closeConfirmModal] =
+    useToggle(false);
+
+  const allOptionalFieldsFilled = useMemo(() => {
+    const optionalFields = [
+      spotForm.description,
+      spotForm.approach,
+      spotForm.rock_type,
+      spotForm.cliff_height,
+      spotForm.period,
+      spotForm.orientation,
+    ];
+
+    return optionalFields.every((field) => field !== undefined);
+  }, [spotForm]);
+
+  const allRequiredFieldsFilled = useMemo(() => {
+    const requiredFields = [
+      spotForm.name !== '',
+      spotForm.difficulty !== null,
+      spotForm.type !== null,
+      location !== null,
+      images !== null,
+    ];
+
+    return requiredFields.every((field) => field === true);
+  }, [spotForm, location, images]);
+
   return (
     <>
       <Button
@@ -214,17 +253,17 @@ export function SpotCreationPanel({
         variant="default"
         onClick={() => openPanel()}
       />
+
       <FloatingPanel
         isOpen={panelOpen}
         title="Create a new event"
         onClose={() => {
-          logger.info('Closing panel');
           closePanel();
           onClose && onClose();
         }}
         size="large"
         onConfirm={async () => {
-          (await handleSubmit()) && closePanel();
+          openConfirmModal();
         }}
         forceValidation={true}
         forceValidationMessage="If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?"
@@ -319,6 +358,9 @@ export function SpotCreationPanel({
                   setLocation(location);
                   setErrors({ location: undefined });
                 }}
+                onSpotsFound={(spots) => {
+                  setSpotsCloseToLocation(spots);
+                }}
               />
               {errors.location && (
                 <InfoCard
@@ -403,6 +445,103 @@ export function SpotCreationPanel({
             />
           </Flex>
         </Flex>
+        <Modal
+          title="One more step before submitting"
+          isOpen={confirmModalOpen}
+          size="xlarge"
+          fullHeight
+          onClose={() => closeConfirmModal()}
+          onConfirm={async () => {
+            closeConfirmModal();
+            (await handleSubmit()) && closePanel();
+          }}
+        >
+          <Flex className="w-full p-3" horizontalAlign="left">
+            {!allRequiredFieldsFilled && (
+              <InfoCard
+                message="You have not filled all the required fields"
+                color="red"
+                icon="warning"
+              >
+                {Object.entries({
+                  name: spotForm.name,
+                  difficulty: spotForm.difficulty,
+                  type: spotForm.type,
+                  location: location,
+                  image: images,
+                }).map(([key, value]) => {
+                  if (
+                    value === undefined ||
+                    value === '' ||
+                    value?.length === 0 ||
+                    value === null
+                  ) {
+                    return (
+                      <Text variant="caption" key={key} className="opacity-60">
+                        {key}
+                      </Text>
+                    );
+                  }
+                })}
+              </InfoCard>
+            )}
+            {!allOptionalFieldsFilled && (
+              <InfoCard
+                message="You have not filled all the optional fields, please fill them to help other climbers"
+                color="warning"
+                icon="warning"
+              >
+                {Object.entries(spotForm).map(([key, value]) => {
+                  if (value === undefined) {
+                    return (
+                      <Text variant="caption" key={key} className="opacity-60">
+                        {key}
+                      </Text>
+                    );
+                  }
+                })}
+              </InfoCard>
+            )}
+            {spotsCloseToLocation && spotsCloseToLocation.length > 0 && (
+              <InfoCard
+                message="Be careful, there are already spots in this area, please check if your spot is not already in the list"
+                color="warning"
+                icon="warning"
+              >
+                {spotsCloseToLocation.map((spot) => (
+                  <Flex
+                    direction="row"
+                    gap={2}
+                    verticalAlign="center"
+                    horizontalAlign="left"
+                    key={spot.name}
+                  >
+                    <Text variant="caption" className="opacity-90">
+                      {spot.name}
+                    </Text>
+                    <Text variant="caption" className="opacity-60">
+                      {`created on ${formatDateString(spot.created_at)}`}
+                    </Text>
+                    <Link
+                      href={`/spot/${spot.id}`}
+                      className="opacity-60 hover:opacity-100"
+                      target="_blank"
+                    >
+                      <Text variant="caption" className="opacity-60">
+                        {'View'}
+                      </Text>
+                    </Link>
+                  </Flex>
+                ))}
+              </InfoCard>
+            )}
+
+            <Text variant="body" className="py-0 px-3">
+              Please check that all the information you have entered is correct
+              before submitting
+            </Text>
+          </Flex>
+        </Modal>
       </FloatingPanel>
     </>
   );

@@ -66,9 +66,13 @@ export const MarkerContainer = ({ onMove }: MarkerContainerProps) => {
 
 export type InputMapsProps = {
   onChangeLocation: (location: TLocationInsert) => void;
+  onSpotsFound: (spots: spotsSearchWithBoundsResponseSuccess) => void;
 };
 
-export const InputMaps = ({ onChangeLocation }: InputMapsProps) => {
+export const InputMaps = ({
+  onChangeLocation,
+  onSpotsFound,
+}: InputMapsProps) => {
   const { colorScheme } = useColorScheme();
   const supabase = createClient();
 
@@ -129,6 +133,7 @@ export const InputMaps = ({ onChangeLocation }: InputMapsProps) => {
       });
       if (spotsFound) {
         setSpotsCloseToLocation(spotsFound);
+        onSpotsFound(spotsFound);
       }
     };
 

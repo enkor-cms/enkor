@@ -106,7 +106,7 @@ export const FloatingPanel: FunctionComponent<TFloatingPanelProps> = ({
         }}
         title="Confirmation"
       >
-        <div className="text-center">
+        <div className="text-center p-3">
           <Text variant="caption">
             {props.forceValidationMessage ||
               'If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?'}

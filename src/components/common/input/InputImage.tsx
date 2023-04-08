@@ -1,4 +1,3 @@
-import { logger } from '@supabase/auth-helpers-nextjs';
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { Button } from '../button';
 import { IconNames } from '../icon';
@@ -33,7 +32,6 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.files) {
         const filesArray = Array.from(event.target.files);
-        logger.debug(filesArray);
         setSelectedFiles(filesArray);
         onSelectedFilesChange(filesArray);
       }

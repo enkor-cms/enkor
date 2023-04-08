@@ -20,7 +20,7 @@ export type TModalDefaultProps = {
   children: React.ReactNode;
   isOpen: boolean;
   title: string;
-  size?: 'medium' | 'large';
+  size?: 'medium' | 'large' | 'xlarge';
   customHeader?: React.ReactNode;
   customFooter?: React.ReactNode;
   backgroundOverlay?: boolean;
@@ -33,4 +33,6 @@ export type TFloatingPanelProps = TModalDefaultProps & {
   forceValidationMessage?: string;
 };
 
-export type TModalProps = TModalDefaultProps;
+export type TModalProps = TModalDefaultProps & {
+  fullHeight?: boolean;
+};
