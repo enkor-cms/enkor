@@ -98,7 +98,7 @@ export const SearchBar = ({
       <InputText
         className="search-bar w-full"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onSelectedFilesChange={(e) => setSearch(e.target.value)}
         icon="loop"
         ref={inputRef}
       />

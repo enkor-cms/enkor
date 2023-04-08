@@ -204,21 +204,23 @@ export const EventCreateFloatingPanel = ({
               labelText="Event name"
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onSelectedFilesChange={(e) => setName(e.target.value)}
               className="w-full"
             />
             <InputText
               labelText="Number of participants"
               type="number"
               value={numberOfPlaces}
-              onChange={(e) => setNumberOfPlaces(Number(e.target.value))}
+              onSelectedFilesChange={(e) =>
+                setNumberOfPlaces(Number(e.target.value))
+              }
               className="w-full"
             />
             <InputDate
               labelText="Start date"
               type="datetime-local"
               value={startAt}
-              onChange={(e) => setStartAt(e.target.value)}
+              onSelectedFilesChange={(e) => setStartAt(e.target.value)}
               className="w-full"
             />
           </Flex>
@@ -237,7 +239,7 @@ export const EventCreateFloatingPanel = ({
               labelText="End date"
               type="datetime-local"
               value={endAt}
-              onChange={(e) => setEndAt(e.target.value)}
+              onSelectedFilesChange={(e) => setEndAt(e.target.value)}
               className="w-full"
             />
           </Flex>

@@ -2,6 +2,7 @@ import {
   Button,
   Flex,
   FloatingPanel,
+  InputImage,
   InputText,
   InputTextArea,
   Select,
@@ -14,8 +15,8 @@ import { Database } from '@/lib/db_types';
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/browser';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { InputMaps } from '../maps';
+import { useEffect, useState } from 'react';
+import { InputMaps, TLocationInsert } from '../maps';
 
 export type SpotCreationPanelProps = {
   onSpotCreated?: (spot: Spot) => void;
@@ -33,20 +34,21 @@ export function SpotCreationPanel({
 
   const initialState: Database['public']['Tables']['spots']['Insert'] = {
     name: '',
-    description: null,
-    approach: null,
+    description: undefined,
+    approach: undefined,
     difficulty: 'Medium',
-    rock_type: null,
-    cliff_height: null,
-    period: null,
-    orientation: null,
-    image: null,
+    rock_type: undefined,
+    cliff_height: undefined,
+    period: undefined,
+    orientation: undefined,
+    image: undefined,
     creator: '',
     location: 0,
     type: 'Indoor',
   };
 
   const [spotForm, setSpotForm] = useCustomForm(initialState);
+  const [location, setLocation] = useState<TLocationInsert | null>(null);
 
   useEffect(() => {
     logger.info(spotForm);
@@ -84,8 +86,7 @@ export function SpotCreationPanel({
           className="divide-y overflow-y-auto divide-white-300 dark:divide-dark-300"
         >
           <Flex
-            fullSize
-            className="p-6"
+            className="w-full p-6"
             direction="column"
             horizontalAlign="left"
             gap={6}
@@ -94,7 +95,7 @@ export function SpotCreationPanel({
               labelText="Spot name"
               type="text"
               value={spotForm.name}
-              onChange={(e) => setSpotForm.name(e.target.value)}
+              onSelectedFilesChange={(e) => setSpotForm.name(e.target.value)}
               className="w-full"
             />
             <Flex className="w-full" direction="row" gap={6}>
@@ -103,7 +104,7 @@ export function SpotCreationPanel({
                 className="h-full w-full"
                 icon="chart"
                 value={spotForm.difficulty}
-                onChange={(e) =>
+                onSelectedFilesChange={(e) =>
                   setSpotForm.difficulty(
                     e.target.value as typeof spotForm.difficulty,
                   )
@@ -120,7 +121,7 @@ export function SpotCreationPanel({
                 className="h-full w-full"
                 icon="globe-alt"
                 value={spotForm.type}
-                onChange={(e) =>
+                onSelectedFilesChange={(e) =>
                   setSpotForm.type(e.target.value as typeof spotForm.type)
                 }
               >
@@ -132,9 +133,16 @@ export function SpotCreationPanel({
               </Select>
             </Flex>
 
+            <InputImage
+              labelText="Spot image"
+              onSelectedFilesChange={(images) => {
+                logger.info(images);
+              }}
+            />
+
             <InputMaps
               onChangeLocation={(location) => {
-                // logger.info(location);
+                setLocation(location);
               }}
             />
           </Flex>
@@ -151,15 +159,20 @@ export function SpotCreationPanel({
             <InputTextArea
               labelText="Description"
               type="text"
-              value={spotForm.description}
-              onChange={(e) => setSpotForm.description(e.target.value)}
+              value={spotForm.description || ''}
+              onSelectedFilesChange={(e) =>
+                setSpotForm.description &&
+                setSpotForm.description(e.target.value)
+              }
               className="w-full"
             />
             <InputTextArea
               labelText="Approach"
               type="text"
-              value={spotForm.approach}
-              onChange={(e) => setSpotForm.approach(e.target.value)}
+              value={spotForm.approach || ''}
+              onSelectedFilesChange={(e) =>
+                setSpotForm.approach && setSpotForm.approach(e.target.value)
+              }
               className="w-full"
             />
           </Flex>

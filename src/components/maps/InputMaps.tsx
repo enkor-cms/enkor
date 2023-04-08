@@ -8,7 +8,6 @@ import {
   spotsSearchWithBoundsResponseSuccess,
 } from '@/features/spots';
 import { formatDateString, getFirstItem } from '@/lib';
-import { Database } from '@/lib/db_types';
 import { createClient } from '@/lib/supabase/browser';
 import { debounce } from 'lodash';
 import Link from 'next/link';
@@ -23,6 +22,7 @@ import {
   LazyMarker,
   LazyTileLayer,
 } from './Lazy';
+import { TLocationInsert } from './types';
 
 const DEFAULT_ZOOM = 11;
 const DEFAULT_LATITUDE = 45.508272;
@@ -65,12 +65,7 @@ export const MarkerContainer = ({ onMove }: MarkerContainerProps) => {
 };
 
 export type InputMapsProps = {
-  onChangeLocation: (
-    location: Pick<
-      Database['public']['Tables']['locations']['Insert'],
-      'latitude' | 'longitude' | 'city' | 'department' | 'country'
-    >,
-  ) => void;
+  onChangeLocation: (location: TLocationInsert) => void;
 };
 
 export const InputMaps = ({ onChangeLocation }: InputMapsProps) => {
@@ -142,6 +137,11 @@ export const InputMaps = ({ onChangeLocation }: InputMapsProps) => {
 
   return (
     <Flex className="w-full" direction="column" gap={2}>
+      <label className="w-full text-left" htmlFor="imagesInput">
+        <Text variant="caption" className="py-0 px-3">
+          {'Location'}
+        </Text>
+      </label>
       <Flex
         className="w-full px-3"
         direction="row"

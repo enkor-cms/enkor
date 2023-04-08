@@ -42,7 +42,6 @@ export const ImageCarouselController: React.FC<
   };
 
   const handleNext = () => {
-    console.log(carouselRef.current);
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
         left: 500,
