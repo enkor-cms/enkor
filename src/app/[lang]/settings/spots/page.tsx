@@ -1,24 +1,43 @@
+'use client';
+
+import { useSupabase } from '@/components/auth/SupabaseProvider';
 import { Flex, VirtualizedTable } from '@/components/common';
 import { SpotCreationPanel } from '@/components/spot/';
-import { listCreatorSpots } from '@/features/spots';
-import { createClient } from '@/lib/supabase/server';
+import {
+  CreatorsSpotsResponseSuccess,
+  listCreatorSpots,
+} from '@/features/spots';
+import { createClient } from '@/lib/supabase/browser';
+import { logger } from '@supabase/auth-helpers-nextjs';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
-export default async function Page() {
+export default function Page() {
   const supabase = createClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { session } = useSupabase();
+  const [spots, setSpots] = useState<CreatorsSpotsResponseSuccess>(null);
+  const spotsLoaded = useRef(false);
 
-  const { spots, error } = await listCreatorSpots({
-    client: supabase,
-    creatorId: session?.user.id as string,
-    limit: 50,
-  });
+  const fetchSpots = async (userId: string) => {
+    const { spots, error } = await listCreatorSpots({
+      client: supabase,
+      creatorId: userId,
+    });
 
-  if (error) {
-    toast.error(error.message);
-  }
+    if (error) {
+      logger.error(error);
+      return;
+    }
+
+    setSpots(spots);
+  };
+
+  useEffect(() => {
+    if (session && !spotsLoaded.current) {
+      spotsLoaded.current = true;
+      fetchSpots(session.user.id);
+    }
+  }, [session]);
 
   if (!spots) {
     return null;
@@ -31,7 +50,12 @@ export default async function Page() {
         verticalAlign="bottom"
         horizontalAlign="center"
       >
-        <SpotCreationPanel />
+        <SpotCreationPanel
+          onSpotCreated={(spot) => {
+            toast.success(`Spot ${spot.name} created!`);
+            session && fetchSpots(session.user.id);
+          }}
+        />
       </Flex>
       <VirtualizedTable
         rows={spots}

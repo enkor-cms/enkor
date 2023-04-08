@@ -12,6 +12,8 @@ export type listSpotsParams = {
   limit?: number;
 };
 
+export type TSpot = Database['public']['Tables']['spots']['Row'];
+
 type GetSpotResponse = Awaited<ReturnType<typeof getSpot>>;
 export type GetSpotResponseError = GetSpotResponse['error'];
 type GetSpotResponseSuccessTemp = GetSpotResponse['spot'];
@@ -58,3 +60,10 @@ export type spotsSearchWithBoundsResponseError =
   spotsSearchWithBoundsResponse['error'];
 export type spotsSearchWithBoundsResponseSuccess =
   spotsSearchWithBoundsResponse['spots'];
+
+export type TSpotInsert = Database['public']['Tables']['spots']['Insert'];
+
+export type insertSpotParams = {
+  client: ReturnType<typeof createClient>;
+  spot: TSpotInsert;
+};

@@ -11,25 +11,26 @@ import {
   Select,
   Text,
 } from '@/components/common';
-import { SPOT_PERIODS } from '@/features/spots';
+import { TLocationInsert, insertLocation } from '@/features/locations';
+import { SPOT_PERIODS, TSpot, TSpotInsert, insertSpot } from '@/features/spots';
 import {
   SPOT_DIFFICULTIES,
   SPOT_ORIENTATIONS,
   SPOT_TYPES,
 } from '@/features/spots/constants';
 import useCustomForm from '@/features/spots/hooks';
-import { uploadFiles } from '@/features/storage';
+import { deleteFiles, uploadFiles } from '@/features/storage';
 import { useToggle } from '@/hooks';
 import { Database } from '@/lib/db_types';
 import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/browser';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { InputMaps, TLocationInsert } from '../maps';
+import { useSupabase } from '../auth/SupabaseProvider';
+import { InputMaps } from '../maps';
 
 export type SpotCreationPanelProps = {
-  onSpotCreated?: (spot: Spot) => void;
+  onSpotCreated?: (spot: TSpot) => void;
   onClose?: () => void;
 };
 
@@ -38,9 +39,9 @@ export function SpotCreationPanel({
   onClose,
 }: SpotCreationPanelProps) {
   const supabase = createClient();
-  const router = useRouter();
+  const { session } = useSupabase();
 
-  const [panelOpen, openPanel, closePanel] = useToggle(true);
+  const [panelOpen, openPanel, closePanel] = useToggle(false);
 
   const initialState: Database['public']['Tables']['spots']['Insert'] = {
     name: '',
@@ -75,8 +76,43 @@ export function SpotCreationPanel({
     return imagesPaths;
   };
 
-  const handleSpotCreation = async () => {
-    setSubmitting(true);
+  const handleLocationCreation = async (location: TLocationInsert) => {
+    const { location: locationCreated, error } = await insertLocation({
+      client: supabase,
+      location: location,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return locationCreated;
+  };
+
+  const handleSpotCreation = async (spot: TSpotInsert) => {
+    const { spot: spotCreated, error } = await insertSpot({
+      client: supabase,
+      spot: spot,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return spotCreated;
+  };
+
+  const handleDeleteImages = async (imagesPaths: string[]) => {
+    const response = await deleteFiles({
+      client: supabase,
+      files: imagesPaths,
+    });
+
+    return response;
+  };
+
+  const handleSubmit = async () => {
+    setSubmittingMessage('Checking the data...');
 
     setErrors({
       name: spotForm.name === '' ? 'This field is required' : undefined,
@@ -95,17 +131,19 @@ export function SpotCreationPanel({
       errors.location ||
       errors.image
     ) {
-      setSubmitting(false);
+      setSubmittingMessage(undefined);
       return false;
     }
 
     let publicImagesPaths: string[] = [];
     let imagesPaths: string[] = [];
+    let locationId: number = 0;
     // create this variable because setState is async and we need to wait for the state to be updated
 
     /* 
       UPLOAD IMAGES
     */
+    setSubmittingMessage('Uploading images...');
     try {
       const responses = await handleFileUpload(images);
       publicImagesPaths = responses.map((response) => response.publicUrl);
@@ -113,7 +151,27 @@ export function SpotCreationPanel({
     } catch (error) {
       logger.error(error);
       toast.error('An error occurred while uploading the images');
-      setSubmitting(false);
+      setSubmittingMessage(undefined);
+      return false;
+    }
+
+    /*
+      CREATE LOCATION
+    */
+    setSubmittingMessage('Creating location...');
+    try {
+      const locationCreated = await handleLocationCreation(
+        location as TLocationInsert,
+      );
+      if (!locationCreated) {
+        throw new Error('An error occurred while creating the location');
+      }
+      locationId = locationCreated[0].id;
+    } catch (error) {
+      logger.error(error);
+      toast.error('An error occurred while creating the location');
+      handleDeleteImages(imagesPaths);
+      setSubmittingMessage(undefined);
       return false;
     }
 
@@ -121,18 +179,32 @@ export function SpotCreationPanel({
       CREATE SPOT
     */
 
-    logger.info('Creating spot');
-    logger.info({
-      ...spotForm,
-      publicImagesPaths,
-    });
-    logger.info(location);
-
-    setSubmitting(false);
-    return false;
+    setSubmittingMessage('Creating spot...');
+    try {
+      const spotCreated = await handleSpotCreation({
+        ...spotForm,
+        location: locationId,
+        image: publicImagesPaths,
+        creator: session?.user?.id as string,
+      });
+      if (!spotCreated) {
+        throw new Error('An error occurred while creating the spot');
+      }
+      onSpotCreated && onSpotCreated(spotCreated[0]);
+      setSubmittingMessage(undefined);
+      return true;
+    } catch (error) {
+      logger.error(error);
+      toast.error('An error occurred while creating the spot');
+      handleDeleteImages(imagesPaths);
+      setSubmittingMessage(undefined);
+      return false;
+    }
   };
 
-  const [submitting, setSubmitting] = useState(false);
+  const [submittingMessage, setSubmittingMessage] = useState<
+    string | undefined
+  >(undefined);
 
   return (
     <>
@@ -152,7 +224,7 @@ export function SpotCreationPanel({
         }}
         size="large"
         onConfirm={async () => {
-          (await handleSpotCreation()) && closePanel();
+          (await handleSubmit()) && closePanel();
         }}
         forceValidation={true}
         forceValidationMessage="If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?"
@@ -164,7 +236,7 @@ export function SpotCreationPanel({
           gap={0}
           className="divide-y overflow-y-auto divide-white-300 dark:divide-dark-300"
         >
-          {submitting && (
+          {submittingMessage && (
             <Flex
               fullSize
               className="absolute inset-0 z-50 bg-white-200 dark:bg-dark-100 bg-opacity-70"
@@ -174,7 +246,7 @@ export function SpotCreationPanel({
               gap={6}
             >
               <Icon name="spin" className="animate-spin" />
-              <Text variant="body">Creating spot...</Text>
+              <Text variant="body">{submittingMessage}</Text>
             </Flex>
           )}
           <Flex
@@ -312,9 +384,7 @@ export function SpotCreationPanel({
                 value={spotForm.orientation}
                 onChange={(e) =>
                   setSpotForm.orientation &&
-                  setSpotForm.orientation(
-                    e.target.value as typeof spotForm.orientation,
-                  )
+                  setSpotForm.orientation([e.target.value])
                 }
               >
                 {Object.values(SPOT_ORIENTATIONS).map((orientation) => (

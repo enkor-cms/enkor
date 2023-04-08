@@ -1,8 +1,9 @@
 import { logger } from '@/lib/logger';
 import { PostgrestError } from '@supabase/supabase-js';
 import {
-  getSpotParams,
   ISpotExtanded,
+  getSpotParams,
+  insertSpotParams,
   listSpotsParams,
   spotsSearchWithBoundsParams,
 } from './types';
@@ -112,6 +113,7 @@ export const listCreatorSpots = async ({
     .from('spots')
     .select(
       `
+      id,
       name,
       created_at,
       description,
@@ -166,4 +168,14 @@ export const searchSpotsWithBounds = async ({
     spots,
     error,
   };
+};
+
+export const insertSpot = async ({ client, spot }: insertSpotParams) => {
+  const { data, error } = await client.from('spots').insert(spot).select();
+
+  if (error) {
+    logger.error(error);
+  }
+
+  return { spot: data, error };
 };

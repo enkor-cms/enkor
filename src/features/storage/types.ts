@@ -11,3 +11,8 @@ export type uploadFilesParams = {
   path: string;
   files: File[];
 };
+
+export type deleteFilesParams = {
+  client: ReturnType<typeof createClient>;
+  files: string[];
+};
