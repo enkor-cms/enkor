@@ -10,6 +10,21 @@ export const SPOT_TYPES = getEnumValues<Database['public']['Enums']['type']>(
   'Outdoor',
 );
 
+export const SPOT_PERIODS = getEnumValues<Database['public']['Enums']['month']>(
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+);
+
 export const SPOT_ORIENTATIONS = getEnumValues<
   Database['public']['Enums']['orientation']
 >('N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW');

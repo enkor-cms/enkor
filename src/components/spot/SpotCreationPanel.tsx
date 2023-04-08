@@ -3,11 +3,13 @@ import {
   Flex,
   FloatingPanel,
   InputImage,
+  InputMultipleSelect,
   InputText,
   InputTextArea,
   Select,
   Text,
 } from '@/components/common';
+import { SPOT_PERIODS } from '@/features/spots';
 import { SPOT_DIFFICULTIES, SPOT_TYPES } from '@/features/spots/constants';
 import useCustomForm from '@/features/spots/hooks';
 import { useToggle } from '@/hooks';
@@ -190,7 +192,7 @@ export function SpotCreationPanel({
                 className="w-full"
               />
               <InputText
-                labelText="Cliff height"
+                labelText="Cliff height (m)"
                 type="number"
                 value={spotForm.cliff_height || 0}
                 onChange={(e) =>
@@ -200,6 +202,14 @@ export function SpotCreationPanel({
                 className="w-full"
               />
             </Flex>
+            <InputMultipleSelect
+              labelText="Period"
+              icon="calendar"
+              onChange={(e) => {
+                logger.info(e);
+              }}
+              options={Object.values(SPOT_PERIODS).map((period) => period)}
+            />
           </Flex>
         </Flex>
       </FloatingPanel>

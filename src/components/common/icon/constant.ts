@@ -1,6 +1,7 @@
 import ArrowRight from './svg/arrow-right';
 import Bolt from './svg/bolt';
 import Chart from './svg/chart';
+import Check from './svg/check';
 import ChevronLeft from './svg/chevron-left';
 import ChevronRight from './svg/chevron-right';
 import Cog from './svg/cog';
@@ -18,6 +19,7 @@ import Map from './svg/map';
 import Models from './svg/models';
 import Photo from './svg/photo';
 import Pin from './svg/pin';
+import Plus from './svg/plus';
 import Puzzle from './svg/puzzle';
 import Refresh from './svg/refresh';
 import Servers from './svg/servers';
@@ -56,4 +58,6 @@ export const icons = {
   'globe-alt': GlobeAlt,
   warning: Warning,
   file: File,
+  plus: Plus,
+  check: Check,
 };

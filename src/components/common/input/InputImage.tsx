@@ -95,8 +95,8 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
           <InfoCard
             className="w-full"
             message="No images selected"
-            color="brand"
-            icon="eye"
+            color="warning"
+            icon="warning"
           >
             <Text variant="caption">
               Please select some images to upload. You can select multiple
