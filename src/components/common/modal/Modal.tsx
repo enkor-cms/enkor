@@ -1,5 +1,5 @@
 import { useMountTransition, useToggle } from '@/hooks';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { DefaultFooter, DefaultHeader } from './DefaultElement';
 import { BackgroundOverlay } from './FloatingPanel';
 import './style.css';
@@ -18,15 +18,28 @@ export const Modal: FunctionComponent<TModalProps> = ({
   const getPanelWidth = () => {
     switch (size) {
       case 'medium':
-        return 'sm:inset-x-6 md:inset-x-8 lg:inset-x-1/4 inset-x-3';
+        return 'sm:inset-x-6 md:inset-x-1/4 lg:inset-x-1/3 inset-x-3';
       case 'large':
-        return 'sm:inset-x-6 md:inset-x-10 lg:inset-x-1/4 inset-x-3';
+        return 'sm:inset-x-6 md:inset-x-10 lg:inset-x-12 inset-x-3';
       case 'xlarge':
-        return 'sm:inset-x-6 md:inset-x-12 lg:inset-x-1/2 inset-x-3';
+        return 'sm:inset-x-6 md:inset-x-12 lg:inset-x-16 inset-x-3';
       default:
         return 'sm:inset-x-6 md:inset-x-8 lg:inset-x-10 inset-x-3';
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      event.stopPropagation();
+      if (event.key === 'Escape') {
+        isOpen && props.onClose();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
 
   return hasTransitionedIn || isOpen ? (
     <BackgroundOverlay
