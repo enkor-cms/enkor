@@ -28,12 +28,48 @@
         "fr": "Français",
         "en": "Anglais"
     },
+    "month": {
+        "january": "Janvier",
+        "february": "Février",
+        "march": "Mars",
+        "april": "Avril",
+        "may": "Mai",
+        "june": "Juin",
+        "july": "Juillet",
+        "august": "Août",
+        "september": "Septembre",
+        "october": "Octobre",
+        "november": "Novembre",
+        "december": "Décembre"
+    },
     "common": {
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
         "no_image": "Aucune image",
+        "select_images": "Sélectionner des images",
+        "delete_images": "Supprimer les images",
+        "no_images_selected": "Aucune image sélectionnée",
+        "no_images_selected_message": "Veuillez sélectionner au moins une image, vous pouvez sélectionner plusieurs images en maintenant la touche Ctrl enfoncée",
+        "must_select_image": "Vous devez sélectionner au moins une image",
         "type": "Type",
         "difficulty": "Difficulté",
+        "orientation": "Orientation",
         "cliff_height": "Hauteur de falaise",
-        "approach": "Approche"
+        "practice_period": "Période de pratique",
+        "approach": "Approche",
+        "required_fields": "Champs obligatoires",
+        "optional_fields": "Champs facultatifs",
+        "required_field": "Champ obligatoire",
+        "optional_field": "Champ facultatif",
+        "must_fill_required_fields": "Vous devez remplir tous les champs obligatoires",
+        "warning_fill_optional_fields": "Vous pouvez remplir les champs facultatifs pour améliorer la qualité de votre contenu",
+        "created_at": "Créé le",
+        "view": "Voir",
+        "select_all": "Tout sélectionner",
+        "unselect_all": "Tout désélectionner",
+        "force_validation_message": "Voulez vous vraiment fermer cette fenêtre ? Certains champs ne sont pas valides.",
+        "one_more_step": "Une dernière étape",
+        "check_before_submit": "Veuillez vérifier les informations ci-dessous avant de soumettre votre contenu"
     },
     "events": {
         "title": "Événements",
@@ -62,6 +98,7 @@
         "create_spot": "Créer un spot",
         "spot_name": "Nom du spot",
         "spot_description": "Description du spot",
+        "rock_type": "Type de rocher",
         "location": "Emplacement",
         "coordinates": "Coordonnées",
         "submit_spot": "Soumettre le spot",
@@ -73,6 +110,17 @@
             "Easy": "Facile",
             "Medium": "Moyen",
             "Hard": "Difficile"
-        }
+        },
+        "spot_images": "Images du spot"
+    },
+    "spotsCreation": {
+        "no_location_found": "Aucun emplacement trouvé",
+        "spots_found_warning": "Des spots ont été trouvés à ces coordonnées. Etês-vous sûr de vouloir créer un nouveau spot ?",
+        "must_select_location": "Vous devez sélectionner un emplacement",
+        "checking_data": "Vérification des données",
+        "uploading_images": "Téléchargement des images",
+        "error_uploading_images": "Une erreur est survenue lors du téléchargement des images",
+        "creating_spot": "Création du spot",
+        "error_creating_spot": "Une erreur est survenue lors de la création du spot"
     }
 }

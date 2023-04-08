@@ -28,12 +28,48 @@
         "fr": "French",
         "en": "English"
     },
+    "month": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+    },
     "common": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
         "no_image": "No image",
+        "select_images": "Select images",
+        "delete_images": "Delete images",
+        "no_images_selected": "No images selected",
+        "no_images_selected_message": "Please select some images to upload. You can select multiple images by holding down the Ctrl key and clicking on the images.",
+        "must_select_image": "You must select at least one image",
         "type": "Type",
         "difficulty": "Difficulty",
+        "orientation": "Orientation",
+        "practice_period": "Practice period",
         "cliff_height": "Cliff height",
-        "approach": "Approach"
+        "approach": "Approach",
+        "required_fields": "Required fields",
+        "optional_fields": "Optional fields",
+        "required_field": "Required field",
+        "optional_field": "Optional field",
+        "must_fill_required_fields": "You must fill all the required fields",
+        "warning_fill_optional_fields": "You have not filled all the optional fields, please fill them to help other climbers",
+        "created_at": "Created at",
+        "view": "View",
+        "select_all": "Select all",
+        "unselect_all": "Unselect all",
+        "force_validation_message": "If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?",
+        "one_more_step": "One more step",
+        "check_before_submit": "Please check the information you have entered before submitting"
     },
     "events": {
         "title": "Events",
@@ -62,6 +98,7 @@
         "create_spot": "Create a spot",
         "spot_name": "Spot name",
         "spot_description": "Spot description",
+        "rock_type": "Rock type",
         "location": "Location",
         "coordinates": "Coordinates",
         "submit_spot": "Submit spot",
@@ -73,6 +110,17 @@
             "Easy": "Easy",
             "Medium": "Medium",
             "Hard": "Hard"
-        }
+        },
+        "spot_images": "Spot images"
+    },
+    "spotsCreation": {
+        "no_location_found": "No location found",
+        "spots_found_warning": "Be careful, there are already spots in this area, please check if your spot is not already in the list",
+        "must_select_location": "You must select a location",
+        "checking_data": "Checking data",
+        "uploading_images": "Uploading images",
+        "error_uploading_images": "Error uploading images",
+        "creating_spot": "Creating spot",
+        "error_creating_spot": "Error creating spot"
     }
 }

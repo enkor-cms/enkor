@@ -1,3 +1,4 @@
+import { useDictionary } from '@/components/DictionaryProvider';
 import React, { useState } from 'react';
 import { Button } from '../button';
 import { IconNames } from '../icon';
@@ -20,6 +21,7 @@ export const InputMultipleSelect = <T extends string>({
   options,
   onChange,
 }: IProps<T>) => {
+  const dictionary = useDictionary();
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleOptionClick = (option: string) => {
@@ -69,13 +71,13 @@ export const InputMultipleSelect = <T extends string>({
             verticalAlign="center"
           >
             <Button
-              text="Select All"
+              text={dictionary.common.select_all}
               variant="none"
               type="button"
               onClick={handleSelectAll}
             />
             <Button
-              text="Unselect All"
+              text={dictionary.common.unselect_all}
               variant="none"
               type="button"
               onClick={handleUnselectAll}

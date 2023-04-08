@@ -1,3 +1,4 @@
+import { useDictionary } from '@/components/DictionaryProvider';
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { Button } from '../button';
 import { IconNames } from '../icon';
@@ -26,6 +27,8 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
     },
     ref,
   ) => {
+    const dictionary = useDictionary();
+
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -52,7 +55,7 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
             </label>
             <Flex fullSize direction="row" horizontalAlign="right" gap={2}>
               <Button
-                text="Delete all images"
+                text={dictionary.common.delete_images}
                 variant="none"
                 onClick={() => {
                   setSelectedFiles([]);
@@ -65,7 +68,7 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
         <Button
           icon="file"
           variant="secondary"
-          text="Select images"
+          text={dictionary.common.select_images}
           className="w-full"
           onClick={triggerFileInput}
         />
@@ -89,7 +92,12 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
           multiple
         ></input>
         {error && (
-          <p className="text-red-600 text-right animate-shake">{error}</p>
+          <InfoCard
+            className="w-full"
+            message={error}
+            color="red"
+            icon="warning"
+          />
         )}
         {selectedFiles && selectedFiles.length > 0 ? (
           <Flex fullSize direction="row">
@@ -104,13 +112,12 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
         ) : (
           <InfoCard
             className="w-full"
-            message="No images selected"
+            message={dictionary.common.no_images_selected}
             color="warning"
             icon="warning"
           >
             <Text variant="caption">
-              Please select some images to upload. You can select multiple
-              images by holding down the Ctrl key and clicking on the images.
+              {dictionary.common.no_images_selected_message}
             </Text>
           </InfoCard>
         )}

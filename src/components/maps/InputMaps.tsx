@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import { useColorScheme } from '../ColorSchemeProvider';
+import { useDictionary } from '../DictionaryProvider';
 import { Card, Flex, InfoCard, Text } from '../common';
 import { getMarkerIcon } from './Cluster';
 import {
@@ -73,6 +74,7 @@ export const InputMaps = ({
   onChangeLocation,
   onSpotsFound,
 }: InputMapsProps) => {
+  const dictionary = useDictionary();
   const { colorScheme } = useColorScheme();
   const supabase = createClient();
 
@@ -144,7 +146,7 @@ export const InputMaps = ({
     <Flex className="w-full" direction="column" gap={2}>
       <label className="w-full text-left" htmlFor="imagesInput">
         <Text variant="caption" className="py-0 px-3">
-          {'Location'}
+          {dictionary.spots.location}
         </Text>
       </label>
       <Flex
@@ -166,7 +168,7 @@ export const InputMaps = ({
             </>
           ) : (
             <Text variant="caption" className="opacity-60">
-              {'No location found'}
+              {dictionary.spotsCreation.no_location_found}
             </Text>
           )}
         </div>
@@ -233,7 +235,7 @@ export const InputMaps = ({
       </div>
       {spotsCloseToLocation && spotsCloseToLocation.length > 0 && (
         <InfoCard
-          message="Be careful, there are already spots in this area, please check if your spot is not already in the list"
+          message={dictionary.spotsCreation.spots_found_warning}
           color="warning"
           icon="warning"
         >
@@ -249,7 +251,9 @@ export const InputMaps = ({
                 {spot.name}
               </Text>
               <Text variant="caption" className="opacity-60">
-                {`created on ${formatDateString(spot.created_at)}`}
+                {`${dictionary.common.created_at} ${formatDateString(
+                  spot.created_at,
+                )}`}
               </Text>
               <Link
                 href={`/spot/${spot.id}`}
@@ -257,7 +261,7 @@ export const InputMaps = ({
                 target="_blank"
               >
                 <Text variant="caption" className="opacity-60">
-                  {'View'}
+                  {dictionary.common.view}
                 </Text>
               </Link>
             </Flex>

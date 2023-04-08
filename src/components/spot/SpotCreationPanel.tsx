@@ -35,6 +35,7 @@ import { createClient } from '@/lib/supabase/browser';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useDictionary } from '../DictionaryProvider';
 import { useSupabase } from '../auth/SupabaseProvider';
 import { InputMaps } from '../maps';
 
@@ -47,10 +48,11 @@ export function SpotCreationPanel({
   onSpotCreated,
   onClose,
 }: SpotCreationPanelProps) {
+  const dictionary = useDictionary();
   const supabase = createClient();
   const { session } = useSupabase();
 
-  const [panelOpen, openPanel, closePanel] = useToggle(false);
+  const [panelOpen, openPanel, closePanel] = useToggle(true);
 
   const initialState: Database['public']['Tables']['spots']['Insert'] = {
     name: '',
@@ -123,16 +125,24 @@ export function SpotCreationPanel({
   };
 
   const handleSubmit = async () => {
-    setSubmittingMessage('Checking the data...');
+    setSubmittingMessage(`${dictionary.spotsCreation.checking_data}...`);
 
     setErrors({
-      name: spotForm.name === '' ? 'This field is required' : undefined,
+      name: spotForm.name === '' ? dictionary.common.required_field : undefined,
       difficulty:
-        spotForm.difficulty.length == 0 ? 'This field is required' : undefined,
-      type: spotForm.type.length == 0 ? 'This field is required' : undefined,
-      location: location === null ? 'You must select a location' : undefined,
+        spotForm.difficulty.length == 0
+          ? dictionary.common.required_field
+          : undefined,
+      type:
+        spotForm.type.length == 0
+          ? dictionary.common.required_field
+          : undefined,
+      location:
+        location === null
+          ? dictionary.spotsCreation.must_select_location
+          : undefined,
       image:
-        images.length == 0 ? 'You must select at least one image' : undefined,
+        images.length == 0 ? dictionary.common.must_select_image : undefined,
     });
 
     if (
@@ -154,14 +164,14 @@ export function SpotCreationPanel({
     /* 
       UPLOAD IMAGES
     */
-    setSubmittingMessage('Uploading images...');
+    setSubmittingMessage(`${dictionary.spotsCreation.uploading_images}...`);
     try {
       const responses = await handleFileUpload(images);
       publicImagesPaths = responses.map((response) => response.publicUrl);
       imagesPaths = responses.map((response) => response.path);
     } catch (error) {
       logger.error(error);
-      toast.error('An error occurred while uploading the images');
+      toast.error(dictionary.spotsCreation.error_uploading_images);
       setSubmittingMessage(undefined);
       return false;
     }
@@ -169,18 +179,18 @@ export function SpotCreationPanel({
     /*
       CREATE LOCATION
     */
-    setSubmittingMessage('Creating location...');
+    setSubmittingMessage(`${dictionary.spotsCreation.creating_spot}...`);
     try {
       const locationCreated = await handleLocationCreation(
         location as TLocationInsert,
       );
       if (!locationCreated) {
-        throw new Error('An error occurred while creating the location');
+        throw new Error(dictionary.spotsCreation.error_creating_spot);
       }
       locationId = locationCreated[0].id;
     } catch (error) {
       logger.error(error);
-      toast.error('An error occurred while creating the location');
+      toast.error(dictionary.spotsCreation.error_creating_spot);
       handleDeleteImages(imagesPaths);
       setSubmittingMessage(undefined);
       return false;
@@ -190,7 +200,7 @@ export function SpotCreationPanel({
       CREATE SPOT
     */
 
-    setSubmittingMessage('Creating spot...');
+    setSubmittingMessage(`${dictionary.spotsCreation.creating_spot}...`);
     try {
       const spotCreated = await handleSpotCreation({
         ...spotForm,
@@ -199,14 +209,14 @@ export function SpotCreationPanel({
         creator: session?.user?.id as string,
       });
       if (!spotCreated) {
-        throw new Error('An error occurred while creating the spot');
+        throw new Error(dictionary.spotsCreation.error_creating_spot);
       }
       onSpotCreated && onSpotCreated(spotCreated[0]);
       setSubmittingMessage(undefined);
       return true;
     } catch (error) {
       logger.error(error);
-      toast.error('An error occurred while creating the spot');
+      toast.error(dictionary.spotsCreation.error_creating_spot);
       handleDeleteImages(imagesPaths);
       setSubmittingMessage(undefined);
       return false;
@@ -248,7 +258,7 @@ export function SpotCreationPanel({
   return (
     <>
       <Button
-        text="Create a new spot"
+        text={dictionary.spots.create_spot}
         icon="models"
         variant="default"
         onClick={() => openPanel()}
@@ -256,7 +266,7 @@ export function SpotCreationPanel({
 
       <FloatingPanel
         isOpen={panelOpen}
-        title="Create a new event"
+        title={dictionary.spots.create_spot}
         onClose={() => {
           closePanel();
           onClose && onClose();
@@ -266,7 +276,7 @@ export function SpotCreationPanel({
           openConfirmModal();
         }}
         forceValidation={true}
-        forceValidationMessage="If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?"
+        forceValidationMessage={dictionary.common.force_validation_message}
       >
         <Flex
           fullSize
@@ -296,10 +306,10 @@ export function SpotCreationPanel({
             gap={6}
           >
             <Text variant="body" className="py-0 px-3">
-              Required fields
+              {dictionary.common.required_fields}
             </Text>
             <InputText
-              labelText="Spot name"
+              labelText={dictionary.spots.spot_name}
               type="text"
               error={errors.name}
               value={spotForm.name}
@@ -311,7 +321,7 @@ export function SpotCreationPanel({
             />
             <Flex className="w-full" direction="row" gap={6}>
               <Select
-                labelText="Difficulty"
+                labelText={dictionary.common.difficulty}
                 className="h-full w-full"
                 icon="chart"
                 value={spotForm.difficulty}
@@ -323,12 +333,12 @@ export function SpotCreationPanel({
               >
                 {Object.values(SPOT_DIFFICULTIES).map((difficulty) => (
                   <option value={difficulty} key={difficulty}>
-                    {difficulty}
+                    {dictionary.spots.difficulty[difficulty]}
                   </option>
                 ))}
               </Select>
               <Select
-                labelText="Type"
+                labelText={dictionary.common.type}
                 className="h-full w-full"
                 icon="globe-alt"
                 value={spotForm.type}
@@ -338,14 +348,15 @@ export function SpotCreationPanel({
               >
                 {Object.values(SPOT_TYPES).map((type) => (
                   <option value={type} key={type}>
-                    {type}
+                    {dictionary.spots.type[type]}
                   </option>
                 ))}
               </Select>
             </Flex>
 
             <InputImage
-              labelText="Spot image"
+              labelText={dictionary.spots.spot_images}
+              error={errors.image}
               onSelectedFilesChange={(images) => {
                 setImages(images);
                 setErrors({ image: undefined });
@@ -379,10 +390,10 @@ export function SpotCreationPanel({
             gap={6}
           >
             <Text variant="body" className="py-0 px-3">
-              Optional fields
+              {dictionary.common.optional_fields}
             </Text>
             <InputTextArea
-              labelText="Description"
+              labelText={dictionary.spots.spot_description}
               type="text"
               value={spotForm.description || ''}
               onChange={(e) =>
@@ -392,7 +403,7 @@ export function SpotCreationPanel({
               className="w-full"
             />
             <InputTextArea
-              labelText="Approach"
+              labelText={dictionary.common.approach}
               type="text"
               value={spotForm.approach || ''}
               onChange={(e) =>
@@ -402,7 +413,7 @@ export function SpotCreationPanel({
             />
             <Flex className="w-full" direction="row" gap={6}>
               <InputText
-                labelText="Rock type"
+                labelText={dictionary.spots.rock_type}
                 type="text"
                 value={spotForm.rock_type || ''}
                 onChange={(e) =>
@@ -411,7 +422,7 @@ export function SpotCreationPanel({
                 className="w-full"
               />
               <InputText
-                labelText="Cliff height (m)"
+                labelText={`${dictionary.common.cliff_height} (m)`}
                 type="number"
                 value={spotForm.cliff_height || 0}
                 onChange={(e) =>
@@ -421,7 +432,7 @@ export function SpotCreationPanel({
                 className="w-full"
               />
               <Select
-                labelText="Orientation"
+                labelText={dictionary.common.orientation}
                 className="h-full w-full"
                 value={spotForm.orientation}
                 onChange={(e) =>
@@ -437,16 +448,18 @@ export function SpotCreationPanel({
               </Select>
             </Flex>
             <InputMultipleSelect
-              labelText="Period"
+              labelText={dictionary.common.practice_period}
               onChange={(selectedItems) => {
                 setSpotForm.period && setSpotForm.period(selectedItems);
               }}
-              options={Object.values(SPOT_PERIODS).map((period) => period)}
+              options={Object.values(SPOT_PERIODS).map(
+                (period) => dictionary.month[period.toLocaleLowerCase()],
+              )}
             />
           </Flex>
         </Flex>
         <Modal
-          title="One more step before submitting"
+          title={dictionary.common.one_more_step}
           isOpen={confirmModalOpen}
           size="xlarge"
           fullHeight
@@ -459,7 +472,7 @@ export function SpotCreationPanel({
           <Flex className="w-full p-3" horizontalAlign="left">
             {!allRequiredFieldsFilled && (
               <InfoCard
-                message="You have not filled all the required fields"
+                message={dictionary.common.must_fill_required_fields}
                 color="red"
                 icon="warning"
               >
@@ -487,7 +500,7 @@ export function SpotCreationPanel({
             )}
             {!allOptionalFieldsFilled && (
               <InfoCard
-                message="You have not filled all the optional fields, please fill them to help other climbers"
+                message={dictionary.common.warning_fill_optional_fields}
                 color="warning"
                 icon="warning"
               >
@@ -504,7 +517,7 @@ export function SpotCreationPanel({
             )}
             {spotsCloseToLocation && spotsCloseToLocation.length > 0 && (
               <InfoCard
-                message="Be careful, there are already spots in this area, please check if your spot is not already in the list"
+                message={dictionary.spotsCreation.spots_found_warning}
                 color="warning"
                 icon="warning"
               >
@@ -520,7 +533,9 @@ export function SpotCreationPanel({
                       {spot.name}
                     </Text>
                     <Text variant="caption" className="opacity-60">
-                      {`created on ${formatDateString(spot.created_at)}`}
+                      {`${dictionary.common.created_at} ${formatDateString(
+                        spot.created_at,
+                      )}`}
                     </Text>
                     <Link
                       href={`/spot/${spot.id}`}
@@ -528,7 +543,7 @@ export function SpotCreationPanel({
                       target="_blank"
                     >
                       <Text variant="caption" className="opacity-60">
-                        {'View'}
+                        {dictionary.common.view}
                       </Text>
                     </Link>
                   </Flex>
@@ -537,8 +552,7 @@ export function SpotCreationPanel({
             )}
 
             <Text variant="body" className="py-0 px-3">
-              Please check that all the information you have entered is correct
-              before submitting
+              {dictionary.common.check_before_submit}
             </Text>
           </Flex>
         </Modal>
