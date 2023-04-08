@@ -1,0 +1,126 @@
+{
+    "home": {
+        "title": "Welcome to ClimbingSpot, the Global Climbing Community!",
+        "part": {
+            "first": {
+                "title": "Explore the Best Climbing Sites",
+                "text": "Discover the best climbing sites in the world, starting with our comprehensive database of climbing destinations in France. Our interactive map offers detailed information on each site, including difficulty levels, route types, and nearby facilities. Whether you're a beginner or an experienced climber, our platform has something for everyone."
+            },
+            "second": {
+                "title": "Connect with Fellow Climbers",
+                "text": "Our community-focused approach encourages climbers to meet, share experiences, and learn from one another. Create a profile and start connecting with climbers who share your passion for the sport. Join conversations, ask questions, and share your favorite climbing sites with others."
+            },
+            "third": {
+                "title": "Organize and Participate in Climbing Events",
+                "text": "Enhance your climbing experience by organizing or participating in events at your favorite climbing sites. Our platform makes it easy to create and manage events, invite climbers, and coordinate details. Find local events or plan a climbing trip with new friends from around the world."
+            },
+            "fourth": {
+                "title": "Stay Updated on Climbing News and Tips",
+                "text": " Keep up with the latest news in the climbing world, from competitions and events to new route openings and gear reviews. Our blog also features helpful tips, techniques, and advice from experienced climbers to help you improve your skills and stay safe on the rocks."
+            },
+            "five": {
+                "title": "Stay Updated on Climbing News and Tips!",
+                "text": " Embark on your climbing adventure with ClimbingSpot! Create a free account, explore our interactive map, and connect with climbers from all corners of the globe. Experience the thrill of climbing while making lasting friendships and memories."
+            }
+        }
+    },
+    "locales": {
+        "fr": "French",
+        "en": "English"
+    },
+    "month": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+    },
+    "common": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "no_image": "No image",
+        "select_images": "Select images",
+        "delete_images": "Delete images",
+        "no_images_selected": "No images selected",
+        "no_images_selected_message": "Please select some images to upload. You can select multiple images by holding down the Ctrl key and clicking on the images.",
+        "must_select_image": "You must select at least one image",
+        "type": "Type",
+        "difficulty": "Difficulty",
+        "orientation": "Orientation",
+        "practice_period": "Practice period",
+        "cliff_height": "Cliff height",
+        "approach": "Approach",
+        "required_fields": "Required fields",
+        "optional_fields": "Optional fields",
+        "required_field": "Required field",
+        "optional_field": "Optional field",
+        "must_fill_required_fields": "You must fill all the required fields",
+        "warning_fill_optional_fields": "You have not filled all the optional fields, please fill them to help other climbers",
+        "created_at": "Created at",
+        "view": "View",
+        "select_all": "Select all",
+        "unselect_all": "Unselect all",
+        "force_validation_message": "If you close the panel, you will lose all the data you have entered. Are you sure you want to close the panel?",
+        "one_more_step": "One more step",
+        "check_before_submit": "Please check the information you have entered before submitting"
+    },
+    "events": {
+        "title": "Events",
+        "login_to_participate": "Login to participate",
+        "login_to_create": "Login to create an event",
+        "no_events": "No events",
+        "create_event": "Create an event",
+        "upcoming_events": "Upcoming events",
+        "past_events": "Past events",
+        "event_details": "Event details",
+        "attendees": "Attendees"
+    },
+    "reviews": {
+        "title": "Reviews",
+        "login_to_review": "Login to review",
+        "no_reviews": "No reviews",
+        "review_details": "Review details",
+        "review_title": "Review title",
+        "review_description": "Review description",
+        "rating": "Rating",
+        "submit_review": "Submit review"
+    },
+    "spots": {
+        "title": "Spots",
+        "login_to_create": "Login to create a spot",
+        "create_spot": "Create a spot",
+        "spot_name": "Spot name",
+        "spot_description": "Spot description",
+        "rock_type": "Rock type",
+        "location": "Location",
+        "coordinates": "Coordinates",
+        "submit_spot": "Submit spot",
+        "type": {
+            "Outdoor": "Outdoor",
+            "Indoor": "Indoor"
+        },
+        "difficulty": {
+            "Easy": "Easy",
+            "Medium": "Medium",
+            "Hard": "Hard"
+        },
+        "spot_images": "Spot images"
+    },
+    "spotsCreation": {
+        "no_location_found": "No location found",
+        "spots_found_warning": "Be careful, there are already spots in this area, please check if your spot is not already in the list",
+        "must_select_location": "You must select a location",
+        "checking_data": "Checking data",
+        "uploading_images": "Uploading images",
+        "error_uploading_images": "Error uploading images",
+        "creating_spot": "Creating spot",
+        "error_creating_spot": "Error creating spot"
+    }
+}

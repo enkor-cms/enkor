@@ -1,0 +1,126 @@
+{
+    "home": {
+        "title": "Bienvenue sur ClimbingSpot, la communauté mondiale d'escalade !",
+        "part": {
+            "first": {
+                "title": "Explorez les meilleurs sites d'escalade",
+                "text": "Découvrez les meilleurs sites d'escalade du monde, en commençant par notre base de données exhaustive des destinations d'escalade en France. Notre carte interactive offre des informations détaillées sur chaque site, y compris les niveaux de difficulté, les types de voies et les équipements à proximité. Que vous soyez débutant ou grimpeur expérimenté, notre plateforme a quelque chose pour tout le monde."
+            },
+            "second": {
+                "title": "Connectez-vous avec d'autres grimpeurs",
+                "text": "Notre approche axée sur la communauté encourage les grimpeurs à se rencontrer, à partager leurs expériences et à apprendre les uns des autres. Créez un profil et commencez à vous connecter avec des grimpeurs qui partagent votre passion pour le sport. Participez aux conversations, posez des questions et partagez vos sites d'escalade préférés avec les autres."
+            },
+            "third": {
+                "title": "Organisez et participez à des événements d'escalade",
+                "text": "Améliorez votre expérience d'escalade en organisant ou en participant à des événements sur vos sites d'escalade préférés. Notre plateforme facilite la création et la gestion d'événements, l'invitation de grimpeurs et la coordination des détails. Trouvez des événements locaux ou planifiez un voyage d'escalade avec de nouveaux amis du monde entier."
+            },
+            "fourth": {
+                "title": "Restez informé des actualités et conseils d'escalade",
+                "text": "Suivez les dernières nouvelles du monde de l'escalade, des compétitions et événements aux ouvertures de nouvelles voies et aux avis sur le matériel. Notre blog propose également des conseils utiles, des techniques et des recommandations de grimpeurs expérimentés pour vous aider à améliorer vos compétences et à rester en sécurité sur les rochers."
+            },
+            "five": {
+                "title": "Commencez dès aujourd'hui !",
+                "text": "Lancez-vous dans l'aventure de l'escalade avec ClimbingSpot ! Créez un compte gratuit, explorez notre carte interactive et connectez-vous avec des grimpeurs du monde entier. Vivez le frisson de l'escalade tout en nouant des amitiés et des souvenirs durables."
+            }
+        }
+    },
+    "locales": {
+        "fr": "Français",
+        "en": "Anglais"
+    },
+    "month": {
+        "january": "Janvier",
+        "february": "Février",
+        "march": "Mars",
+        "april": "Avril",
+        "may": "Mai",
+        "june": "Juin",
+        "july": "Juillet",
+        "august": "Août",
+        "september": "Septembre",
+        "october": "Octobre",
+        "november": "Novembre",
+        "december": "Décembre"
+    },
+    "common": {
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
+        "no_image": "Aucune image",
+        "select_images": "Sélectionner des images",
+        "delete_images": "Supprimer les images",
+        "no_images_selected": "Aucune image sélectionnée",
+        "no_images_selected_message": "Veuillez sélectionner au moins une image, vous pouvez sélectionner plusieurs images en maintenant la touche Ctrl enfoncée",
+        "must_select_image": "Vous devez sélectionner au moins une image",
+        "type": "Type",
+        "difficulty": "Difficulté",
+        "orientation": "Orientation",
+        "cliff_height": "Hauteur de falaise",
+        "practice_period": "Période de pratique",
+        "approach": "Approche",
+        "required_fields": "Champs obligatoires",
+        "optional_fields": "Champs facultatifs",
+        "required_field": "Champ obligatoire",
+        "optional_field": "Champ facultatif",
+        "must_fill_required_fields": "Vous devez remplir tous les champs obligatoires",
+        "warning_fill_optional_fields": "Vous pouvez remplir les champs facultatifs pour améliorer la qualité de votre contenu",
+        "created_at": "Créé le",
+        "view": "Voir",
+        "select_all": "Tout sélectionner",
+        "unselect_all": "Tout désélectionner",
+        "force_validation_message": "Voulez vous vraiment fermer cette fenêtre ? Certains champs ne sont pas valides.",
+        "one_more_step": "Une dernière étape",
+        "check_before_submit": "Veuillez vérifier les informations ci-dessous avant de soumettre votre contenu"
+    },
+    "events": {
+        "title": "Événements",
+        "login_to_participate": "Connectez-vous pour participer",
+        "login_to_create": "Connectez-vous pour créer un événement",
+        "no_events": "Aucun événement",
+        "create_event": "Créer un événement",
+        "upcoming_events": "Événements à venir",
+        "past_events": "Événements passés",
+        "event_details": "Détails de l'événement",
+        "attendees": "Participants"
+    },
+    "reviews": {
+        "title": "Avis",
+        "login_to_review": "Connectez-vous pour écrire un avis",
+        "no_reviews": "Aucun avis",
+        "review_details": "Détails de l'avis",
+        "review_title": "Titre de l'avis",
+        "review_description": "Description de l'avis",
+        "rating": "Évaluation",
+        "submit_review": "Soumettre l'avis"
+    },
+    "spots": {
+        "title": "Spots",
+        "login_to_create": "Connectez-vous pour créer un spot",
+        "create_spot": "Créer un spot",
+        "spot_name": "Nom du spot",
+        "spot_description": "Description du spot",
+        "rock_type": "Type de rocher",
+        "location": "Emplacement",
+        "coordinates": "Coordonnées",
+        "submit_spot": "Soumettre le spot",
+        "type": {
+            "Outdoor": "Extérieur",
+            "Indoor": "Intérieur"
+        },
+        "difficulty": {
+            "Easy": "Facile",
+            "Medium": "Moyen",
+            "Hard": "Difficile"
+        },
+        "spot_images": "Images du spot"
+    },
+    "spotsCreation": {
+        "no_location_found": "Aucun emplacement trouvé",
+        "spots_found_warning": "Des spots ont été trouvés à ces coordonnées. Etês-vous sûr de vouloir créer un nouveau spot ?",
+        "must_select_location": "Vous devez sélectionner un emplacement",
+        "checking_data": "Vérification des données",
+        "uploading_images": "Téléchargement des images",
+        "error_uploading_images": "Une erreur est survenue lors du téléchargement des images",
+        "creating_spot": "Création du spot",
+        "error_creating_spot": "Une erreur est survenue lors de la création du spot"
+    }
+}
