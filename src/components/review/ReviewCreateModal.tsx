@@ -97,13 +97,13 @@ export const ReviewCreateModal = ({
             labelText="Title"
             type="text"
             value={title}
-            onSelectedFilesChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <InputTextArea
             labelText="Content"
             type="text"
             value={content}
-            onSelectedFilesChange={(e) => setContent(e.target.value)}
+            onChange={(e) => setContent(e.target.value)}
           />
         </div>
       </Modal>

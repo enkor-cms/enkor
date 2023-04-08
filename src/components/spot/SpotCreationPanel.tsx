@@ -89,13 +89,17 @@ export function SpotCreationPanel({
             className="w-full p-6"
             direction="column"
             horizontalAlign="left"
+            verticalAlign="top"
             gap={6}
           >
+            <Text variant="body" className="py-0 px-3">
+              Required fields
+            </Text>
             <InputText
               labelText="Spot name"
               type="text"
               value={spotForm.name}
-              onSelectedFilesChange={(e) => setSpotForm.name(e.target.value)}
+              onChange={(e) => setSpotForm.name(e.target.value)}
               className="w-full"
             />
             <Flex className="w-full" direction="row" gap={6}>
@@ -104,7 +108,7 @@ export function SpotCreationPanel({
                 className="h-full w-full"
                 icon="chart"
                 value={spotForm.difficulty}
-                onSelectedFilesChange={(e) =>
+                onChange={(e) =>
                   setSpotForm.difficulty(
                     e.target.value as typeof spotForm.difficulty,
                   )
@@ -121,7 +125,7 @@ export function SpotCreationPanel({
                 className="h-full w-full"
                 icon="globe-alt"
                 value={spotForm.type}
-                onSelectedFilesChange={(e) =>
+                onChange={(e) =>
                   setSpotForm.type(e.target.value as typeof spotForm.type)
                 }
               >
@@ -160,7 +164,7 @@ export function SpotCreationPanel({
               labelText="Description"
               type="text"
               value={spotForm.description || ''}
-              onSelectedFilesChange={(e) =>
+              onChange={(e) =>
                 setSpotForm.description &&
                 setSpotForm.description(e.target.value)
               }
@@ -170,11 +174,32 @@ export function SpotCreationPanel({
               labelText="Approach"
               type="text"
               value={spotForm.approach || ''}
-              onSelectedFilesChange={(e) =>
+              onChange={(e) =>
                 setSpotForm.approach && setSpotForm.approach(e.target.value)
               }
               className="w-full"
             />
+            <Flex className="w-full" direction="row" gap={6}>
+              <InputText
+                labelText="Rock type"
+                type="text"
+                value={spotForm.rock_type || ''}
+                onChange={(e) =>
+                  setSpotForm.rock_type && setSpotForm.rock_type(e.target.value)
+                }
+                className="w-full"
+              />
+              <InputText
+                labelText="Cliff height"
+                type="number"
+                value={spotForm.cliff_height || 0}
+                onChange={(e) =>
+                  setSpotForm.cliff_height &&
+                  setSpotForm.cliff_height(parseInt(e.target.value))
+                }
+                className="w-full"
+              />
+            </Flex>
           </Flex>
         </Flex>
       </FloatingPanel>
