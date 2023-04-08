@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { Button } from '../button';
+import { IconNames } from '../icon';
 import { Flex } from '../layout';
 import { Text } from '../text';
 
-interface IProps {
+interface IProps<T> {
   labelText?: string;
   error?: string;
   children?: React.ReactNode;
   icon?: IconNames;
-  options: string[];
-  onChange: (selectedOptions: string[]) => void;
+  options: T[];
+  onChange: (selectedOptions: T[]) => void;
 }
 
-export const InputMultipleSelect: React.FC<IProps> = ({
+export const InputMultipleSelect = <T extends string>({
   labelText,
   error,
   children,
   options,
   onChange,
-}) => {
+}: IProps<T>) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleOptionClick = (option: string) => {

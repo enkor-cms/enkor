@@ -22,7 +22,7 @@ export const ToastProvider = () => {
         'text-sm text-dark-100 dark:text-white-300 font-med flex flex-row p-3'
       }
       position="top-right"
-      autoClose={2000}
+      autoClose={3000}
     />
   );
 };

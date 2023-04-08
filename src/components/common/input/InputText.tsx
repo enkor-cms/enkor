@@ -14,17 +14,32 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <Flex className={className + ' relative'} gap={2}>
         {labelText && (
-          <label className="w-full text-left" htmlFor="txt">
-            <Text variant="caption" className="py-0 px-3">
-              {labelText}
-            </Text>
-          </label>
+          <Flex
+            className="w-full"
+            direction="row"
+            horizontalAlign="left"
+            verticalAlign="center"
+            gap={3}
+          >
+            <label className="text-left" htmlFor="txt">
+              <Text variant="caption" className="py-0 pl-3">
+                {labelText}
+              </Text>
+            </label>
+            {error && (
+              <Text variant="overline" className="text-red-600">
+                {error}
+              </Text>
+            )}
+          </Flex>
         )}
         <div
-          className={`group flex gap-2 items-stretch border border-white-300 dark:border-dark-300 w-full outline-none py-2 px-2 transition-all text-s lg:text-sm xl:text-base dark:bg-dark-200 bg-white-200 text-black-100 dark:text-white-100 group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-300/10 group-focus:border-transparent
-              ${error && 'border-red-500 border animate-shake'} ${
-            children ? 'rounded-r-md' : 'rounded-md'
-          }`}
+          className={`group flex gap-2 items-stretch border ${
+            error
+              ? 'border-red-500 border animate-shake bg-red-700/10'
+              : 'border-white-300 dark:border-dark-300 dark:bg-dark-200 bg-white-200'
+          } w-full outline-none py-2 px-2 transition-all text-s lg:text-sm xl:text-base  text-black-100 dark:text-white-100
+               ${children ? 'rounded-r-md' : 'rounded-md'}`}
         >
           {props.icon && <Icon name={props.icon} className="text-gray-400" />}
           <input
@@ -35,11 +50,9 @@ export const InputText = React.forwardRef<HTMLInputElement, IProps>(
             ref={ref}
             type={type}
           ></input>
+
           <div className="flex">{children}</div>
         </div>
-        {error && (
-          <p className="text-red-600 text-right animate-shake">{error}</p>
-        )}
       </Flex>
     );
   },

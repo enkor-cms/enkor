@@ -46,11 +46,23 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <Flex className={className + ' w-full relative'} gap={2}>
         {labelText && (
-          <label className="w-full text-left" htmlFor="imagesInput">
-            <Text variant="caption" className="py-0 px-3">
-              {labelText}
-            </Text>
-          </label>
+          <Flex fullSize direction="row" gap={0}>
+            <label className="w-full text-left" htmlFor="imagesInput">
+              <Text variant="caption" className="py-0 px-3">
+                {labelText}
+              </Text>
+            </label>
+            <Flex fullSize direction="row" horizontalAlign="right" gap={2}>
+              <Button
+                text="Delete all images"
+                variant="none"
+                onClick={() => {
+                  setSelectedFiles([]);
+                  onSelectedFilesChange([]);
+                }}
+              />
+            </Flex>
+          </Flex>
         )}
         <Button
           icon="file"

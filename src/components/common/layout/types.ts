@@ -3,7 +3,7 @@ import { IconNames } from '../icon';
 import { TTagColor } from '../tags';
 
 export interface ILayoutProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
