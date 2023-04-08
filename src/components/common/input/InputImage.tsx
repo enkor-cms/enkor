@@ -57,6 +57,7 @@ export const InputImage = React.forwardRef<HTMLInputElement, IProps>(
               <Button
                 text={dictionary.common.delete_images}
                 variant="none"
+                className="text-dark-100 dark:text-white-200"
                 onClick={() => {
                   setSelectedFiles([]);
                   onSelectedFilesChange([]);

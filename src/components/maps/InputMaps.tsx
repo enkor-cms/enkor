@@ -1,4 +1,5 @@
 import {
+  TLocationInsert,
   findCountryIdFromName,
   getAddressFromOpenStreetMap,
   getDeltaLatLon,
@@ -9,25 +10,45 @@ import {
 } from '@/features/spots';
 import { formatDateString, getFirstItem } from '@/lib';
 import { createClient } from '@/lib/supabase/browser';
+import L from 'leaflet';
 import { debounce } from 'lodash';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { useMap } from 'react-leaflet';
 import { useColorScheme } from '../ColorSchemeProvider';
 import { useDictionary } from '../DictionaryProvider';
-import { Card, Flex, InfoCard, Text } from '../common';
-import { getMarkerIcon } from './Cluster';
+import { Card, Flex, Icon, InfoCard, Text } from '../common';
 import {
   LazyCircle,
   LazyMapContainer,
   LazyMarker,
   LazyTileLayer,
 } from './Lazy';
-import { TLocationInsert } from './types';
 
 const DEFAULT_ZOOM = 11;
 const DEFAULT_LATITUDE = 45.508272;
 const DEFAULT_LONGITUDE = 6.022464;
+
+export const getMarkerIcon = (color?: string) => {
+  const marker = renderToStaticMarkup(
+    <Icon
+      name="pin"
+      color={color || 'text-brand-500'}
+      fill
+      className="z-10"
+      scale={1.5}
+    />,
+  );
+
+  return L.divIcon({
+    html: marker,
+    className: 'hidden',
+    iconSize: [20, 20],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, 0],
+  });
+};
 
 type MarkerContainerProps = {
   onMove: (lat: number, lng: number) => void;

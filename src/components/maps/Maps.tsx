@@ -24,22 +24,6 @@ const DEFAULT_BOUNDS = new L.LatLngBounds(
   new L.LatLng(0, 0),
 );
 
-export const getBounds = (spots?: ISpotExtanded[]) => {
-  if (!spots || spots.length === 0) {
-    return DEFAULT_BOUNDS;
-  }
-  const bounds = spots.reduce(
-    (bounds, { location: { latitude, longitude } }) => {
-      return bounds.extend([latitude, longitude]);
-    },
-    new L.LatLngBounds(
-      new L.LatLng(spots[0].location.latitude, spots[0].location.longitude),
-      new L.LatLng(spots[0].location.latitude, spots[0].location.longitude),
-    ),
-  );
-  return bounds;
-};
-
 const GenericMap = ({ spots }: IMapProps) => {
   const { colorScheme } = useColorScheme();
   const [spot, setSpot] = useAtom(actualSpotAtom);
@@ -56,6 +40,22 @@ const GenericMap = ({ spots }: IMapProps) => {
         break;
     }
   }, [colorScheme]);
+
+  const getBounds = (spots?: ISpotExtanded[]) => {
+    if (!spots || spots.length === 0) {
+      return DEFAULT_BOUNDS;
+    }
+    const bounds = spots.reduce(
+      (bounds, { location: { latitude, longitude } }) => {
+        return bounds.extend([latitude, longitude]);
+      },
+      new L.LatLngBounds(
+        new L.LatLng(spots[0].location.latitude, spots[0].location.longitude),
+        new L.LatLng(spots[0].location.latitude, spots[0].location.longitude),
+      ),
+    );
+    return bounds;
+  };
 
   useEffect(() => {
     if (spot) {

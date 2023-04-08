@@ -55,7 +55,8 @@ export default function RootLayout({ children }: IProps) {
           />
           <Button
             text="Sign Out"
-            variant="alert"
+            variant="none"
+            className="rounded-md border border-red-500 text-red-500 hover:bg-red-500/10 hover:text-white"
             onClick={() => {
               handleLogout();
             }}

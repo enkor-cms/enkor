@@ -74,12 +74,14 @@ export const InputMultipleSelect = <T extends string>({
               text={dictionary.common.select_all}
               variant="none"
               type="button"
+              className="text-dark-100 dark:text-white-200"
               onClick={handleSelectAll}
             />
             <Button
               text={dictionary.common.unselect_all}
               variant="none"
               type="button"
+              className="text-dark-100 dark:text-white-200"
               onClick={handleUnselectAll}
             />
           </Flex>

@@ -8,13 +8,13 @@ import { IInfoCardProps } from './types';
 export const InfoCard = React.forwardRef<HTMLDivElement, IInfoCardProps>(
   ({ children, className = '', color, ...props }, ref) => {
     const textColor = {
-      red: 'text-red-700',
-      green: 'text-green-800',
-      blue: 'text-blue-700',
-      yellow: 'text-yellow-700',
-      orange: 'text-orange-700',
-      purple: 'text-purple-700',
-      pink: 'text-pink-700',
+      red: 'text-red-500',
+      green: 'text-green-500',
+      blue: 'text-blue-500',
+      yellow: 'text-yellow-500',
+      orange: 'text-orange-500',
+      purple: 'text-purple-500',
+      pink: 'text-pink-500',
       brand: 'text-brand-500',
       warning: 'text-warning-500',
     };

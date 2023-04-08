@@ -1,7 +1,7 @@
 'use client';
 
 import { useSupabase } from '@/components/auth/SupabaseProvider';
-import { Flex, VirtualizedTable } from '@/components/common';
+import { Flex, Icon, Text, VirtualizedTable } from '@/components/common';
 import { SpotCreationPanel } from '@/components/spot/';
 import {
   CreatorsSpotsResponseSuccess,
@@ -29,6 +29,8 @@ export default function Page() {
       return;
     }
 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     setSpots(spots);
   };
 
@@ -38,10 +40,6 @@ export default function Page() {
       fetchSpots(session.user.id);
     }
   }, [session]);
-
-  if (!spots) {
-    return null;
-  }
 
   return (
     <>
@@ -57,20 +55,27 @@ export default function Page() {
           }}
         />
       </Flex>
-      <VirtualizedTable
-        rows={spots}
-        headers={[
-          { title: 'name', width: 300 },
-          { title: 'created_at', width: 300 },
-          { title: 'description' },
-          { title: 'difficulty', width: 100 },
-          { title: 'rock_type', width: 100 },
-          {
-            title: 'cliff_height',
-            width: 150,
-          },
-        ]}
-      />
+      {spots ? (
+        <VirtualizedTable
+          rows={spots}
+          headers={[
+            { title: 'name', width: 300 },
+            { title: 'created_at', width: 300 },
+            { title: 'description' },
+            { title: 'difficulty', width: 100 },
+            { title: 'rock_type', width: 100 },
+            {
+              title: 'cliff_height',
+              width: 150,
+            },
+          ]}
+        />
+      ) : (
+        <Flex fullSize verticalAlign="center" horizontalAlign="center">
+          <Text variant="caption">Searching for spots...</Text>
+          <Icon name="spin" className="animate-spin" />
+        </Flex>
+      )}
     </>
   );
 }
